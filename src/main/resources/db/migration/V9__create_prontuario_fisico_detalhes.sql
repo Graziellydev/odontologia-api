@@ -10,6 +10,8 @@ ALTER TABLE pacientes
     ADD COLUMN IF NOT EXISTS escolaridade_pai VARCHAR(40),
     ADD COLUMN IF NOT EXISTS renda_familiar VARCHAR(30);
 
+-- MÓDULO CLÍNICO E PRONTUÁRIOS
+-- Tabela de Anamnese do Paciente:Serve para digitalizar os questionários médicos e sinais vitais (pressão, pulso, alergias) feitos durante o primeiro contato ou triagem.
 CREATE TABLE IF NOT EXISTS paciente_anamnese (
     id                      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id             BIGINT NOT NULL REFERENCES pacientes(id) ON DELETE CASCADE,
@@ -29,6 +31,8 @@ CREATE TABLE IF NOT EXISTS paciente_anamnese (
     atualizado_em           TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- MÓDULO CLÍNICO E PRONTUÁRIOS
+-- Tabela de Exames Clínicos:Serve para registrar a digitalização do laudo de avaliações extra/intraorais, lesões de tecido, assimetrias faciais e índices periodontais (PSR).
 CREATE TABLE IF NOT EXISTS paciente_exames_clinicos (
     id                      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id             BIGINT NOT NULL REFERENCES pacientes(id) ON DELETE CASCADE,
@@ -58,6 +62,8 @@ CREATE TABLE IF NOT EXISTS paciente_exames_clinicos (
     registrado_em           TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- MÓDULO CLÍNICO E PRONTUÁRIOS
+-- Tabela de Odontograma:Serve para mapear eletronicamente o estado de saúde dentária do paciente, acompanhando e mantendo histórico sobre dentes e faces específicas.
 CREATE TABLE IF NOT EXISTS paciente_odontograma (
     id                      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id             BIGINT NOT NULL REFERENCES pacientes(id) ON DELETE CASCADE,

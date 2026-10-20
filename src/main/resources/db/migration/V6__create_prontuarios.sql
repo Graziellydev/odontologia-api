@@ -1,3 +1,5 @@
+-- MÓDULO CLÍNICO E PRONTUÁRIOS
+-- Tabela de Prontuários:Serve para registrar a evolução clínica textual de cada consulta e manter a assinatura digital imutável do aluno responsável.
 CREATE TABLE prontuarios (
     id                  BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id         BIGINT NOT NULL REFERENCES pacientes(id),
@@ -13,6 +15,8 @@ CREATE TABLE prontuarios (
     data_registro       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- MÓDULO CLÍNICO E PRONTUÁRIOS
+-- Tabela de Adendos do Prontuário:Serve para inserir observações adicionais a um prontuário após o mesmo já ter sido fechado/assinado, preservando o histórico oficial.
 CREATE TABLE prontuario_adendos (
     id            BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     prontuario_id BIGINT NOT NULL REFERENCES prontuarios(id),
@@ -21,6 +25,8 @@ CREATE TABLE prontuario_adendos (
     criado_em     TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- MÓDULO CLÍNICO E PRONTUÁRIOS
+-- Tabela de Retiradas de Prontuário:Serve para controlar fisicamente as pastas de papel dos pacientes, registrando quando o aluno pegou e quando devolveu na recepção.
 CREATE TABLE retiradas_prontuario (
     id                 BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id        BIGINT NOT NULL REFERENCES pacientes(id),
