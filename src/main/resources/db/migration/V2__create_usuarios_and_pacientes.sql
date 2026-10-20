@@ -1,3 +1,5 @@
+-- MÓDULO DE ACESSO E CADASTRO BASE
+-- Tabela de Usuários:Serve para armazenar os usuários que acessam o sistema: Alunos, Coordenadores e Secretaria.
 CREATE TABLE usuarios (
     id                    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nome                  VARCHAR(150) NOT NULL,
@@ -11,6 +13,8 @@ CREATE TABLE usuarios (
     atualizado_em         TIMESTAMPTZ  NOT NULL DEFAULT now()
 );
 
+-- MÓDULO DE ACESSO E CADASTRO BASE
+-- Tabela de Pacientes:Serve para armazenar as informações demográficas, de contato e socioeconômicas dos pacientes da clínica.
 CREATE TABLE pacientes (
     id                         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     numero_prontuario          VARCHAR(30) UNIQUE,
@@ -45,6 +49,8 @@ CREATE TABLE pacientes (
     atualizado_em              TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- MÓDULO DE SEGURANÇA E AUDITORIA
+-- Tabela de Logs de Auditoria:Serve para registrar ações sensíveis realizadas no sistema, garantindo rastreabilidade de quem fez o que e quando.
 CREATE TABLE logs_auditoria (
     id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     usuario_id  BIGINT REFERENCES usuarios(id),

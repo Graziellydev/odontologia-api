@@ -1,9 +1,13 @@
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Cadeiras:Serve para cadastrar os equipamentos e os boxes de atendimento físicos disponíveis no prédio da clínica.
 CREATE TABLE cadeiras (
     id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     numero VARCHAR(10) NOT NULL UNIQUE,
     ativa  BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Vagas:Serve para criar a grade de horários disponíveis em cada cadeira, por data e turno, evitando choques de agendamento.
 CREATE TABLE vagas (
     id               BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     cadeira_id       BIGINT NOT NULL REFERENCES cadeiras(id),
@@ -13,6 +17,8 @@ CREATE TABLE vagas (
     motivo_bloqueio  VARCHAR(200)
 );
 
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Consultas:Serve para formalizar o agendamento, ligando o paciente, aluno, cadeira, tratamento e gerenciar a liberação da pasta física de prontuário.
 CREATE TABLE consultas (
     id                    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id           BIGINT NOT NULL REFERENCES pacientes(id),
@@ -25,7 +31,6 @@ CREATE TABLE consultas (
     criado_por_id         BIGINT REFERENCES usuarios(id),
     status_consulta       VARCHAR(25) NOT NULL DEFAULT 'AGENDADO',
     
-    -- NOVO: Controle da secretaria para liberar/bloquear a digitação do prontuário pelo aluno
     prontuario_liberado   BOOLEAN NOT NULL DEFAULT FALSE, 
     
     falta_justificada     BOOLEAN,

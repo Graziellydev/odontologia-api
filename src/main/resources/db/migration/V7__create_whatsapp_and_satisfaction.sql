@@ -1,3 +1,5 @@
+-- MÓDULO DE COMUNICAÇÃO E NOTIFICAÇÕES
+-- Tabela de Templates de Mensagem:Serve para padronizar as matrizes de texto que serão enviadas nas mensagens automáticas de sistema aos pacientes.
 CREATE TABLE templates_mensagem (
     id        BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     codigo    VARCHAR(50) NOT NULL UNIQUE,
@@ -6,6 +8,8 @@ CREATE TABLE templates_mensagem (
     ativo     BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+-- MÓDULO DE COMUNICAÇÃO E NOTIFICAÇÕES
+-- Tabela de Notificações de WhatsApp:Serve para organizar a fila de envio e o acompanhamento do status (Pendente, Enviado, Respondido) do disparo pelo bot.
 CREATE TABLE notificacoes_whatsapp (
     id                BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id       BIGINT NOT NULL REFERENCES pacientes(id),
@@ -21,6 +25,8 @@ CREATE TABLE notificacoes_whatsapp (
     respondido_em     TIMESTAMPTZ
 );
 
+-- MÓDULO DE COMUNICAÇÃO E NOTIFICAÇÕES
+-- Tabela de Avaliações de Satisfação:Serve para coletar métricas pós-atendimento, onde o paciente responde uma nota de 1 a 5 e um comentário avaliando a clínica.
 CREATE TABLE avaliacoes_satisfacao (
     id            BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     consulta_id   BIGINT NOT NULL UNIQUE REFERENCES consultas(id),

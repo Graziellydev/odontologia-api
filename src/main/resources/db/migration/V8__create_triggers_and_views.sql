@@ -9,6 +9,8 @@ BEGIN
     END LOOP;
 END $$;
 
+-- MÓDULO ACADÊMICO E DE METAS
+-- View de Progresso de Metas do Aluno :Serve para consolidar um painel que calcula, em tempo real, as exigências das disciplinas e os procedimentos que o aluno já completou.
 CREATE VIEW v_progresso_metas_aluno AS
 SELECT m.aluno_id, t.id AS turma_id, t.semestre_letivo,
        d.id AS disciplina_id, d.nome AS disciplina,

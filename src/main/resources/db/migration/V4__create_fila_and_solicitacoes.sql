@@ -1,13 +1,13 @@
--- =========================================================================
--- V4 - Cadeiras/vagas, consultas, histórico, transferências e solicitações
--- =========================================================================
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Cadeiras:Serve para cadastrar os equipamentos e os boxes de atendimento físicos disponíveis no prédio da clínica.
 CREATE TABLE cadeiras (
     id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     numero VARCHAR(10) NOT NULL UNIQUE,
     ativa  BOOLEAN NOT NULL DEFAULT TRUE
 );
 
--- Vaga = cadeira + data + turno (manhã ~7h30-12h; tarde ~13h30-17h30)
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Vagas:Serve para criar a grade de horários disponíveis em cada cadeira, por data e turno, evitando choques de agendamento.
 CREATE TABLE vagas (
     id               BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     cadeira_id       BIGINT NOT NULL REFERENCES cadeiras(id),
@@ -19,6 +19,8 @@ CREATE TABLE vagas (
 );
 CREATE INDEX idx_vagas_data_turno ON vagas (data, turno);
 
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Consultas:Serve para formalizar o agendamento, ligando o paciente, aluno, cadeira, tratamento e o status de comparecimento.
 CREATE TABLE consultas (
     id                    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id           VARCHAR(30) NOT NULL REFERENCES pacientes(numero_prontuario) ON UPDATE CASCADE,
@@ -27,15 +29,13 @@ CREATE TABLE consultas (
     tratamento_id         BIGINT REFERENCES tratamentos(id),
     vaga_id               BIGINT NOT NULL REFERENCES vagas(id),
     fila_espera_id        BIGINT REFERENCES fila_espera(id),
-    consulta_origem_id    BIGINT REFERENCES consultas(id),     -- remarcação
-    criado_por_id         BIGINT REFERENCES usuarios(id),      -- secretaria
+    consulta_origem_id    BIGINT REFERENCES consultas(id),     
+    criado_por_id         BIGINT REFERENCES usuarios(id),     
     status_consulta       VARCHAR(25) NOT NULL DEFAULT 'AGENDADO' CHECK (status_consulta IN (
         'AGENDADO','CONFIRMADA_24H','CANCELADO_SECRETARIA','CANCELADO_PACIENTE',
         'REALIZADO','FALTOU_PACIENTE','FALTOU_ALUNO')),
-    -- Faltas (regra: até 2 sem justificativa; 3ª desliga)
     falta_justificada     BOOLEAN,
     justificativa_falta   TEXT,
-    -- Sugestão de retorno (HU05)
     retorno_sugerido      BOOLEAN NOT NULL DEFAULT FALSE,
     justificativa_retorno TEXT,
     criado_em             TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -45,7 +45,7 @@ CREATE TABLE consultas (
     CONSTRAINT ck_falta_justificativa CHECK (falta_justificada IS NOT TRUE OR justificativa_falta IS NOT NULL),
     CONSTRAINT ck_retorno_justificativa CHECK (NOT retorno_sugerido OR justificativa_retorno IS NOT NULL)
 );
--- Impede agendamento duplo da mesma vaga (RNF004)
+
 CREATE UNIQUE INDEX uk_consulta_vaga_ativa ON consultas (vaga_id)
     WHERE status_consulta NOT IN ('CANCELADO_SECRETARIA','CANCELADO_PACIENTE');
 CREATE INDEX idx_consultas_paciente ON consultas (paciente_id, status_consulta);
@@ -53,7 +53,8 @@ CREATE INDEX idx_consultas_aluno    ON consultas (aluno_id, status_consulta);
 CREATE INDEX idx_consultas_turma    ON consultas (turma_id);
 CREATE INDEX idx_consultas_trat     ON consultas (tratamento_id);
 
--- Histórico de status (por data, por paciente e por aluno) - preenchido por trigger
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Histórico de Consulta:Serve para registrar a linha do tempo de alterações de status de uma consulta, identificando os autores das mudanças.
 CREATE TABLE consulta_historico (
     id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     consulta_id     BIGINT NOT NULL REFERENCES consultas(id),
@@ -67,7 +68,8 @@ CREATE TABLE consulta_historico (
 );
 CREATE INDEX idx_consulta_hist ON consulta_historico (consulta_id, alterado_em);
 
--- Transferência de paciente quando o aluno falta (RF010 / HU16)
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Transferências de Paciente:Serve para gerenciar a passagem formal de um paciente de um aluno para outro visando dar continuidade a tratamentos.
 CREATE TABLE transferencias_paciente (
     id                     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     consulta_origem_id     BIGINT NOT NULL REFERENCES consultas(id),
@@ -83,7 +85,8 @@ CREATE TABLE transferencias_paciente (
 );
 CREATE INDEX idx_transf_origem ON transferencias_paciente (consulta_origem_id);
 
--- Solicitações de pacientes pelos alunos (HU04 / HU12)
+-- MÓDULO DE TRIAGEM E DEMANDA
+-- Tabela de Solicitações de Pacientes:Serve para os alunos solicitarem à secretaria que puxe da fila um paciente com perfil clínico específico para as metas acadêmicas.
 CREATE TABLE solicitacoes_pacientes (
     id                        BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     aluno_id                  BIGINT NOT NULL REFERENCES usuarios(id),

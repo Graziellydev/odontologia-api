@@ -1,5 +1,7 @@
 CREATE EXTENSION IF NOT EXISTS pg_trgm;
 
+-- Função utilitária (Trigger) para atualizar automaticamente a coluna "atualizado_em"
+-- sempre que um registro for modificado (UPDATE) nas tabelas.
 CREATE OR REPLACE FUNCTION fn_set_atualizado_em() RETURNS trigger AS $$
 BEGIN
     NEW.atualizado_em = now();
@@ -7,6 +9,10 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+
+-- MÓDULO DE ACESSO E CADASTRO BASE
+-- Tabela de Usuários:Serve para armazenar os usuários que acessam o sistema: Alunos, Coordenadores 
+-- e Secretaria.
 CREATE TABLE usuarios (
     id                    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nome                  VARCHAR(150) NOT NULL,
@@ -20,6 +26,9 @@ CREATE TABLE usuarios (
     atualizado_em         TIMESTAMPTZ  NOT NULL DEFAULT now()
 );
 
+-- Tabela de Pacientes: É o cadastro central do sistema. Armazena desde a identificação básica, 
+-- dados de contato para o WhatsApp, informações socioeconômicas (para relatórios 
+-- da LGPD/MEC), até o controle de faltas e situação (Ativo/Desligado).
 CREATE TABLE pacientes (
     id                         BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     numero_prontuario          VARCHAR(30) UNIQUE,
@@ -64,6 +73,8 @@ CREATE TABLE pacientes (
     atualizado_em              TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Tabela de Logs de Auditoria: Serve para segurança e conformidade com a LGPD. Registra quem fez o quê, 
+-- quando e em qual registro (ex: quem acessou um prontuário ou alterou um cadastro).
 CREATE TABLE logs_auditoria (
     id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     usuario_id  BIGINT REFERENCES usuarios(id),
@@ -75,6 +86,10 @@ CREATE TABLE logs_auditoria (
     criado_em   TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+
+-- MÓDULO ACADÊMICO E DE METAS
+-- Tabela de Procedimentos Clínicos: Catálogo fixo de todos os tratamentos que a clínica oferece 
+-- (ex: Restauração, Endodontia, Extração).
 CREATE TABLE procedimentos (
     id            BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nome          VARCHAR(100) NOT NULL UNIQUE,
@@ -84,6 +99,8 @@ CREATE TABLE procedimentos (
     ativo         BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+-- Tabela de Disciplinas: Representa as matérias/clínicas do curso de Odontologia 
+-- (ex: Odonto 1 - 6º período, Odonto 3 - 8º período).
 CREATE TABLE disciplinas (
     id            BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     nome          VARCHAR(100) NOT NULL UNIQUE,
@@ -91,6 +108,8 @@ CREATE TABLE disciplinas (
     ativo         BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+-- Tabela Disciplina x Procedimentos (Metas Acadêmicas): Serve para ditar as regras: Quais procedimentos a clínica X pode fazer?
+-- E define a meta do aluno (quantos procedimentos ele tem que fazer para passar).
 CREATE TABLE disciplina_procedimentos (
     id                 BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     disciplina_id      BIGINT NOT NULL REFERENCES disciplinas(id),
@@ -101,6 +120,7 @@ CREATE TABLE disciplina_procedimentos (
     ativo              BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+-- Tabela de Turmas: Instância de uma disciplina em um semestre letivo específico (ex: Turma A de 2026.2).
 CREATE TABLE turmas (
     id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     disciplina_id   BIGINT NOT NULL REFERENCES disciplinas(id),
@@ -110,6 +130,7 @@ CREATE TABLE turmas (
     ativa           BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+-- Tabela de Matrículas: Vincula quais alunos (usuários) estão cursando quais turmas no semestre.
 CREATE TABLE matriculas_turma (
     id        BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     turma_id  BIGINT NOT NULL REFERENCES turmas(id),
@@ -117,6 +138,10 @@ CREATE TABLE matriculas_turma (
     criado_em TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+
+-- MÓDULO DE TRIAGEM E DEMANDA (FILA)
+-- Tabela de Triagens: Registra o acolhimento presencial inicial do paciente. Define o quão 
+-- urgente é o caso (PNE, Alta, Média, Baixa) após a avaliação de um aluno/professor.
 CREATE TABLE triagens (
     id                        BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id               BIGINT NOT NULL REFERENCES pacientes(id),
@@ -128,6 +153,8 @@ CREATE TABLE triagens (
     data_triagem              TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Tabela de Itens da Triagem: Detalha a triagem quebrando em problemas específicos. (Ex: O paciente precisa 
+-- de uma Restauração no dente 36 e uma Extração no dente 18).
 CREATE TABLE triagem_itens (
     id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     triagem_id      BIGINT NOT NULL REFERENCES triagens(id),
@@ -137,6 +164,8 @@ CREATE TABLE triagem_itens (
     observacao      TEXT
 );
 
+-- Tabela de Tratamentos: Serve para acompanhar o andamento de um problema clínico do paciente desde o dia 
+-- que foi identificado até o dia que foi finalizado (Concluído) por um aluno.
 CREATE TABLE tratamentos (
     id              BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id     BIGINT NOT NULL REFERENCES pacientes(id),
@@ -151,6 +180,8 @@ CREATE TABLE tratamentos (
     atualizado_em   TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Tabela de Fila de Espera: A fila oficial da clínica. Junta as demandas vindas da triagem ou pacientes 
+-- retornando/remarcados, ordenando por prioridade e tempo para a recepção agendar.
 CREATE TABLE fila_espera (
     id                       BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id              BIGINT NOT NULL REFERENCES pacientes(id),
@@ -169,12 +200,16 @@ CREATE TABLE fila_espera (
     versao                   BIGINT NOT NULL DEFAULT 0
 );
 
+-- MÓDULO DE AGENDA E CONSULTAS
+-- Tabela de Cadeiras Físicas: O cadastro das cadeiras/equipamentos existentes no prédio da clínica.
 CREATE TABLE cadeiras (
     id     BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     numero VARCHAR(10) NOT NULL UNIQUE,
     ativa  BOOLEAN NOT NULL DEFAULT TRUE
 );
 
+-- Tabela de Vagas de Agenda: Representa os slots de tempo disponíveis (ex: Cadeira 01, Dia 20, Turno MANHÃ).
+-- É usada para evitar duplo agendamento no mesmo local/hora.
 CREATE TABLE vagas (
     id               BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     cadeira_id       BIGINT NOT NULL REFERENCES cadeiras(id),
@@ -184,6 +219,8 @@ CREATE TABLE vagas (
     motivo_bloqueio  VARCHAR(200)
 );
 
+-- Tabela de Consultas: O coração do agendamento. Conecta o Paciente, o Aluno, a Turma e a Vaga.
+-- Controla status, presenças/faltas e avisa ao paciente via WhatsApp.
 CREATE TABLE consultas (
     id                    BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id           BIGINT NOT NULL REFERENCES pacientes(id),
@@ -204,6 +241,8 @@ CREATE TABLE consultas (
     versao                BIGINT NOT NULL DEFAULT 0
 );
 
+-- Tabela de Solicitações de Pacientes (pelos Alunos): Serve para quando o aluno precisa de um paciente com um perfil muito específico
+-- (ex: dente 36 com cárie profunda) para bater a meta e pede à secretaria.
 CREATE TABLE solicitacoes_pacientes (
     id                        BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     aluno_id                  BIGINT NOT NULL REFERENCES usuarios(id),
@@ -223,6 +262,9 @@ CREATE TABLE solicitacoes_pacientes (
     versao                    BIGINT NOT NULL DEFAULT 0
 );
 
+
+-- MÓDULO CLÍNICO E PRONTUÁRIOS (Físico + Digital) Tabela de Prontuários (Evolução Clínica Digital): Imutável. Registra o que foi feito na consulta atual (textualmente). Após 
+-- salvo com assinatura digital pelo aluno, não pode ser editado nem apagado.
 CREATE TABLE prontuarios (
     id                  BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id         BIGINT NOT NULL REFERENCES pacientes(id),
@@ -238,6 +280,8 @@ CREATE TABLE prontuarios (
     data_registro       TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Tabela de Anamnese do Paciente (Prontuário Físico Digitalizado): fArmazena o questionário de saúde completo da ficha física (alergias, 
+-- hipertensão, cirurgias) e os dados de sinais vitais.
 CREATE TABLE paciente_anamnese (
     id                      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id             BIGINT NOT NULL REFERENCES pacientes(id) ON DELETE CASCADE,
@@ -257,6 +301,8 @@ CREATE TABLE paciente_anamnese (
     atualizado_em           TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Tabela de Exames Clínicos Extra/Intraorais e PSR: Armazena a digitalização dos exames de assimetrias faciais, problemas na 
+-- ATM (maxilar), descrição detalhada de lesões (feridas) e as notas do PSR (gengiva).
 CREATE TABLE paciente_exames_clinicos (
     id                      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id             BIGINT NOT NULL REFERENCES pacientes(id) ON DELETE CASCADE,
@@ -286,6 +332,8 @@ CREATE TABLE paciente_exames_clinicos (
     registrado_em           TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 
+-- Tabela de Odontograma: A representação digital dos dentes do paciente (mapeamento dente por dente e por face).
+-- Grava o estado atual de cada dente (ex: Saudável, Cariado, Restaurado, Ausente).
 CREATE TABLE paciente_odontograma (
     id                      BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     paciente_id             BIGINT NOT NULL REFERENCES pacientes(id) ON DELETE CASCADE,
