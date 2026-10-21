@@ -32,3 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 application.properties
+
+# Ignorar arquivos do React/Node
+frontend/node_modules/
+frontend/dist/
+frontende/.env
