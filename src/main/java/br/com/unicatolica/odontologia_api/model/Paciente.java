@@ -16,6 +16,9 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 // Define que esta classe e uma tabela do banco de dados
 @Entity
 // Especifica o nome exato da tabela no PostgreSQL
@@ -87,6 +90,7 @@ private String cpf;
     private String cidade;
 
     // Mapeia a sigla do Estado (UF)
+    @JdbcTypeCode(SqlTypes.CHAR)
     @Column(length = 2)
     private String uf;
 
