@@ -1,5 +1,8 @@
 package br.com.unicatolica.odontologia_api.filaespera.controller;
 
+import br.com.unicatolica.odontologia_api.filaespera.dto.FilaEsperaAtualizadaDTO;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import br.com.unicatolica.odontologia_api.filaespera.dto.NovaEntradaFilaDTO;
 import br.com.unicatolica.odontologia_api.filaespera.dto.EntradaFilaCriadaDTO;
 import jakarta.validation.Valid;
@@ -64,5 +67,12 @@ public class FilaEsperaController {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(entrada);
+    }
+
+    @PatchMapping("/{id}/alocar")
+    public FilaEsperaAtualizadaDTO alocarPaciente(
+            @PathVariable Long id) {
+
+        return filaEsperaService.alocarPaciente(id);
     }
 }

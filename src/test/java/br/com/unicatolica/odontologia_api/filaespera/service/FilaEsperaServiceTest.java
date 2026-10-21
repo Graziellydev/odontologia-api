@@ -1,5 +1,7 @@
 package br.com.unicatolica.odontologia_api.filaespera.service;
 
+import br.com.unicatolica.odontologia_api.filaespera.dto.FilaEsperaAtualizadaDTO;
+import java.util.Optional;
 import br.com.unicatolica.odontologia_api.filaespera.dto.EntradaFilaCriadaDTO;
 import br.com.unicatolica.odontologia_api.filaespera.dto.FilaEsperaItemDTO;
 import br.com.unicatolica.odontologia_api.filaespera.dto.NovaEntradaFilaDTO;
@@ -117,5 +119,66 @@ class FilaEsperaServiceTest {
 
         verify(filaEsperaRepository)
                 .calcularTempoMedioPorEspecialidade();
+    }
+
+    @Test
+    void deveAlocarPacienteQueEstaAguardando() {
+
+        FilaEspera entrada = new FilaEspera();
+        entrada.setId(10L);
+        entrada.setStatusFila("AGUARDANDO");
+
+        when(filaEsperaRepository.findById(10L))
+                .thenReturn(Optional.of(entrada));
+
+        when(filaEsperaRepository.save(any(FilaEspera.class)))
+                .thenAnswer(invocation -> invocation.getArgument(0));
+
+        FilaEsperaAtualizadaDTO resultado = filaEsperaService.alocarPaciente(10L);
+
+        assertEquals(10L, resultado.id());
+        assertEquals("ALOCADO", resultado.statusFila());
+        assertNotNull(resultado.dataSaidaFila());
+
+        assertEquals("ALOCADO", entrada.getStatusFila());
+        assertNotNull(entrada.getDataSaidaFila());
+
+        verify(filaEsperaRepository).save(entrada);
+    }
+
+    @Test
+    void naoDeveAlocarEntradaInexistente() {
+
+        when(filaEsperaRepository.findById(99L))
+                .thenReturn(Optional.empty());
+
+        ResponseStatusException erro = assertThrows(
+                ResponseStatusException.class,
+                () -> filaEsperaService.alocarPaciente(99L));
+
+        assertEquals(404, erro.getStatusCode().value());
+
+        verify(filaEsperaRepository, never())
+                .save(any(FilaEspera.class));
+    }
+
+    @Test
+    void naoDeveAlocarPacienteQueJaSaiuDaFila() {
+
+        FilaEspera entrada = new FilaEspera();
+        entrada.setId(10L);
+        entrada.setStatusFila("ALOCADO");
+
+        when(filaEsperaRepository.findById(10L))
+                .thenReturn(Optional.of(entrada));
+
+        ResponseStatusException erro = assertThrows(
+                ResponseStatusException.class,
+                () -> filaEsperaService.alocarPaciente(10L));
+
+        assertEquals(409, erro.getStatusCode().value());
+
+        verify(filaEsperaRepository, never())
+                .save(any(FilaEspera.class));
     }
 }

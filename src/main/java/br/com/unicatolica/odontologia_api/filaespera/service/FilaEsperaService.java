@@ -1,5 +1,7 @@
 package br.com.unicatolica.odontologia_api.filaespera.service;
 
+import br.com.unicatolica.odontologia_api.filaespera.dto.FilaEsperaAtualizadaDTO;
+import java.time.OffsetDateTime;
 import br.com.unicatolica.odontologia_api.filaespera.dto.NovaEntradaFilaDTO;
 import br.com.unicatolica.odontologia_api.filaespera.dto.EntradaFilaCriadaDTO;
 import br.com.unicatolica.odontologia_api.filaespera.entity.FilaEspera;
@@ -109,5 +111,29 @@ public class FilaEsperaService {
                 salva.getProcedimentoId(),
                 salva.getNivelUrgencia(),
                 salva.getStatusFila());
+    }
+
+    public FilaEsperaAtualizadaDTO alocarPaciente(Long id) {
+
+        FilaEspera entrada = filaEsperaRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Entrada da fila não encontrada."));
+
+        if (!"AGUARDANDO".equalsIgnoreCase(entrada.getStatusFila())) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Este paciente não está aguardando na fila.");
+        }
+
+        entrada.setStatusFila("ALOCADO");
+        entrada.setDataSaidaFila(OffsetDateTime.now());
+
+        FilaEspera atualizada = filaEsperaRepository.save(entrada);
+
+        return new FilaEsperaAtualizadaDTO(
+                atualizada.getId(),
+                atualizada.getStatusFila(),
+                atualizada.getDataSaidaFila());
     }
 }
