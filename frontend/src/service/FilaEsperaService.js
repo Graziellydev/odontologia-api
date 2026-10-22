@@ -11,6 +11,10 @@ const api = axios.create({
 export async function listarFilaEspera() {
   const resposta = await api.get("/fila-espera");
 
+  if (!Array.isArray(resposta.data)) {
+    throw new Error("A resposta da fila de espera não é uma lista.");
+  }
+
   return resposta.data.map((item) => {
     const urgencias = {
       ALTA: "Alta",

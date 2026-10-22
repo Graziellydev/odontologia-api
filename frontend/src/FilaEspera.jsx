@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./FilaEspera.css";
 
+
 import {
   LayoutDashboard,
   Users,
@@ -16,8 +17,7 @@ import {
   X
 } from "lucide-react";
 
-import { indicadoresIniciais } from "./data/pacientes";
-import { listarFilaEspera } from "./service/FilaEsperaService";
+import { listarFilaEspera, adicionarEntradaFila, alocarPaciente } from "./service/FilaEsperaService";
 
 const prioridade = {
   Alta: 3,
@@ -25,43 +25,57 @@ const prioridade = {
   Baixa: 1
 };
 
-function App() {
+function criarFormularioVazio() {
+  return {
+    pacienteId: "",
+    procedimentoId: "",
+    dente: "",
+    classe: "",
+    nivelUrgencia: "MEDIA",
+    prioridadeReagendamento: false,
+    observacao: ""
+  };
+}
+
+function FilaEspera({ usuario, onLogout }) {
   const [pacientes, setPacientes] = useState([]);
   const [erroFila, setErroFila] = useState("");
+  const [carregando, setCarregando] = useState(false);
   const [busca, setBusca] = useState("");
   const [demanda, setDemanda] = useState("");
   const [procedimento, setProcedimento] = useState("");
   const [urgencia, setUrgencia] = useState("");
   const [modalAberto, setModalAberto] = useState(false);
+  const [salvando, setSalvando] = useState(false);
+  const [alocandoId, setAlocandoId] = useState(null);
+  const [erroCadastro, setErroCadastro] = useState("");
   const [menuAberto, setMenuAberto] = useState(false);
   const [aviso, setAviso] = useState("");
-  useEffect(() => {
-  async function carregarFila() {
-    try {
-      const dados = await listarFilaEspera();
-      setPacientes(dados);
-      setErroFila("");
-    } catch (erro) {
-      console.error("Erro ao carregar fila de espera:", erro);
-      setErroFila("Não foi possível carregar a fila de espera.");
-    }
-  }
 
-  carregarFila();
-}, []);
-
-  const [novoPaciente, setNovoPaciente] = useState({
-    nome: "",
-    cpf: "",
-    demanda: "Endodontia",
-    procedimento: "",
-    classe: "",
-    urgencia: "Média"
-  });
+  const [novoPaciente, setNovoPaciente] = useState(criarFormularioVazio());
 
   const procedimentos = [
-    ...new Set(pacientes.map((p) => p.procedimento))
+    ...new Set(pacientes.map((p) => p.procedimento).filter(Boolean))
   ];
+
+  const indicadores = useMemo(() => {
+    const especialidades = [
+      ...new Set([
+        "Endodontia",
+        "Periodontia",
+        "Dentística",
+        ...pacientes.map((p) => p.demanda).filter(Boolean)
+      ])
+    ];
+
+    return especialidades.map((nome) => ({
+      nome,
+      quantidade: pacientes.filter((p) =>
+        (p.demanda || "").toLocaleLowerCase("pt-BR") ===
+        nome.toLocaleLowerCase("pt-BR")
+      ).length
+    }));
+  }, [pacientes]);
 
   const pacientesFiltrados = useMemo(() => {
     return pacientes
@@ -69,7 +83,8 @@ function App() {
         const termo = busca.toLowerCase().trim();
 
         const correspondeBusca =
-        paciente.nome.toLowerCase().includes(termo);
+          paciente.nome.toLowerCase().includes(termo);
+
         return (
           correspondeBusca &&
           (!demanda || paciente.demanda === demanda) &&
@@ -80,7 +95,7 @@ function App() {
       })
       .sort((a, b) => {
         const diferenca =
-          prioridade[b.urgencia] - prioridade[a.urgencia];
+          (prioridade[b.urgencia] ?? 0) - (prioridade[a.urgencia] ?? 0);
 
         if (diferenca !== 0) return diferenca;
 
@@ -92,42 +107,124 @@ function App() {
     setAviso(mensagem);
   }
 
-  function adicionarPaciente(evento) {
-    evento.preventDefault();
-
-    const hoje = new Date();
-
-    const data = hoje.toLocaleDateString("pt-BR");
-
-    const paciente = {
-      ...novoPaciente,
-      id: Date.now(),
-      dataTriagem: data,
-      espera: 0
-    };
-
-    setPacientes((anteriores) => [
-      ...anteriores,
-      paciente
-    ]);
-
-    setModalAberto(false);
-
-    setNovoPaciente({
-      nome: "",
-      cpf: "",
-      demanda: "Endodontia",
-      procedimento: "",
-      urgencia: "Média"
-    });
-
-    mostrarAviso("Paciente adicionado à fila de espera.");
+  function mensagemErro(erro) {
+    if (erro?.response?.status === 401) {
+      return "A fila exige autenticação. O acesso ficará disponível após a integração com o login oficial.";
+    }
+    if (erro?.response?.status === 403) {
+      return "Seu acesso não tem permissão para visualizar a fila de espera da secretaria.";
+    }
+    if (!erro?.response) {
+      return "Não foi possível acessar a API. Confira se o Spring Boot está rodando na porta 8080.";
+    }
+    return `Não foi possível consultar a fila (HTTP ${erro.response.status}).`;
   }
 
-  function agendarPaciente(paciente) {
-    mostrarAviso(
-      `Agendamento de ${paciente.nome}: integração com a agenda será implementada posteriormente.`
-    );
+  async function atualizarFila() {
+    setCarregando(true);
+    setErroFila("");
+    try {
+      const dados = await listarFilaEspera();
+      setPacientes(dados);
+    } catch (erro) {
+      setPacientes([]);
+      setErroFila(mensagemErro(erro));
+    } finally {
+      setCarregando(false);
+    }
+  }
+
+  useEffect(() => {
+    let ativo = true;
+    async function carregarFila() {
+      setCarregando(true);
+      try {
+        const dados = await listarFilaEspera();
+        if (ativo) {
+          setPacientes(dados);
+          setErroFila("");
+        }
+      } catch (erro) {
+        if (ativo) {
+          setPacientes([]);
+          setErroFila(mensagemErro(erro));
+        }
+      } finally {
+        if (ativo) setCarregando(false);
+      }
+    }
+    carregarFila();
+    return () => { ativo = false; };
+  }, []);
+
+  function mensagemFalhaGravacao(erro) {
+    const status = erro?.response?.status;
+    if (status === 401) return "Você precisa estar autenticado pelo login oficial para salvar uma triagem.";
+    if (status === 403) return "O usuário autenticado não possui permissão de SECRETARIA.";
+    if (status === 400 || status === 422) return "Dados rejeitados pela API. Confira o paciente, o procedimento, a urgência, o dente e a classe.";
+    if (status === 404) return "Paciente ou procedimento não encontrado. Confira os dados do cadastro.";
+    if (status === 409) return "O cadastro entrou em conflito com um registro existente.";
+    if (status >= 500) return "O servidor não conseguiu salvar. Confira os logs do Spring Boot.";
+    if (!erro?.response) return "Não foi possível conectar à API. Verifique se o Spring Boot está rodando.";
+    return `Não foi possível salvar a triagem (HTTP ${status}).`;
+  }
+
+  function numeroId(valor) {
+    const numero = Number(valor);
+    return Number.isSafeInteger(numero) && numero > 0 ? numero : null;
+  }
+
+  async function adicionarPaciente(evento) {
+    evento.preventDefault();
+    if (salvando) return;
+    setErroCadastro("");
+    const pacienteId = numeroId(novoPaciente.pacienteId);
+    const procedimentoId = numeroId(novoPaciente.procedimentoId);
+    if (!pacienteId || !procedimentoId) {
+      setErroCadastro("Informe o número de cadastro do paciente e o código de um procedimento já cadastrado.");
+      return;
+    }
+
+    const dados = {
+      pacienteId,
+      procedimentoId,
+      dente: novoPaciente.dente.trim() || null,
+      classe: novoPaciente.classe || null,
+      nivelUrgencia: novoPaciente.nivelUrgencia,
+      prioridadeReagendamento: novoPaciente.prioridadeReagendamento,
+      observacao: novoPaciente.observacao.trim() || null
+    };
+
+    setSalvando(true);
+    try {
+      const criado = await adicionarEntradaFila(dados);
+      setModalAberto(false);
+      setNovoPaciente(criarFormularioVazio());
+      mostrarAviso(`Triagem salva no banco com sucesso${criado?.id ? ` (registro ${criado.id})` : ""}.`);
+      await atualizarFila();
+    } catch (erro) {
+      console.error("Falha no cadastro da fila:", erro);
+      setErroCadastro(mensagemFalhaGravacao(erro));
+    } finally {
+      setSalvando(false);
+    }
+  }
+
+  async function agendarPaciente(paciente) {
+    if (alocandoId !== null) return;
+    if (!window.confirm(`Alocar ${paciente.nome} e atualizar o status da fila? Essa ação NÃO cria agendamento.`)) {
+      return;
+    }
+    setAlocandoId(paciente.id);
+    try {
+      await alocarPaciente(paciente.id);
+      mostrarAviso(`Paciente ${paciente.nome} alocado com sucesso.`);
+      await atualizarFila();
+    } catch (erro) {
+      mostrarAviso(mensagemFalhaGravacao(erro));
+    } finally {
+      setAlocandoId(null);
+    }
   }
 
   const itensMenu = [
@@ -203,7 +300,7 @@ function App() {
 
           <button
             onClick={() =>
-              mostrarAviso("O login será integrado posteriormente.")
+              onLogout ? onLogout() : mostrarAviso("Não foi possível sair. Faça o login novamente.")
             }
           >
             <LogOut size={13} />
@@ -245,9 +342,9 @@ function App() {
               })}
             </span>
 
-            <span className="avatar">CS</span>
+            <span className="avatar">{usuario?.nome?.charAt(0)?.toUpperCase() || "S"}</span>
 
-            <strong>Camila Sousa</strong>
+            <strong>{usuario?.nome || "Secretaria"}</strong>
           </div>
         </header>
 
@@ -258,28 +355,46 @@ function App() {
               <h1>Fila de espera</h1>
 
               <p>
-                48 pacientes aguardam uma vaga compatível
-                com sua necessidade clínica.
+                {erroFila
+                  ? "Não foi possível consultar os pacientes no momento."
+                  : carregando
+                    ? "Carregando pacientes da fila de espera..."
+                    : `${pacientes.length} registros retornados pela fila de espera.`}
               </p>
             </div>
 
             <button
               className="botao-primario"
-              onClick={() => setModalAberto(true)}
+              onClick={() => {
+                setErroCadastro("");
+                setModalAberto(true);
+              }}
             >
               <UserPlus size={16} />
               Nova triagem
             </button>
           </div>
 
-          {erroFila && (
-            <div className="sem-resultados" role="alert">
-                {erroFila}
-            </div>
-            )}
+          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 16 }}>
+            <button
+              className="botao-secundario"
+              type="button"
+              onClick={atualizarFila}
+              disabled={carregando}
+            >
+              {carregando ? "Atualizando..." : "Atualizar fila"}
+            </button>
+          </div>
 
+          {erroFila && (
+            <div className="sem-resultados" role="alert" style={{ marginBottom: 16 }}>
+              {erroFila}
+            </div>
+          )}
+
+          {!erroFila && !carregando && (
           <section className="indicadores">
-            {indicadoresIniciais.map((indicador) => (
+            {indicadores.map((indicador) => (
               <div
                 key={indicador.nome}
                 className={`cartao-indicador ${
@@ -292,10 +407,11 @@ function App() {
 
                 <strong>{indicador.quantidade}</strong>
 
-                <p>{indicador.descricao}</p>
+                <p>Registros retornados pela API</p>
               </div>
             ))}
           </section>
+          )}
 
           <section className="filtros">
             <div className="campo-busca">
@@ -303,7 +419,7 @@ function App() {
 
               <input
                 type="text"
-                placeholder="Buscar paciente ou CPF"
+                placeholder="Buscar paciente"
                 value={busca}
                 onChange={(evento) =>
                   setBusca(evento.target.value)
@@ -386,7 +502,7 @@ function App() {
                             <th>Paciente / triagem</th>
                             <th>Demanda</th>
                             <th>Procedimento</th>
-                            <th style={{ textAlign: "center", paddingLeft: "0px", paddingRight: "300px" }}>Classe</th>
+                            <th className="coluna-classe">Classe</th>
                             <th>Urgência</th>
                             <th>Espera</th>
                             <th>Ação</th>
@@ -405,7 +521,7 @@ function App() {
 
                       <td>{paciente.procedimento}</td>
 
-                      <td>{paciente.classe || "-"}</td>
+                      <td className="coluna-classe">{paciente.classe || "-"}</td>
 
                       <td>{paciente.urgencia}</td>
 
@@ -417,8 +533,10 @@ function App() {
                           onClick={() =>
                             agendarPaciente(paciente)
                           }
+                          disabled={alocandoId !== null || paciente.statusFila !== "AGUARDANDO"}
+                          title="Atualiza o status na fila; não cria um agendamento"
                         >
-                          Agendar →
+                          {alocandoId === paciente.id ? "Alocando..." : paciente.statusFila !== "AGUARDANDO" ? "Alocado" : "Alocar →"}
                         </button>
                       </td>
                     </tr>
@@ -426,17 +544,17 @@ function App() {
                 </tbody>
               </table>
 
-              {!erroFila && pacientesFiltrados.length === 0 && (
+              {!erroFila && !carregando && pacientesFiltrados.length === 0 && (
                 <div className="sem-resultados">
-                    Nenhum paciente encontrado na fila de espera.
+                  Nenhum paciente encontrado na fila de espera.
                 </div>
-                )}
+              )}
             </div>
 
             <div className="rodape-tabela">
               <span>
                 {pacientesFiltrados.length} registros exibidos
-                • dados demonstrativos
+                • consulta à API
               </span>
 
               <span>Página 1 de 1</span>
@@ -445,39 +563,17 @@ function App() {
 
           <section className="cartao-vaga">
             <div className="texto-vaga">
-              <h2>Uma vaga surgiu em Endodontia</h2>
-
-              <span>07/10/2026 • tarde • cadeira D5</span>
-
+              <h2>Agenda e vagas disponíveis</h2>
               <p>
-                Ofereça primeiro a Roberto Lima e, depois,
-                aos próximos pacientes do mesmo procedimento.
-                A primeira aceitação recebe o agendamento.
+                A consulta à fila está conectada à API. Vagas e agendamentos ainda
+                dependem da integração com o módulo de agenda da equipe.
               </p>
-            </div>
-
-            <div className="acoes-vaga">
-              <span className="etiqueta-vaga">
-                Vaga disponível
-              </span>
-
-              <button
-                className="botao-primario"
-                onClick={() =>
-                  mostrarAviso(
-                    "A chamada rápida será integrada ao fluxo de agendamento."
-                  )
-                }
-              >
-                <MessageCircle size={16} />
-                Iniciar chamada rápida
-              </button>
             </div>
           </section>
 
           <footer className="rodape-pagina">
             <span>
-              UniCatólica • Clínica odontológica • Dados demonstrativos
+              UniCatólica • Clínica odontológica • Consulta de fila via API
             </span>
 
             <span>
@@ -502,129 +598,123 @@ function App() {
           <div className="modal">
             <div className="modal-cabecalho">
               <h2>Nova triagem</h2>
-
-              <button onClick={() => setModalAberto(false)}>
+              <button type="button" disabled={salvando} onClick={() => setModalAberto(false)}>
                 <X size={21} />
               </button>
             </div>
 
             <p className="modal-descricao">
-              Cadastre um paciente na fila de espera.
+              Informe o número do cadastro existente do paciente e o código do procedimento.
+              Não é necessário informar ID de triagem.
             </p>
 
             <form onSubmit={adicionarPaciente}>
               <label>
-                Nome completo
+                Número de cadastro do paciente *
                 <input
+                  type="number"
                   required
-                  value={novoPaciente.nome}
-                  onChange={(e) =>
-                    setNovoPaciente({
-                      ...novoPaciente,
-                      nome: e.target.value
-                    })
-                  }
+                  min="1"
+                  step="1"
+                  placeholder="Ex.: 1"
+                  value={novoPaciente.pacienteId}
+                  onChange={(e) => setNovoPaciente({ ...novoPaciente, pacienteId: e.target.value })}
                 />
               </label>
 
               <label>
-                CPF
+                Código do procedimento *
                 <input
+                  type="number"
                   required
-                  maxLength={14}
-                  value={novoPaciente.cpf}
-                  onChange={(e) =>
-                    setNovoPaciente({
-                      ...novoPaciente,
-                      cpf: e.target.value
-                    })
-                  }
+                  min="1"
+                  step="1"
+                  placeholder="Ex.: 2"
+                  value={novoPaciente.procedimentoId}
+                  onChange={(e) => setNovoPaciente({ ...novoPaciente, procedimentoId: e.target.value })}
                 />
               </label>
 
               <label>
-                Demanda
-                <select
-                  value={novoPaciente.demanda}
-                  onChange={(e) =>
-                    setNovoPaciente({
-                      ...novoPaciente,
-                      demanda: e.target.value
-                    })
-                  }
-                >
-                  <option>Endodontia</option>
-                  <option>Periodontia</option>
-                  <option>Dentística</option>
-                </select>
-              </label>
-
-              <label>
-                Procedimento
+                Dente (opcional)
                 <input
-                  required
-                  value={novoPaciente.procedimento}
-                  onChange={(e) =>
-                    setNovoPaciente({
-                      ...novoPaciente,
-                      procedimento: e.target.value
-                    })
-                  }
+                  maxLength={2}
+                  placeholder="Ex.: 11"
+                  value={novoPaciente.dente}
+                  onChange={(e) => setNovoPaciente({ ...novoPaciente, dente: e.target.value })}
                 />
               </label>
 
               <label>
                 Classe do dente
                 <select
-                    value={novoPaciente.classe}
-                    onChange={(e) =>
-                        setNovoPaciente({
-                            ...novoPaciente,
-                            classe: e.target.value
-                    })
-                }
-            >
-                <option value="">Não informada</option>
-                <option value="I">Classe I</option>
-                <option value="II">Classe II</option>
-                <option value="III">Classe III</option>
-                <option value="IV">Classe IV</option>
-                <option value="V">Classe V</option>
-                <option value="VI">Classe VI</option>
-            </select>
-        </label>
-
-              <label>
-                Urgência
-                <select
-                  value={novoPaciente.urgencia}
-                  onChange={(e) =>
-                    setNovoPaciente({
-                      ...novoPaciente,
-                      urgencia: e.target.value
-                    })
-                  }
+                  value={novoPaciente.classe}
+                  onChange={(e) => setNovoPaciente({ ...novoPaciente, classe: e.target.value })}
                 >
-                  <option>Alta</option>
-                  <option>Média</option>
-                  <option>Baixa</option>
+                  <option value="">Não informada</option>
+                  <option value="I">Classe I</option>
+                  <option value="II">Classe II</option>
+                  <option value="III">Classe III</option>
+                  <option value="IV">Classe IV</option>
+                  <option value="V">Classe V</option>
+                  <option value="VI">Classe VI</option>
                 </select>
               </label>
+
+              <label>
+                Urgência *
+                <select
+                  required
+                  value={novoPaciente.nivelUrgencia}
+                  onChange={(e) => setNovoPaciente({ ...novoPaciente, nivelUrgencia: e.target.value })}
+                >
+                  <option value="ALTA">Alta</option>
+                  <option value="MEDIA">Média</option>
+                  <option value="BAIXA">Baixa</option>
+                </select>
+              </label>
+
+              <label style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 8 }}>
+                <input
+                  type="checkbox"
+                  style={{ width: "auto" }}
+                  checked={novoPaciente.prioridadeReagendamento}
+                  onChange={(e) => setNovoPaciente({ ...novoPaciente, prioridadeReagendamento: e.target.checked })}
+                />
+                Prioridade de reagendamento
+              </label>
+
+              <label>
+                Observação (opcional)
+                <textarea
+                  rows={3}
+                  maxLength={5000}
+                  value={novoPaciente.observacao}
+                  onChange={(e) => setNovoPaciente({ ...novoPaciente, observacao: e.target.value })}
+                />
+              </label>
+
+              {erroCadastro && (
+                <p role="alert" style={{ color: "#b42318", fontWeight: 600 }}>
+                  {erroCadastro}
+                </p>
+              )}
 
               <div className="modal-acoes">
                 <button
                   type="button"
                   className="botao-secundario"
+                  disabled={salvando}
                   onClick={() => setModalAberto(false)}
                 >
                   Cancelar
                 </button>
-
                 <button
                   type="submit"
                   className="botao-primario"
+                  disabled={salvando}
                 >
-                  Salvar triagem
+                  {salvando ? "Salvando..." : "Salvar triagem"}
                 </button>
               </div>
             </form>
@@ -635,4 +725,4 @@ function App() {
   );
 }
 
-export default App;
+export default FilaEspera;

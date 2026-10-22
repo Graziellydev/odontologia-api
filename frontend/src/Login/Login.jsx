@@ -17,6 +17,8 @@ function Login({ onLogin }) {
       const response = await axios.post('/api/auth/login', {
         email,
         senha,
+      }, {
+        withCredentials: true
       });
 
       const usuario = response.data;
