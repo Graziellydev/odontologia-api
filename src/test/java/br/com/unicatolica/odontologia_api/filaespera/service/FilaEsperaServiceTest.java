@@ -27,158 +27,157 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class FilaEsperaServiceTest {
 
-    @Mock
-    private FilaEsperaRepository filaEsperaRepository;
+        @Mock
+        private FilaEsperaRepository filaEsperaRepository;
 
-    @InjectMocks
-    private FilaEsperaService filaEsperaService;
+        @InjectMocks
+        private FilaEsperaService filaEsperaService;
 
-    @Test
-    void deveListarFilaComFiltros() {
+        @Test
+        void deveListarFilaComFiltros() {
 
-        when(filaEsperaRepository.pesquisarFila(
-                null, "Dentística", null, "I", "ALTA", 5, 30)).thenReturn(List.of());
+                when(filaEsperaRepository.pesquisarFila(
+                                null, "Dentística", null, "I", "ALTA", 5, 30)).thenReturn(List.of());
 
-        List<FilaEsperaItemDTO> resultado = filaEsperaService.listarFila(
-                null,
-                " Dentística ",
-                " ",
-                "I",
-                "ALTA",
-                5,
-                30);
+                List<FilaEsperaItemDTO> resultado = filaEsperaService.listarFila(
+                                null,
+                                " Dentística ",
+                                " ",
+                                "I",
+                                "ALTA",
+                                5,
+                                30);
 
-        assertNotNull(resultado);
-        assertTrue(resultado.isEmpty());
+                assertNotNull(resultado);
+                assertTrue(resultado.isEmpty());
 
-        verify(filaEsperaRepository).pesquisarFila(
-                null, "Dentística", null, "I", "ALTA", 5, 30);
-    }
+                verify(filaEsperaRepository).pesquisarFila(
+                                null, "Dentística", null, "I", "ALTA", 5, 30);
+        }
 
-    @Test
-    void naoDeveAceitarIntervaloDeEsperaInvalido() {
+        @Test
+        void naoDeveAceitarIntervaloDeEsperaInvalido() {
 
-        assertThrows(
-                ResponseStatusException.class,
-                () -> filaEsperaService.listarFila(
-                        null, null, null, null, null, 31, 10));
+                assertThrows(
+                                ResponseStatusException.class,
+                                () -> filaEsperaService.listarFila(
+                                                null, null, null, null, null, 31, 10));
 
-        verifyNoInteractions(filaEsperaRepository);
-    }
+                verifyNoInteractions(filaEsperaRepository);
+        }
 
-    @Test
-    void deveCadastrarEntradaNaFila() {
+        @Test
+        void deveCadastrarEntradaNaFila() {
 
-        NovaEntradaFilaDTO dto = new NovaEntradaFilaDTO(
-                1L,
-                null,
-                null,
-                2L,
-                "11",
-                "I",
-                "ALTA",
-                true,
-                "Paciente com prioridade");
+                NovaEntradaFilaDTO dto = new NovaEntradaFilaDTO(
+                                1L,
+                                null,
+                                2L,
+                                "11",
+                                "I",
+                                "ALTA",
+                                true,
+                                "Paciente com prioridade");
 
-        when(filaEsperaRepository.save(any(FilaEspera.class)))
-                .thenAnswer(invocation -> {
-                    FilaEspera entrada = invocation.getArgument(0);
-                    entrada.setId(15L);
-                    return entrada;
-                });
+                when(filaEsperaRepository.save(any(FilaEspera.class)))
+                                .thenAnswer(invocation -> {
+                                        FilaEspera entrada = invocation.getArgument(0);
+                                        entrada.setId(15L);
+                                        return entrada;
+                                });
 
-        EntradaFilaCriadaDTO resultado = filaEsperaService.adicionarEntrada(dto);
+                EntradaFilaCriadaDTO resultado = filaEsperaService.adicionarEntrada(dto);
 
-        assertEquals(15L, resultado.id());
-        assertEquals(1L, resultado.pacienteId());
-        assertEquals(2L, resultado.procedimentoId());
-        assertEquals("ALTA", resultado.nivelUrgencia());
-        assertEquals("AGUARDANDO", resultado.statusFila());
+                assertEquals(15L, resultado.id());
+                assertEquals(1L, resultado.pacienteId());
+                assertEquals(2L, resultado.procedimentoId());
+                assertEquals("ALTA", resultado.nivelUrgencia());
+                assertEquals("AGUARDANDO", resultado.statusFila());
 
-        ArgumentCaptor<FilaEspera> captor = ArgumentCaptor.forClass(FilaEspera.class);
+                ArgumentCaptor<FilaEspera> captor = ArgumentCaptor.forClass(FilaEspera.class);
 
-        verify(filaEsperaRepository).save(captor.capture());
+                verify(filaEsperaRepository).save(captor.capture());
 
-        FilaEspera entradaSalva = captor.getValue();
+                FilaEspera entradaSalva = captor.getValue();
 
-        assertEquals("TRIAGEM", entradaSalva.getOrigem());
-        assertEquals("AGUARDANDO", entradaSalva.getStatusFila());
-        assertTrue(entradaSalva.getPrioridadeReagendamento());
-    }
+                assertEquals("TRIAGEM", entradaSalva.getOrigem());
+                assertEquals("AGUARDANDO", entradaSalva.getStatusFila());
+                assertTrue(entradaSalva.getPrioridadeReagendamento());
+        }
 
-    @Test
-    void deveConsultarMetricasPorEspecialidade() {
+        @Test
+        void deveConsultarMetricasPorEspecialidade() {
 
-        when(filaEsperaRepository.calcularTempoMedioPorEspecialidade())
-                .thenReturn(List.of());
+                when(filaEsperaRepository.calcularTempoMedioPorEspecialidade())
+                                .thenReturn(List.of());
 
-        List<?> resultado = filaEsperaService.calcularTempoMedioPorEspecialidade();
+                List<?> resultado = filaEsperaService.calcularTempoMedioPorEspecialidade();
 
-        assertNotNull(resultado);
-        assertTrue(resultado.isEmpty());
+                assertNotNull(resultado);
+                assertTrue(resultado.isEmpty());
 
-        verify(filaEsperaRepository)
-                .calcularTempoMedioPorEspecialidade();
-    }
+                verify(filaEsperaRepository)
+                                .calcularTempoMedioPorEspecialidade();
+        }
 
-    @Test
-    void deveAlocarPacienteQueEstaAguardando() {
+        @Test
+        void deveAlocarPacienteQueEstaAguardando() {
 
-        FilaEspera entrada = new FilaEspera();
-        entrada.setId(10L);
-        entrada.setStatusFila("AGUARDANDO");
+                FilaEspera entrada = new FilaEspera();
+                entrada.setId(10L);
+                entrada.setStatusFila("AGUARDANDO");
 
-        when(filaEsperaRepository.findById(10L))
-                .thenReturn(Optional.of(entrada));
+                when(filaEsperaRepository.findById(10L))
+                                .thenReturn(Optional.of(entrada));
 
-        when(filaEsperaRepository.save(any(FilaEspera.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
+                when(filaEsperaRepository.save(any(FilaEspera.class)))
+                                .thenAnswer(invocation -> invocation.getArgument(0));
 
-        FilaEsperaAtualizadaDTO resultado = filaEsperaService.alocarPaciente(10L);
+                FilaEsperaAtualizadaDTO resultado = filaEsperaService.alocarPaciente(10L);
 
-        assertEquals(10L, resultado.id());
-        assertEquals("ALOCADO", resultado.statusFila());
-        assertNotNull(resultado.dataSaidaFila());
+                assertEquals(10L, resultado.id());
+                assertEquals("ALOCADO", resultado.statusFila());
+                assertNotNull(resultado.dataSaidaFila());
 
-        assertEquals("ALOCADO", entrada.getStatusFila());
-        assertNotNull(entrada.getDataSaidaFila());
+                assertEquals("ALOCADO", entrada.getStatusFila());
+                assertNotNull(entrada.getDataSaidaFila());
 
-        verify(filaEsperaRepository).save(entrada);
-    }
+                verify(filaEsperaRepository).save(entrada);
+        }
 
-    @Test
-    void naoDeveAlocarEntradaInexistente() {
+        @Test
+        void naoDeveAlocarEntradaInexistente() {
 
-        when(filaEsperaRepository.findById(99L))
-                .thenReturn(Optional.empty());
+                when(filaEsperaRepository.findById(99L))
+                                .thenReturn(Optional.empty());
 
-        ResponseStatusException erro = assertThrows(
-                ResponseStatusException.class,
-                () -> filaEsperaService.alocarPaciente(99L));
+                ResponseStatusException erro = assertThrows(
+                                ResponseStatusException.class,
+                                () -> filaEsperaService.alocarPaciente(99L));
 
-        assertEquals(404, erro.getStatusCode().value());
+                assertEquals(404, erro.getStatusCode().value());
 
-        verify(filaEsperaRepository, never())
-                .save(any(FilaEspera.class));
-    }
+                verify(filaEsperaRepository, never())
+                                .save(any(FilaEspera.class));
+        }
 
-    @Test
-    void naoDeveAlocarPacienteQueJaSaiuDaFila() {
+        @Test
+        void naoDeveAlocarPacienteQueJaSaiuDaFila() {
 
-        FilaEspera entrada = new FilaEspera();
-        entrada.setId(10L);
-        entrada.setStatusFila("ALOCADO");
+                FilaEspera entrada = new FilaEspera();
+                entrada.setId(10L);
+                entrada.setStatusFila("ALOCADO");
 
-        when(filaEsperaRepository.findById(10L))
-                .thenReturn(Optional.of(entrada));
+                when(filaEsperaRepository.findById(10L))
+                                .thenReturn(Optional.of(entrada));
 
-        ResponseStatusException erro = assertThrows(
-                ResponseStatusException.class,
-                () -> filaEsperaService.alocarPaciente(10L));
+                ResponseStatusException erro = assertThrows(
+                                ResponseStatusException.class,
+                                () -> filaEsperaService.alocarPaciente(10L));
 
-        assertEquals(409, erro.getStatusCode().value());
+                assertEquals(409, erro.getStatusCode().value());
 
-        verify(filaEsperaRepository, never())
-                .save(any(FilaEspera.class));
-    }
+                verify(filaEsperaRepository, never())
+                                .save(any(FilaEspera.class));
+        }
 }

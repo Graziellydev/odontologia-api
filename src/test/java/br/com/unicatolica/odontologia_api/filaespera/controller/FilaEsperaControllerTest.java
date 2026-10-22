@@ -23,72 +23,71 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class FilaEsperaControllerTest {
 
-    @Mock
-    private FilaEsperaService filaEsperaService;
+        @Mock
+        private FilaEsperaService filaEsperaService;
 
-    @InjectMocks
-    private FilaEsperaController filaEsperaController;
+        @InjectMocks
+        private FilaEsperaController filaEsperaController;
 
-    @Test
-    void deveListarFila() {
+        @Test
+        void deveListarFila() {
 
-        when(filaEsperaService.listarFila(
-                null, null, null, null, null, null, null)).thenReturn(List.of());
+                when(filaEsperaService.listarFila(
+                                null, null, null, null, null, null, null)).thenReturn(List.of());
 
-        List<FilaEsperaItemDTO> resultado = filaEsperaController.listarFila(
-                null, null, null, null, null, null, null);
+                List<FilaEsperaItemDTO> resultado = filaEsperaController.listarFila(
+                                null, null, null, null, null, null, null);
 
-        assertNotNull(resultado);
-        assertTrue(resultado.isEmpty());
+                assertNotNull(resultado);
+                assertTrue(resultado.isEmpty());
 
-        verify(filaEsperaService).listarFila(
-                null, null, null, null, null, null, null);
-    }
+                verify(filaEsperaService).listarFila(
+                                null, null, null, null, null, null, null);
+        }
 
-    @Test
-    void deveConsultarMetricas() {
+        @Test
+        void deveConsultarMetricas() {
 
-        when(filaEsperaService.calcularTempoMedioPorEspecialidade())
-                .thenReturn(List.of());
+                when(filaEsperaService.calcularTempoMedioPorEspecialidade())
+                                .thenReturn(List.of());
 
-        List<TempoMedioEsperaDTO> resultado = filaEsperaController.consultarTempoMedio();
+                List<TempoMedioEsperaDTO> resultado = filaEsperaController.consultarTempoMedio();
 
-        assertNotNull(resultado);
-        assertTrue(resultado.isEmpty());
+                assertNotNull(resultado);
+                assertTrue(resultado.isEmpty());
 
-        verify(filaEsperaService)
-                .calcularTempoMedioPorEspecialidade();
-    }
+                verify(filaEsperaService)
+                                .calcularTempoMedioPorEspecialidade();
+        }
 
-    @Test
-    void deveAdicionarEntradaNaFila() {
+        @Test
+        void deveAdicionarEntradaNaFila() {
 
-        NovaEntradaFilaDTO dto = new NovaEntradaFilaDTO(
-                1L,
-                null,
-                null,
-                2L,
-                "11",
-                "I",
-                "ALTA",
-                true,
-                "Paciente prioritário");
+                NovaEntradaFilaDTO dto = new NovaEntradaFilaDTO(
+                                1L,
+                                null,
+                                2L,
+                                "11",
+                                "I",
+                                "ALTA",
+                                true,
+                                "Paciente prioritário");
 
-        EntradaFilaCriadaDTO entradaCriada = new EntradaFilaCriadaDTO(
-                15L,
-                1L,
-                2L,
-                "ALTA",
-                "AGUARDANDO");
+                EntradaFilaCriadaDTO entradaCriada = new EntradaFilaCriadaDTO(
+                                15L,
+                                1L,
+                                2L,
+                                "ALTA",
+                                "AGUARDANDO");
 
-        when(filaEsperaService.adicionarEntrada(dto))
-                .thenReturn(entradaCriada);
+                when(filaEsperaService.adicionarEntrada(dto))
+                                .thenReturn(entradaCriada);
 
-        ResponseEntity<EntradaFilaCriadaDTO> resposta = filaEsperaController.adicionarEntrada(dto);
+                ResponseEntity<EntradaFilaCriadaDTO> resposta = filaEsperaController.adicionarEntrada(dto);
 
-        assertEquals(201, resposta.getStatusCode().value());
-        assertEquals(entradaCriada, resposta.getBody());
+                assertEquals(201, resposta.getStatusCode().value());
+                assertEquals(entradaCriada, resposta.getBody());
 
-        verify(filaEsperaService).adicionarEntrada(dto);
-    }
+                verify(filaEsperaService).adicionarEntrada(dto);
+        }
 }

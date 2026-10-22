@@ -8,23 +8,21 @@ import jakarta.validation.constraints.Size;
 
 public record NovaEntradaFilaDTO(
 
-        @NotNull @Positive Long pacienteId,
+                @NotNull @Positive Long pacienteId,
 
-        @Positive Long triagemItemId,
+                @Positive Long triagemItemId,
 
-        @Positive Long tratamentoId,
+                @NotNull @Positive Long procedimentoId,
 
-        @NotNull @Positive Long procedimentoId,
+                @Pattern(regexp = "^([1-4][1-8]|[5-8][1-5])$") String dente,
 
-        @Pattern(regexp = "^([1-4][1-8]|[5-8][1-5])$") String dente,
+                @Pattern(regexp = "^(I|II|III|IV|V|VI)$") String classe,
 
-        @Pattern(regexp = "^(I|II|III|IV|V|VI)$") String classe,
+                @NotBlank @Pattern(regexp = "(?i)^(ALTA|MEDIA|MÉDIA|BAIXA|PNE)$") String nivelUrgencia,
 
-        @NotBlank @Pattern(regexp = "(?i)^(ALTA|MEDIA|MÉDIA|BAIXA|PNE)$") String nivelUrgencia,
+                Boolean prioridadeReagendamento,
 
-        Boolean prioridadeReagendamento,
-
-        @Size(max = 5000) String observacao
+                @Size(max = 5000) String observacao
 
 ) {
 }

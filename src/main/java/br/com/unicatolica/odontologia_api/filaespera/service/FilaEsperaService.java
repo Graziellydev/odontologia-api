@@ -81,7 +81,6 @@ public class FilaEsperaService {
 
         entrada.setPacienteId(dto.pacienteId());
         entrada.setTriagemItemId(dto.triagemItemId());
-        entrada.setTratamentoId(dto.tratamentoId());
         entrada.setOrigem("TRIAGEM");
         entrada.setProcedimentoId(dto.procedimentoId());
         entrada.setDente(dto.dente());

@@ -30,9 +30,6 @@ public class FilaEspera {
     @Column(name = "triagem_item_id")
     private Long triagemItemId;
 
-    @Column(name = "tratamento_id")
-    private Long tratamentoId;
-
     @Column(name = "origem", nullable = false, length = 20)
     private String origem = "TRIAGEM";
 
