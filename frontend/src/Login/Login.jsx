@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 
-function Login() {
+function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
@@ -14,13 +14,16 @@ function Login() {
     setCarregando(true);
 
     try {
-      const response = await axios.post('http://localhost:8080/api/auth/login', {
+      const response = await axios.post('/api/auth/login', {
         email,
         senha,
+      }, {
+        withCredentials: true
       });
 
       const usuario = response.data;
       localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
+      onLogin(usuario);
       alert();
     } catch (error) {
       console.error('Erro de autenticação:', error);
