@@ -2,7 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 
-function Login() {
+function Login({ onLogin }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
@@ -21,7 +21,7 @@ function Login() {
 
       const usuario = response.data;
       localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
-      alert();
+      if(onLogin) onLogin(usuario);
     } catch (error) {
       console.error('Erro de autenticação:', error);
       if (error.response && error.response.status === 401) {
