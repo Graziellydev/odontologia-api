@@ -1,15 +1,12 @@
+
 import { useState } from "react";
 import Login from "./Login/Login.jsx";
 import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
-    try {
-      const salvo = localStorage.getItem("usuarioLogado");
-      return salvo ? JSON.parse(salvo) : null;
-    } catch {
-      return null;
-    }
+    localStorage.removeItem("usuarioLogado");
+    return null;
   });
 
   function sair() {

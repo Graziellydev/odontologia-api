@@ -29,6 +29,28 @@ public class PacienteService {
             paciente.setSituacao("ATIVO");
         }
 
+        // Preenche com valores seguros os campos que pertencem a funcionalidades futuras
+        if (paciente.getTermoCompromissoAssinado() == null) {
+            paciente.setTermoCompromissoAssinado(false);
+        }
+        if (paciente.getMoraProximo() == null) {
+            paciente.setMoraProximo(false);
+        }
+        if (paciente.getAceitaChamadaUltimaHora() == null) {
+            paciente.setAceitaChamadaUltimaHora(false);
+        }
+        if (paciente.getFaltasJustificadas() == null) {
+            paciente.setFaltasJustificadas(0);
+        }
+        if (paciente.getFaltasNaoJustificadas() == null) {
+            paciente.setFaltasNaoJustificadas(0);
+        }
+
+        // Se o termo foi marcado como assinado, preenche a data atual do termo automaticamente
+        if (Boolean.TRUE.equals(paciente.getTermoCompromissoAssinado()) && paciente.getDataTermoCompromisso() == null) {
+            paciente.setDataTermoCompromisso(OffsetDateTime.now());
+        }
+
         // Salva o paciente no banco de dados
         return pacienteRepository.save(paciente);
     }
@@ -61,7 +83,7 @@ public class PacienteService {
             paciente.setComplemento(pacienteAtualizado.getComplemento());
             paciente.setBairro(pacienteAtualizado.getBairro());
             paciente.setCidade(pacienteAtualizado.getCidade());
-            paciente.setUf(pacienteAtualizado.getUf());
+            // (Linha do UF removida pois o campo foi descontinuado)
             paciente.setMoraProximo(pacienteAtualizado.getMoraProximo());
             paciente.setAceitaChamadaUltimaHora(pacienteAtualizado.getAceitaChamadaUltimaHora());
             paciente.setDisponibilidadeHorario(pacienteAtualizado.getDisponibilidadeHorario());
