@@ -2,7 +2,8 @@ import { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 
-function Login({onLoginSuccess })  {
+// 1. COMBINAÇÃO DAS PROPS: Aceita as duas formas para não quebrar nenhuma branch
+function Login({ onLoginSuccess, onLogin }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
@@ -22,13 +23,14 @@ function Login({onLoginSuccess })  {
       });
 
       const usuario = response.data;
+      
+      // Salva no localStorage (ambas as branches faziam isso igualmente)
+      localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
 
-      localStorage.setItem(
-        "usuarioLogado",
-        JSON.stringify(usuario)
-      );
+      // 2. COMBINAÇÃO DOS GATILHOS: Avisa o componente pai usando a função que estiver disponível
+      if (onLoginSuccess) onLoginSuccess(usuario);
+      if (onLogin) onLogin(usuario);
 
-onLoginSuccess(usuario);
     } catch (error) {
       console.error('Erro de autenticação:', error);
       if (error.response && error.response.status === 401) {
