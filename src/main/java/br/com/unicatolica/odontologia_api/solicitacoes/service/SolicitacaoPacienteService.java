@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.OffsetDateTime;
 import java.util.List;
@@ -20,12 +21,16 @@ public class SolicitacaoPacienteService {
 
     private final SolicitacaoPacienteRepository repository;
     private final FilaEsperaRepository filaEsperaRepository;
+    private final JdbcTemplate jdbc;
 
     public SolicitacaoPacienteService(
             SolicitacaoPacienteRepository repository,
-            FilaEsperaRepository filaEsperaRepository) {
+            FilaEsperaRepository filaEsperaRepository,
+            JdbcTemplate jdbc) {
+
         this.repository = repository;
         this.filaEsperaRepository = filaEsperaRepository;
+        this.jdbc = jdbc;
     }
 
     @Transactional
@@ -38,6 +43,45 @@ public class SolicitacaoPacienteService {
                     HttpStatus.BAD_REQUEST,
                     "Aluno inválido.");
         }
+
+        // Verifica se o aluno está matriculado em uma turma ativa.
+        Integer matriculas = jdbc.queryForObject("""
+            SELECT COUNT(*)
+            FROM matriculas_turma m
+            JOIN turmas t ON t.id = m.turma_id AND t.ativa = TRUE
+            JOIN disciplinas d ON d.id = t.disciplina_id AND d.ativo = TRUE
+            WHERE m.aluno_id = ? AND m.turma_id = ?
+            """, Integer.class, alunoId, dados.turmaId());
+
+                if (matriculas == null || matriculas == 0) {
+                    throw new ResponseStatusException(
+                            HttpStatus.BAD_REQUEST,
+                            "Aluno não matriculado em turma ativa.");
+                }
+
+        // Verifica se o procedimento existe e está ativo.
+                List<Boolean> exigeClasse = jdbc.query("""
+            SELECT exige_classe
+            FROM procedimentos
+            WHERE id = ? AND ativo = TRUE
+            """,
+                        (rs, i) -> rs.getBoolean("exige_classe"),
+                        dados.procedimentoId());
+        
+                if (exigeClasse.isEmpty()) {
+                    throw new ResponseStatusException(
+                            HttpStatus.BAD_REQUEST,
+                            "Procedimento inexistente ou inativo.");
+                }
+
+        // Verifica se o procedimento exige uma classe clínica.
+                if (exigeClasse.get(0)
+                        && (dados.classe() == null || dados.classe().isBlank())) {
+
+                    throw new ResponseStatusException(
+                            HttpStatus.BAD_REQUEST,
+                            "A classe é obrigatória para esse procedimento.");
+                }
 
         SolicitacaoPaciente solicitacao = new SolicitacaoPaciente();
 
