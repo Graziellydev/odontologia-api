@@ -16,44 +16,41 @@ import lombok.AllArgsConstructor;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 
-import org.hibernate.annotations.JdbcTypeCode;
-import org.hibernate.type.SqlTypes;
-
-// Define que esta classe e uma tabela do banco de dados
+// Define que esta classe é uma tabela do banco de dados
 @Entity
 // Especifica o nome exato da tabela no PostgreSQL
 @Table(name = "pacientes")
-// Gera automaticamente Getters, Setters, toString, equals e hashCode
+// Gera automaticamente Getters, Setters, toString, equals e hashCode via Lombok
 @Data
-// Cria o construtor padrao sem parametros
+// Cria o construtor padrão sem parâmetros
 @NoArgsConstructor
-// Cria o construtor com todos os parametros
+// Cria o construtor com todos os parâmetros
 @AllArgsConstructor
 public class Paciente {
 
-    // Define este campo como a Chave Primaria (Primary Key)
+    // Define este campo como a Chave Primária (Primary Key)
     @Id
-    // Define que o ID e gerado automaticamente pelo banco (auto-incremento)
+    // Define que o ID é gerado automaticamente pelo banco (auto-incremento)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    // Mapeia o numero do prontuario (unico e ate 30 caracteres)
+    // Mapeia o número do prontuário (único e até 30 caracteres)
     @Column(name = "numero_prontuario", unique = true, length = 30)
     private String numeroProntuario;
 
-    // Mapeia o nome completo (campo obrigatorio, ate 150 caracteres)
+    // Mapeia o nome completo (campo obrigatório, até 150 caracteres)
     @Column(name = "nome_completo", nullable = false, length = 150)
     private String nomeCompleto;
 
-    // Mapeia o CPF (obrigatorio, unico e exatamente 11 caracteres)
+    // Mapeia o CPF (obrigatório, único e exatamente 11 caracteres)
     @Column(nullable = false, unique = true, length = 11)
-private String cpf;
+    private String cpf;
 
-    // Mapeia a data de nascimento (campo obrigatorio)
+    // Mapeia a data de nascimento (campo obrigatório)
     @Column(name = "data_nascimento", nullable = false)
     private LocalDate dataNascimento;
 
-    // Mapeia o telefone principal (obrigatorio)
+    // Mapeia o telefone principal (obrigatório)
     @Column(nullable = false, length = 20)
     private String telefone;
 
@@ -73,44 +70,39 @@ private String cpf;
     @Column(length = 150)
     private String logradouro;
 
-    // Mapeia o numero da residencia
+    // Mapeia o número da residência
     @Column(name = "numero_endereco", length = 20)
     private String numeroEndereco;
 
-    // Mapeia o complemento do endereco
+    // Mapeia o complemento do endereço
     @Column(length = 100)
     private String complemento;
 
-    // Mapeia o bairro (obrigatorio)
+    // Mapeia o bairro (obrigatório)
     @Column(nullable = false, length = 100)
     private String bairro;
 
-    // Mapeia a cidade (obrigatoria)
+    // Mapeia a cidade (obrigatória)
     @Column(nullable = false, length = 100)
     private String cidade;
 
-    // Mapeia a sigla do Estado (UF)
-    @JdbcTypeCode(SqlTypes.CHAR)
-    @Column(length = 2)
-    private String uf;
-
-    // Mapeia o codigo de acesso interno
+    // Mapeia o código de acesso interno
     @Column(name = "codigo_acesso", unique = true, length = 20)
     private String codigoAcesso;
 
-    // Indica se mora proximo a faculdade
+    // Indica se mora próximo a faculdade
     @Column(name = "mora_proximo", nullable = false)
     private Boolean moraProximo = false;
 
-    // Indica se aceita chamadas de ultima hora
+    // Indica se aceita chamadas de última hora
     @Column(name = "aceita_chamada_ultima_hora", nullable = false)
     private Boolean aceitaChamadaUltimaHora = false;
 
-    // Mapeia a disponibilidade de horario
+    // Mapeia a disponibilidade de horário
     @Column(name = "disponibilidade_horario", length = 100)
     private String disponibilidadeHorario;
 
-    // Mapeia campo de texto longo para observacoes clinicas
+    // Mapeia campo de texto longo para observações clínicas
     @Column(columnDefinition = "TEXT")
     private String observacao;
 
@@ -118,7 +110,7 @@ private String cpf;
     @Column(name = "id_externo", length = 50)
     private String idExterno;
 
-    // Mapeia a situacao do cadastro ('ATIVO', 'DESLIGADO', 'EXCLUIDO')
+    // Mapeia a situação do cadastro ('ATIVO', 'DESLIGADO', 'EXCLUIDO')
     @Column(nullable = false, length = 15)
     private String situacao = "ATIVO";
 
@@ -134,7 +126,7 @@ private String cpf;
     @Column(name = "faltas_justificadas", nullable = false)
     private Integer faltasJustificadas = 0;
 
-    // Contador de faltas nao justificadas
+    // Contador de faltas não justificadas
     @Column(name = "faltas_nao_justificadas", nullable = false)
     private Integer faltasNaoJustificadas = 0;
 
@@ -146,15 +138,15 @@ private String cpf;
     @Column(name = "data_desligamento")
     private OffsetDateTime dataDesligamento;
 
-    // Mapeia o ID do usuario que realizou o desligamento
+    // Mapeia o ID do usuário que realizou o desligamento
     @Column(name = "desligado_por_id")
     private Long desligadoPorId;
 
-    // Mapeia a data de criacao (nunca pode ser alterada apos criada)
+    // Mapeia a data de criação (nunca pode ser alterada após criada)
     @Column(name = "criado_em", nullable = false, updatable = false)
     private OffsetDateTime criadoEm;
 
-    // Mapeia a data da ultima atualizacao
+    // Mapeia a data da última atualização
     @Column(name = "atualizado_em", nullable = false)
     private OffsetDateTime atualizadoEm;
 
@@ -166,7 +158,7 @@ private String cpf;
         this.atualizadoEm = agora;
     }
 
-    // Executa automaticamente antes de qualquer atualizacao do registro
+    // Executa automaticamente antes de qualquer atualização do registro
     @PreUpdate
     public void preUpdate() {
         this.atualizadoEm = OffsetDateTime.now();

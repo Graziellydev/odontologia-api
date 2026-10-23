@@ -1,6 +1,6 @@
 package br.com.unicatolica.odontologia_api.filaespera.dto;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 public interface FilaEsperaItemDTO {
 
@@ -26,7 +26,7 @@ public interface FilaEsperaItemDTO {
 
     String getStatusFila();
 
-    OffsetDateTime getDataEntradaFila();
+    Instant getDataEntradaFila();
 
     Integer getDiasEspera();
 

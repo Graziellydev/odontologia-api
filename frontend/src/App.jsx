@@ -1,23 +1,17 @@
 import { useState } from "react";
 import Login from "./Login/Login.jsx";
-import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
 import AplicacaoAluno from "./Aluno/AplicacaoAluno.jsx";
+import FilaEspera from "./FilaEspera.jsx";
 
 function App() {
-  const [usuario, setUsuario] = useState(() => {
-    try {
-      const salvo = localStorage.getItem("usuarioLogado");
-      return salvo ? JSON.parse(salvo) : null;
-    } catch {
-      return null;
-    }
-  });
+  const [usuario, setUsuario] = useState(null);
 
   function sair() {
     localStorage.removeItem("usuarioLogado");
     setUsuario(null);
   }
 
+  // Tela de login
   if (!usuario) {
     return <Login onLoginSuccess={setUsuario} />;
   }
@@ -35,8 +29,8 @@ function App() {
   // Área da secretaria
   if (usuario.perfil === "SECRETARIA") {
     return (
-      <CadastroPaciente
-        nomeUsuario={usuario.nome}
+      <FilaEspera
+        usuario={usuario}
         onLogout={sair}
       />
     );

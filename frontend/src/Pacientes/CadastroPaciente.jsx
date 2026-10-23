@@ -15,7 +15,6 @@ const formularioInicial = {
   complemento: "",
   bairro: "",
   cidade: "",
-  uf: "",
   moraProximo: false,
   aceitaChamadaUltimaHora: false,
   termoCompromissoAssinado: false,
@@ -23,18 +22,47 @@ const formularioInicial = {
   observacao: "",
 };
 
-function CadastroPaciente({ nomeUsuario, onLogout }) {
+function CadastroPaciente({ nomeUsuario, onLogout, integrado = false }) {
   const [formulario, setFormulario] = useState(formularioInicial);
   const [carregando, setCarregando] = useState(false);
   const [mensagem, setMensagem] = useState(null);
 
+  // Função para buscar o endereço automaticamente pelo CEP
+  async function buscarCep(cepDigitado) {
+    const cepLimpo = cepDigitado.replace(/\D/g, "");
+    if (cepLimpo.length === 8) {
+      try {
+        const resposta = await axios.get(`https://viacep.com.br/ws/${cepLimpo}/json/`);
+        if (!resposta.data.erro) {
+          setFormulario((anterior) => ({
+            ...anterior,
+            logradouro: resposta.data.logradouro || "",
+            bairro: resposta.data.bairro || "",
+            cidade: resposta.data.localidade || "",
+          }));
+        }
+      } catch (erro) {
+        console.error("Erro ao buscar o CEP:", erro);
+      }
+    }
+  }
+
   function atualizarCampo(e) {
     const { name, value, type, checked } = e.target;
 
-    setFormulario((anterior) => ({
-      ...anterior,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    setFormulario((anterior) => {
+      const novoFormulario = {
+        ...anterior,
+        [name]: type === "checkbox" ? checked : value,
+      };
+
+      // Se o campo alterado for o CEP, dispara a busca automática
+      if (name === "cep") {
+        buscarCep(value);
+      }
+
+      return novoFormulario;
+    });
   }
 
   async function cadastrarPaciente(e) {
@@ -76,7 +104,8 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
   }
 
   return (
-    <main className="cadastro-pagina">
+    <main className={`cadastro-pagina ${integrado ? "cadastro-integrado" : ""}`}>
+      {!integrado && (
       <header className="cadastro-topo">
         <div>
           <h1>
@@ -92,6 +121,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
           </button>
         </div>
       </header>
+      )}
 
       <section className="cadastro-conteudo">
         <div className="cadastro-titulo">
@@ -134,6 +164,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   value={formulario.nomeCompleto}
                   onChange={atualizarCampo}
                   maxLength={150}
+                  placeholder="Ex.: Maria da Silva Santos"
                   required
                 />
               </div>
@@ -147,7 +178,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   onChange={atualizarCampo}
                   inputMode="numeric"
                   maxLength={14}
-                  placeholder="Somente números ou com pontuação"
+                  placeholder="Ex.: 123.456.789-00"
                   required
                 />
               </div>
@@ -178,6 +209,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   value={formulario.telefone}
                   onChange={atualizarCampo}
                   maxLength={20}
+                  placeholder="Ex.: (88) 9 9999-9999"
                   required
                 />
               </div>
@@ -193,6 +225,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   value={formulario.telefoneAlternativo}
                   onChange={atualizarCampo}
                   maxLength={20}
+                  placeholder="Ex.: (88) 3521-0000"
                 />
               </div>
 
@@ -205,6 +238,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   value={formulario.email}
                   onChange={atualizarCampo}
                   maxLength={150}
+                  placeholder="Ex.: maria.silva@email.com"
                 />
               </div>
             </div>
@@ -215,19 +249,21 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
 
             <div className="cadastro-grade">
               <div className="cadastro-campo">
-                <label htmlFor="cep">CEP</label>
+                <label htmlFor="cep">CEP *</label>
                 <input
                   id="cep"
                   name="cep"
                   value={formulario.cep}
                   onChange={atualizarCampo}
                   maxLength={9}
+                  placeholder="Ex.: 62500-000"
+                  required
                 />
               </div>
 
               <div className="cadastro-campo">
                 <label htmlFor="logradouro">
-                  Rua / Avenida
+                  Rua / Avenida *
                 </label>
                 <input
                   id="logradouro"
@@ -235,17 +271,21 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   value={formulario.logradouro}
                   onChange={atualizarCampo}
                   maxLength={150}
+                  placeholder="Ex.: Rua Coronel Araújo"
+                  required
                 />
               </div>
 
               <div className="cadastro-campo">
-                <label htmlFor="numeroEndereco">Número</label>
+                <label htmlFor="numeroEndereco">Número *</label>
                 <input
                   id="numeroEndereco"
                   name="numeroEndereco"
                   value={formulario.numeroEndereco}
                   onChange={atualizarCampo}
                   maxLength={20}
+                  placeholder="Ex.: 145 ou S/N"
+                  required
                 />
               </div>
 
@@ -257,6 +297,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   value={formulario.complemento}
                   onChange={atualizarCampo}
                   maxLength={100}
+                  placeholder="Ex.: Próximo à praça / Apto 201"
                 />
               </div>
 
@@ -268,6 +309,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   value={formulario.bairro}
                   onChange={atualizarCampo}
                   maxLength={100}
+                  placeholder="Ex.: Centro"
                   required
                 />
               </div>
@@ -280,19 +322,8 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                   value={formulario.cidade}
                   onChange={atualizarCampo}
                   maxLength={100}
+                  placeholder="Ex.: Quixadá"
                   required
-                />
-              </div>
-
-              <div className="cadastro-campo">
-                <label htmlFor="uf">Estado (UF)</label>
-                <input
-                  id="uf"
-                  name="uf"
-                  value={formulario.uf}
-                  onChange={atualizarCampo}
-                  maxLength={2}
-                  placeholder="CE"
                 />
               </div>
             </div>
@@ -334,7 +365,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
 
             <div className="cadastro-campo">
               <label htmlFor="disponibilidadeHorario">
-                Disponibilidade de horário
+                Disponibilidade de horário *
               </label>
               <input
                 id="disponibilidadeHorario"
@@ -342,7 +373,8 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                 value={formulario.disponibilidadeHorario}
                 onChange={atualizarCampo}
                 maxLength={100}
-                placeholder="Ex.: manhã, tarde ou dias disponíveis"
+                placeholder="Ex.: Segundas e quartas no período da manhã"
+                required
               />
             </div>
 
@@ -354,6 +386,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
                 value={formulario.observacao}
                 onChange={atualizarCampo}
                 rows={3}
+                placeholder="Ex.: Paciente relata sensibilidade no dente molar"
               />
             </div>
           </fieldset>

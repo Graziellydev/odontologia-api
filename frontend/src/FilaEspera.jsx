@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import "./FilaEspera.css";
+import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
 
 
 import {
@@ -50,6 +51,7 @@ function FilaEspera({ usuario, onLogout }) {
   const [alocandoId, setAlocandoId] = useState(null);
   const [erroCadastro, setErroCadastro] = useState("");
   const [menuAberto, setMenuAberto] = useState(false);
+  const [telaAtiva, setTelaAtiva] = useState("fila");
   const [aviso, setAviso] = useState("");
 
   const [novoPaciente, setNovoPaciente] = useState(criarFormularioVazio());
@@ -255,15 +257,18 @@ function FilaEspera({ usuario, onLogout }) {
                   key={item.nome}
                   type="button"
                   className={`item-menu ${
-                    item.nome === "Fila de espera" ? "ativo" : ""
+                    (item.nome === "Fila de espera" && telaAtiva === "fila") ||
+                    (item.nome === "Pacientes" && telaAtiva === "pacientes") ? "ativo" : ""
                   }`}
                   onClick={() => {
                     setMenuAberto(false);
 
-                    if (item.nome !== "Fila de espera") {
-                      mostrarAviso(
-                        `A tela "${item.nome}" ainda será desenvolvida.`
-                      );
+                    if (item.nome === "Pacientes") {
+                      setTelaAtiva("pacientes");
+                    } else if (item.nome === "Fila de espera") {
+                      setTelaAtiva("fila");
+                    } else {
+                      mostrarAviso(`A tela "${item.nome}" ainda será desenvolvida.`);
                     }
                   }}
                 >
@@ -327,7 +332,7 @@ function FilaEspera({ usuario, onLogout }) {
             </button>
 
             <span>
-              Clínica acadêmica / Secretaria / Fila de espera
+              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : "Fila de espera"}
             </span>
           </div>
 
@@ -348,6 +353,13 @@ function FilaEspera({ usuario, onLogout }) {
           </div>
         </header>
 
+        {telaAtiva === "pacientes" ? (
+          <CadastroPaciente
+            nomeUsuario={usuario?.nome || "Secretaria"}
+            onLogout={onLogout}
+            integrado
+          />
+        ) : (
         <main className="conteudo">
           <div className="cabecalho-pagina">
             <div>
@@ -581,6 +593,7 @@ function FilaEspera({ usuario, onLogout }) {
             </span>
           </footer>
         </main>
+        )}
       </div>
 
       {aviso && (
