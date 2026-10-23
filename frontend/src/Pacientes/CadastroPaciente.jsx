@@ -22,7 +22,7 @@ const formularioInicial = {
   observacao: "",
 };
 
-function CadastroPaciente({ nomeUsuario, onLogout }) {
+function CadastroPaciente({ nomeUsuario, onLogout, integrado = false }) {
   const [formulario, setFormulario] = useState(formularioInicial);
   const [carregando, setCarregando] = useState(false);
   const [mensagem, setMensagem] = useState(null);
@@ -104,7 +104,8 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
   }
 
   return (
-    <main className="cadastro-pagina">
+    <main className={`cadastro-pagina ${integrado ? "cadastro-integrado" : ""}`}>
+      {!integrado && (
       <header className="cadastro-topo">
         <div>
           <h1>
@@ -120,6 +121,7 @@ function CadastroPaciente({ nomeUsuario, onLogout }) {
           </button>
         </div>
       </header>
+      )}
 
       <section className="cadastro-conteudo">
         <div className="cadastro-titulo">
