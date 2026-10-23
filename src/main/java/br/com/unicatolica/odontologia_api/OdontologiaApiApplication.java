@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class OdontologiaApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(OdontologiaApiApplication.class, args);
-	}
-
+    public static void main(String[] args) {
+        SpringApplication.run(OdontologiaApiApplication.class, args);
+    }
 }

@@ -1,35 +1,43 @@
 import { useState } from "react";
-import axios from "axios";
 import Login from "./Login/Login.jsx";
-import FilaEspera from "./FilaEspera.jsx";
+import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
 
 function App() {
-  const [usuario, setUsuario] = useState(null);
-
-  async function sair() {
+  const [usuario, setUsuario] = useState(() => {
     try {
-      await axios.post("/api/auth/logout", {}, { withCredentials: true });
-    } catch (erro) {
-      console.warn("Não foi possível invalidar a sessão no servidor.", erro);
-    } finally {
-      localStorage.removeItem("usuarioLogado");
-      setUsuario(null);
+      const salvo = localStorage.getItem("usuarioLogado");
+      return salvo ? JSON.parse(salvo) : null;
+    } catch {
+      return null;
     }
+  });
+
+  function sair() {
+    localStorage.removeItem("usuarioLogado");
+    setUsuario(null);
   }
 
-  if (!usuario) return <Login onLogin={setUsuario} />;
+  if (!usuario) {
+    return <Login onLoginSuccess={setUsuario} />;
+  }
 
-  if (usuario.perfil === "SECRETARIA") {
-    return <FilaEspera usuario={usuario} onLogout={sair} />;
+  if (usuario.perfil !== "SECRETARIA") {
+    return (
+      <main style={{ padding: "40px", fontFamily: "Arial" }}>
+        <h1>Acesso à tela indisponível</h1>
+        <p>
+          A tela de cadastro de pacientes é destinada à secretaria.
+        </p>
+        <button onClick={sair}>Sair</button>
+      </main>
+    );
   }
 
   return (
-    <main style={{ minHeight: "100vh", padding: 32 }}>
-      <h1>Bem-vindo, {usuario.nome}</h1>
-      <p>Perfil: {usuario.perfil}</p>
-      <p>A área deste perfil será integrada pela equipe.</p>
-      <button type="button" onClick={sair}>Sair</button>
-    </main>
+    <CadastroPaciente
+      nomeUsuario={usuario.nome}
+      onLogout={sair}
+    />
   );
 }
 

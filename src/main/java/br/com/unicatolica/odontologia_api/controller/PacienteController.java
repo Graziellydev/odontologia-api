@@ -13,6 +13,7 @@ import java.util.List;
 // @RequestMapping("/api/pacientes"): Define a rota/URL base para os endpoints de paciente
 @RestController
 @RequestMapping("/api/pacientes")
+@CrossOrigin(origins = "*") // <-- Adicione esta linha para liberar o acesso do frontend
 public class PacienteController {
 
     // Injecao do Service com as regras de negocio

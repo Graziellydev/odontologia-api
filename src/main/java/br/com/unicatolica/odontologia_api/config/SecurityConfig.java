@@ -1,4 +1,3 @@
-
 package br.com.unicatolica.odontologia_api.config;
 
 import org.springframework.context.annotation.Bean;
@@ -23,6 +22,10 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/auth/**").permitAll()
+                                                
+                                                // Rota liberada temporariamente para o front-end conseguir cadastrar
+                                                .requestMatchers("/api/pacientes/**").permitAll()
+                                                
                                                 .requestMatchers(
                                                                 HttpMethod.POST,
                                                                 "/api/solicitacoes-pacientes")
@@ -37,7 +40,7 @@ public class SecurityConfig {
                                                 .hasAuthority("SECRETARIA")
                                                 .requestMatchers("/api/fila-espera/**")
                                                 .hasAnyAuthority("SECRETARIA", "ROLE_SECRETARIA")
-
+                                                
                                                 .anyRequest().authenticated())
                                 .httpBasic(Customizer.withDefaults());
 

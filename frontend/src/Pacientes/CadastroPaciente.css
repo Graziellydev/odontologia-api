@@ -1,0 +1,258 @@
+.cadastro-pagina {
+  min-height: 100vh;
+  background: #f8fafc;
+  color: #1e293b;
+  font-family: Inter, Arial, sans-serif;
+}
+
+.cadastro-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 6%;
+  background: #ffffff;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cadastro-topo h1 {
+  margin: 0;
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.cadastro-topo h1 span {
+  color: #d9531e;
+}
+
+.cadastro-topo p {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.cadastro-usuario {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  font-size: 14px;
+}
+
+.cadastro-usuario button {
+  padding: 9px 16px;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.cadastro-conteudo {
+  width: min(1000px, 90%);
+  margin: 36px auto;
+}
+
+.cadastro-titulo {
+  margin-bottom: 25px;
+}
+
+.cadastro-etiqueta {
+  color: #d9531e;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.cadastro-titulo h2 {
+  margin: 9px 0;
+  font-size: 28px;
+}
+
+.cadastro-titulo p {
+  margin: 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.cadastro-formulario {
+  padding: 28px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+}
+
+.cadastro-formulario fieldset {
+  min-width: 0;
+  margin: 0 0 28px;
+  padding: 0 0 25px;
+  border: 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.cadastro-formulario legend {
+  margin-bottom: 20px;
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.cadastro-grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.cadastro-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin-bottom: 17px;
+}
+
+.cadastro-campo label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.cadastro-campo input,
+.cadastro-campo textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  background: #ffffff;
+  color: #1e293b;
+  font: inherit;
+  font-size: 14px;
+}
+
+.cadastro-campo input:focus,
+.cadastro-campo textarea:focus {
+  outline: 2px solid #f6c5b1;
+  border-color: #d9531e;
+}
+
+.cadastro-campo textarea {
+  resize: vertical;
+}
+
+.campo-completo {
+  grid-column: 1 / -1;
+}
+
+.cadastro-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.cadastro-opcoes label {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-size: 14px;
+}
+
+.cadastro-opcoes input {
+  accent-color: #d9531e;
+}
+
+.cadastro-nota {
+  font-size: 12px;
+  color: #64748b;
+}
+
+.cadastro-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.cadastro-acoes button {
+  padding: 12px 18px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cadastro-botao-secundario {
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  color: #334155;
+}
+
+.cadastro-botao-principal {
+  background: #d9531e;
+  border: 1px solid #d9531e;
+  color: #ffffff;
+}
+
+.cadastro-botao-principal:hover:not(:disabled) {
+  background: #b84114;
+}
+
+.cadastro-acoes button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.cadastro-mensagem {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  border-radius: 7px;
+  font-size: 14px;
+}
+
+.cadastro-mensagem.sucesso {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.cadastro-mensagem.erro {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
+@media (max-width: 650px) {
+  .cadastro-topo {
+    align-items: flex-start;
+    padding: 18px 5%;
+  }
+
+  .cadastro-usuario {
+    align-items: flex-end;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .cadastro-conteudo {
+    width: 92%;
+    margin: 25px auto;
+  }
+
+  .cadastro-formulario {
+    padding: 20px 16px;
+  }
+
+  .cadastro-grade {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .campo-completo {
+    grid-column: auto;
+  }
+
+  .cadastro-acoes {
+    flex-direction: column-reverse;
+  }
+
+  .cadastro-acoes button {
+    width: 100%;
+  }
+}
