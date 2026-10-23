@@ -47,6 +47,7 @@ public class SolicitacaoPacienteService {
         solicitacao.setDente(dados.dente());
         solicitacao.setClasse(dados.classe());
         solicitacao.setDataDesejada(dados.dataDesejada());
+        solicitacao.setObservacaoSecretaria(dados.observacaoSecretaria());
         solicitacao.setStatusSolicitacao("PENDENTE_APROVACAO");
 
         return repository.save(solicitacao);
@@ -173,7 +174,7 @@ public class SolicitacaoPacienteService {
         }
 
         solicitacao.setStatusSolicitacao("RECUSADO");
-        solicitacao.setObservacaoSecretaria(observacao.trim());
+        solicitacao.setRespostaSecretaria(observacao.trim());
         solicitacao.setSecretariaAnalisadorId(secretariaId);
         solicitacao.setDataAnalise(OffsetDateTime.now());
 

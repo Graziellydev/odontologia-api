@@ -62,6 +62,9 @@ public class SolicitacaoPaciente {
     @Column(name = "observacao_secretaria", columnDefinition = "TEXT")
     private String observacaoSecretaria;
 
+    @Column(name = "resposta_secretaria", columnDefinition = "TEXT")
+    private String respostaSecretaria;
+
     @Column(name = "data_solicitacao", nullable = false, insertable = false, updatable = false)
     private OffsetDateTime dataSolicitacao;
 

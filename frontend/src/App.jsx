@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Login from "./Login/Login.jsx";
 import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
+import AplicacaoAluno from "./Aluno/AplicacaoAluno.jsx";
 
 function App() {
   const [usuario, setUsuario] = useState(() => {
@@ -21,23 +22,33 @@ function App() {
     return <Login onLoginSuccess={setUsuario} />;
   }
 
-  if (usuario.perfil !== "SECRETARIA") {
+  // Área do aluno
+  if (usuario.perfil === "ALUNO") {
     return (
-      <main style={{ padding: "40px", fontFamily: "Arial" }}>
-        <h1>Acesso à tela indisponível</h1>
-        <p>
-          A tela de cadastro de pacientes é destinada à secretaria.
-        </p>
-        <button onClick={sair}>Sair</button>
-      </main>
+      <AplicacaoAluno
+        usuario={usuario}
+        aoSair={sair}
+      />
     );
   }
 
+  // Área da secretaria
+  if (usuario.perfil === "SECRETARIA") {
+    return (
+      <CadastroPaciente
+        nomeUsuario={usuario.nome}
+        onLogout={sair}
+      />
+    );
+  }
+
+  // Outros perfis
   return (
-    <CadastroPaciente
-      nomeUsuario={usuario.nome}
-      onLogout={sair}
-    />
+    <main style={{ padding: "40px", fontFamily: "Arial" }}>
+      <h1>Acesso indisponível</h1>
+      <p>Seu perfil não possui uma área disponível neste sistema.</p>
+      <button onClick={sair}>Sair</button>
+    </main>
   );
 }
 

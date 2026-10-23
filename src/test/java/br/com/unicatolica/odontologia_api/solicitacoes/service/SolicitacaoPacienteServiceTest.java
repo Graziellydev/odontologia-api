@@ -100,7 +100,7 @@ class SolicitacaoPacienteServiceTest {
         assertEquals("RECUSADO", resultado.getStatusSolicitacao());
         assertEquals(
                 "Não há paciente compatível.",
-                resultado.getObservacaoSecretaria());
+                resultado.getRespostaSecretaria());
         assertEquals(7L, resultado.getSecretariaAnalisadorId());
         assertNotNull(resultado.getDataAnalise());
 
