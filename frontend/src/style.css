@@ -474,7 +474,6 @@ footer {
   margin-top: 5px;
   font-weight: 400;
 }
-/* Complementos da versão somente aluno */
 .login-page {
   min-height: 100vh;
   display: grid;
@@ -581,7 +580,6 @@ footer {
   }
 }
 
-/* Remove limites de largura da aplicação */
 html,
 body,
 #root {
@@ -592,50 +590,12 @@ body,
   padding: 0;
 }
 
-/* Faz a estrutura ocupar a tela inteira */
-.shell {
-  width: 100%;
-  min-height: 100vh;
-}
-
-/* Mantém o conteúdo organizado */
-.content {
-  width: 100%;
-  max-width: 1440px;
-  margin: 0 auto;
-}
-
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100vh;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* CORREÇÕES DA TELA DE SOLICITAÇÃO */
-
-/* Garante que a aplicação ocupe toda a largura */
-html,
-body,
-#root {
-  width: 100%;
-  min-height: 100vh;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-}
-
-/* Estrutura principal */
 .shell {
   display: flex;
   width: 100%;
   min-height: 100vh;
 }
 
-/* Área principal ao lado do menu */
 .shell > main {
   flex: 1;
   min-width: 0;
@@ -643,7 +603,6 @@ body,
   max-width: none;
 }
 
-/* Conteúdo da solicitação */
 .shell .content {
   width: 100%;
   max-width: none;
@@ -651,21 +610,12 @@ body,
   padding: 40px;
 }
 
-/* Colunas do formulário */
-.shell .two-col {
-  display: grid;
-  grid-template-columns: minmax(0, 2.2fr) minmax(270px, 1fr);
-  gap: 18px;
-}
-
-/* Corrige as cores dos títulos */
 .shell h1,
 .shell h2,
 .shell h3 {
   color: #0f172a;
 }
 
-/* Mantém os títulos e campos alinhados */
 .shell .content h1,
 .shell .content h2,
 .shell .content h3,
@@ -673,12 +623,7 @@ body,
   text-align: left;
 }
 
-/* Ajuste para telas menores */
 @media (max-width: 900px) {
-  .shell .two-col {
-    grid-template-columns: 1fr;
-  }
-
   .shell .content {
     padding: 22px;
   }
@@ -689,8 +634,6 @@ body,
     padding: 16px;
   }
 }
-
-/* MODAL DE DETALHES DA REQUISIÇÃO */
 
 .modal-back {
   position: fixed;
@@ -712,13 +655,10 @@ body,
   border-radius: 12px;
   padding: 28px;
   box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-
-  /* Corrige o alinhamento dos textos */
   text-align: left;
   color: #303b40;
 }
 
-/* Título da requisição */
 .modal h2 {
   margin: 0 0 16px;
   font-size: 19px;
@@ -727,7 +667,6 @@ body,
   text-align: left;
 }
 
-/* Informações da requisição */
 .modal p {
   margin: 8px 0;
   font-size: 13px;
@@ -736,14 +675,12 @@ body,
   text-align: left;
 }
 
-/* Destaque dos nomes dos campos */
 .modal strong,
 .modal b {
   font-weight: 700;
   color: #303b40;
 }
 
-/* Botão de fechar */
 .modal .close {
   position: absolute;
   top: 12px;
@@ -762,15 +699,56 @@ body,
   color: #c9531a;
 }
 
-/* Alinha os títulos e subtítulos à esquerda */
-.shell .content h1 {
-  text-align: left;
-  margin-bottom: 8px;
-}
-
 .shell .content .subtitle {
   display: block;
   width: 100%;
   text-align: left;
   margin: 0 0 26px;
+}
+
+.shell .content > h1 {
+  font-size: 26px;
+  font-weight: 800;
+  color: #172b49;
+  line-height: 1.2;
+  margin-bottom: 10px;
+  letter-spacing: -0.5px;
+}
+
+.shell .content > .subtitle {
+  font-size: 13px;
+  font-weight: 400;
+  color: #617895;
+  line-height: 1.5;
+  margin-bottom: 32px;
+}
+
+.shell .two-col > .panel:not(.peach) {
+  background: #ffffff;
+  border: 1px solid #dfe5ed;
+  border-radius: 16px;
+  padding: 36px;
+}
+
+.listing h2,
+.shell .two-col > .panel:not(.peach) > h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: #172b49;
+  line-height: 1.3;
+  margin: 0 0 28px;
+}
+
+@media (max-width: 620px) {
+  .shell .content > h1 {
+    font-size: 28px;
+  }
+
+  .shell .content > .subtitle {
+    font-size: 15px;
+  }
+
+  .shell .two-col > .panel:not(.peach) {
+    padding: 22px;
+  }
 }
