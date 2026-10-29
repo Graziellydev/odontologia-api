@@ -28,18 +28,18 @@ function Login({onLoginSuccess })  {
         JSON.stringify(usuario)
       );
 
-onLoginSuccess(usuario);
-    } catch (error) {
-      console.error('Erro de autenticação:', error);
-      if (error.response && error.response.status === 401) {
-        setMensagemErro('E-mail ou senha incorretos.');
-      } else {
-        setMensagemErro('Não foi possível conectar à API. Verifique se o servidor backend está rodando.');
+      onLoginSuccess(usuario);
+      } catch (error) {
+        console.error('Erro de autenticação:', error);
+        if (error.response && error.response.status === 401) {
+          setMensagemErro('E-mail ou senha incorretos.');
+        } else {
+          setMensagemErro('Não foi possível conectar à API. Verifique se o servidor backend está rodando.');
+        }
+      } finally {
+        setCarregando(false);
       }
-    } finally {
-      setCarregando(false);
-    }
-  };
+    };
 
   return (
     <div className="login-container">
