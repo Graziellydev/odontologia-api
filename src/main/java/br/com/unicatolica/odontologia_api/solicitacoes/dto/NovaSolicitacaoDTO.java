@@ -18,7 +18,9 @@ public record NovaSolicitacaoDTO(
 
         @Pattern(regexp = "^(I|II|III|IV|V|VI)$") String classe,
 
-        @NotNull @FutureOrPresent LocalDate dataDesejada
+        @FutureOrPresent LocalDate dataDesejada,
+
+        String observacaoSecretaria
 
 ) {
 }

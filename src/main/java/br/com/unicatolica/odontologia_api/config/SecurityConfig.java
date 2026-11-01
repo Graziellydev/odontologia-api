@@ -42,7 +42,7 @@ public class SecurityConfig {
                                                 .hasAnyAuthority("SECRETARIA", "ROLE_SECRETARIA")
                                                 
                                                 .anyRequest().authenticated())
-                                .httpBasic(Customizer.withDefaults());
+                                .httpBasic(httpBasic -> httpBasic.disable());
 
                 return http.build();
         }

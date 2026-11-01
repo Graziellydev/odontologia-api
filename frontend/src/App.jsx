@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Login from "./Login/Login.jsx";
+import AplicacaoAluno from "./Aluno/AplicacaoAluno.jsx";
 import FilaEspera from "./FilaEspera.jsx";
 
 function App() {
@@ -10,21 +11,39 @@ function App() {
     setUsuario(null);
   }
 
+  // Tela de login
   if (!usuario) {
     return <Login onLoginSuccess={setUsuario} />;
   }
 
-  if (usuario.perfil !== "SECRETARIA") {
+  // Área do aluno
+  if (usuario.perfil === "ALUNO") {
     return (
-      <main style={{ padding: "40px", fontFamily: "Arial" }}>
-        <h1>Acesso à tela indisponível</h1>
-        <p>Esta área é destinada à secretaria.</p>
-        <button onClick={sair}>Sair</button>
-      </main>
+      <AplicacaoAluno
+        usuario={usuario}
+        aoSair={sair}
+      />
     );
   }
 
-  return <FilaEspera usuario={usuario} onLogout={sair} />;
+  // Área da secretaria
+  if (usuario.perfil === "SECRETARIA") {
+    return (
+      <FilaEspera
+        usuario={usuario}
+        onLogout={sair}
+      />
+    );
+  }
+
+  // Outros perfis
+  return (
+    <main style={{ padding: "40px", fontFamily: "Arial" }}>
+      <h1>Acesso indisponível</h1>
+      <p>Seu perfil não possui uma área disponível neste sistema.</p>
+      <button onClick={sair}>Sair</button>
+    </main>
+  );
 }
 
 export default App;
