@@ -2,8 +2,7 @@ import { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
 
-// 1. COMBINAÇÃO DAS PROPS: Aceita as duas formas para não quebrar nenhuma branch
-function Login({ onLoginSuccess, onLogin }) {
+function Login({onLoginSuccess })  {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const [mensagemErro, setMensagemErro] = useState('');
@@ -23,25 +22,24 @@ function Login({ onLoginSuccess, onLogin }) {
       });
 
       const usuario = response.data;
-      
-      // Salva no localStorage (ambas as branches faziam isso igualmente)
-      localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
 
-      // 2. COMBINAÇÃO DOS GATILHOS: Avisa o componente pai usando a função que estiver disponível
-      if (onLoginSuccess) onLoginSuccess(usuario);
-      if (onLogin) onLogin(usuario);
+      localStorage.setItem(
+        "usuarioLogado",
+        JSON.stringify(usuario)
+      );
 
-    } catch (error) {
-      console.error('Erro de autenticação:', error);
-      if (error.response && error.response.status === 401) {
-        setMensagemErro('E-mail ou senha incorretos.');
-      } else {
-        setMensagemErro('Não foi possível conectar à API. Verifique se o servidor backend está rodando.');
+      onLoginSuccess(usuario);
+      } catch (error) {
+        console.error('Erro de autenticação:', error);
+        if (error.response && error.response.status === 401) {
+          setMensagemErro('E-mail ou senha incorretos.');
+        } else {
+          setMensagemErro('Não foi possível conectar à API. Verifique se o servidor backend está rodando.');
+        }
+      } finally {
+        setCarregando(false);
       }
-    } finally {
-      setCarregando(false);
-    }
-  };
+    };
 
   return (
     <div className="login-container">

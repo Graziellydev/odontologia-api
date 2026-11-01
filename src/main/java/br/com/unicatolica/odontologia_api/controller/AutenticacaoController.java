@@ -18,6 +18,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.web.bind.annotation.*;
 
+import br.com.unicatolica.odontologia_api.repository.UsuarioRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+
 import java.util.List;
 
 @RestController
@@ -26,6 +30,8 @@ public class AutenticacaoController {
 
     @Autowired
     private AutenticacaoService autenticacaoService;
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     private final HttpSessionSecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
@@ -82,5 +88,31 @@ public class AutenticacaoController {
         SecurityContextHolder.clearContext();
 
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<?> usuarioAtual(Authentication authentication) {
+
+        if (authentication == null
+                || !authentication.isAuthenticated()
+                || authentication instanceof AnonymousAuthenticationToken) {
+
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+
+        return usuarioRepository.findByEmail(authentication.getName())
+                .<ResponseEntity<?>>map(usuario -> ResponseEntity.ok(
+                        new LoginResponseDTO(
+                                usuario.getId(),
+                                usuario.getNome(),
+                                usuario.getEmail(),
+                                usuario.getPerfil(),
+                                usuario.getMatriculaOuRegistro(),
+                                "Usuário autenticado"
+                        )
+                ))
+                .orElseGet(() ->
+                        ResponseEntity.status(HttpStatus.UNAUTHORIZED).build()
+                );
     }
 }

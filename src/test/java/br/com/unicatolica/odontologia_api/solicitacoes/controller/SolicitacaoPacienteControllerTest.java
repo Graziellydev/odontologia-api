@@ -45,7 +45,7 @@ class SolicitacaoPacienteControllerTest {
                 .thenReturn(Optional.of(2L));
 
         NovaSolicitacaoDTO dados = new NovaSolicitacaoDTO(
-                3L, 5L, "11", "I", LocalDate.now().plusDays(2));
+                3L, 5L, "11", "I", LocalDate.now().plusDays(2), null);
 
         SolicitacaoPaciente solicitacao = new SolicitacaoPaciente();
         solicitacao.setId(10L);
