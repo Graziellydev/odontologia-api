@@ -1,7 +1,8 @@
 ﻿import React, { useEffect, useMemo, useState } from 'react';
-import { BookOpen, ClipboardList, CheckCircle2, Info, LogOut, Send, RefreshCcw } from 'lucide-react';
+import { BookOpen, ClipboardList, CheckCircle2, Info, LogOut, Send, RefreshCcw, LayoutDashboard } from 'lucide-react';
 import { api } from '../api.js';
 import '../style.css';
+import PainelAluno from '../PainelAluno/PainelAluno.jsx';
 
 const API = '/solicitacoes-pacientes';
 const CATALOGO = '/catalogo-solicitacoes';
@@ -29,7 +30,7 @@ const dataBR = (valor) => {
 
 
 function AplicacaoAluno({ usuario, aoSair }) {
-  const [aba, setAba] = useState('solicitar');
+  const [aba, setAba] = useState('metas');
   const [form, setForm] = useState(novoFormulario);
   const [turmas, setTurmas] = useState([]);
   const [procedimentos, setProcedimentos] = useState([]);
@@ -131,6 +132,7 @@ function AplicacaoAluno({ usuario, aoSair }) {
       <div className="brand">UniCatólica<small>Clínica odontológica</small></div>
       <div className="nav-caption">ÁREA DO ALUNO</div>
       <nav>
+        <button className={aba === 'metas' ? 'active' : ''} onClick={() => setAba('metas')}><LayoutDashboard/> Painel de metas</button>
         <button className={aba === 'solicitar' ? 'active' : ''} onClick={() => setAba('solicitar')}><BookOpen/> Solicitar paciente</button>
         <button className={aba === 'historico' ? 'active' : ''} onClick={() => { setAba('historico'); atualizarSolicitacoes(); }}><ClipboardList/> Minhas requisições</button>
       </nav>
@@ -143,6 +145,7 @@ function AplicacaoAluno({ usuario, aoSair }) {
         <div className="header-right"><div className="avatar">{usuario.nome?.slice(0, 2).toUpperCase() || 'AL'}</div><b>{usuario.nome}</b><button className="logout" onClick={aoSair}><LogOut size={15}/> Sair</button></div>
       </header>
       <div className="content">
+        {aba === 'metas' ? <PainelAluno usuario={usuario} /> : <>
         <h1>{aba === 'solicitar' ? 'Solicitação de paciente' : 'Minhas requisições'}</h1>
         <p className="subtitle">{aba === 'solicitar' ? 'Selecione sua disciplina e descreva o procedimento necessário.' : 'Acompanhe o andamento das suas solicitações.'}</p>
         {erro && <div className="alert error" role="alert"><Info size={17}/>{erro}</div>}
@@ -217,6 +220,7 @@ function AplicacaoAluno({ usuario, aoSair }) {
             <tbody>{solicitacoes.length ? solicitacoes.map(s => <tr key={s.id}><td>REQ-{String(s.id).padStart(3, '0')}</td><td>{dataBR(s.dataSolicitacao)}</td><td>{nomeTurma(s.turmaId)}<br/><span className="muted">{nomeProcedimento(s.procedimentoId)} • Dente {s.dente}</span></td><td><span className="status">{rotulosStatus[s.statusSolicitacao] || s.statusSolicitacao}</span></td><td><button className="link" onClick={() => setDetalhe(s)}>Ver requisição</button></td></tr>) : <tr><td colSpan={5} className="empty">Você ainda não enviou solicitações.</td></tr>}</tbody>
           </table><div className="table-foot">{solicitacoes.length} requisição(ões)</div></div>
         </section>}
+        </>}
         <footer>UniCatólica • Clínica odontológica • Área do aluno</footer>
       </div>
     </main>

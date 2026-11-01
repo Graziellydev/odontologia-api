@@ -1,10 +1,6 @@
-import axios from 'axios'
+import { api } from '../api.js'
 
-export async function buscarPainelDeMetas(alunoId, semestre) {
-  const params = semestre ? { semestre } : {}
-  const { data } = await axios.get(`/api/alunos/${alunoId}/metas`, { 
-    params,
-    withCredentials: true 
-  })
-  return data
+export function buscarPainelDeMetas(semestre) {
+  const query = semestre ? `?semestre=${encodeURIComponent(semestre)}` : ''
+  return api(`/metas/minhas${query}`)
 }
