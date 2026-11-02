@@ -40,6 +40,9 @@ public class SecurityConfig {
                                                 .hasAuthority("SECRETARIA")
                                                 .requestMatchers("/api/fila-espera/**")
                                                 .hasAnyAuthority("SECRETARIA", "ROLE_SECRETARIA")
+
+                                                .requestMatchers("/api/consultas/**")
+                                                .hasAuthority("SECRETARIA")
                                                 
                                                 .anyRequest().authenticated())
                                 .httpBasic(httpBasic -> httpBasic.disable());

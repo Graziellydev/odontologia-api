@@ -1,0 +1,8081 @@
+/* Secretaria — Agenda */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+
+position: relative;
+width: 1440px;
+height: 3227px;
+min-height: 1024px;
+
+background: #F7F8FA;
+
+
+/* Navegação do perfil */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 30px 20px 24px;
+gap: 28px;
+
+width: 248px;
+height: 3227px;
+
+background: #FFFFFF;
+border-right: 1px solid #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Assinatura institucional */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 2px;
+
+width: 131px;
+height: 54px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 131px;
+height: 35px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 800;
+font-size: 25px;
+line-height: 140%;
+/* identical to box height, or 35px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 107px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Separador */
+
+width: 208px;
+height: 1px;
+
+background: #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Grupo clínica */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 12px;
+
+width: 208px;
+height: 272px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Label grupo */
+
+width: 208px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 800;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #8B969B;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Itens clínica */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 5px;
+
+width: 208px;
+height: 245px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Visão geral */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 13px 12px;
+gap: 11px;
+
+width: 208px;
+height: 45px;
+
+background: #FFFFFF;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* layout-dashboard */
+
+width: 19px;
+height: 19px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 12.5%;
+bottom: 12.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Label */
+
+width: 154px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Pacientes */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 13px 12px;
+gap: 11px;
+
+width: 208px;
+height: 45px;
+
+background: #FFFFFF;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* user-plus */
+
+width: 19px;
+height: 19px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 12.5%;
+bottom: 12.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Label */
+
+width: 154px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Fila de espera */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 13px 12px;
+gap: 11px;
+
+width: 208px;
+height: 45px;
+
+background: #FFFFFF;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* list-ordered */
+
+width: 19px;
+height: 19px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 14.17%;
+right: 12.5%;
+top: 16.67%;
+bottom: 16.67%;
+
+border: 1.7px solid #657278;
+
+
+/* Label */
+
+width: 154px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Agenda */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 13px 12px;
+gap: 11px;
+
+width: 208px;
+height: 45px;
+
+background: #FFF1E7;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* calendar-days */
+
+width: 19px;
+height: 19px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #C65117;
+
+
+/* Label */
+
+width: 154px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Solicitações */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 13px 12px;
+gap: 11px;
+
+width: 208px;
+height: 45px;
+
+background: #FFFFFF;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* clipboard-list */
+
+width: 19px;
+height: 19px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 16.67%;
+right: 16.67%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #657278;
+
+
+/* Label */
+
+width: 154px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Grupo acompanhamento */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 12px;
+
+width: 208px;
+height: 72px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Label grupo */
+
+width: 208px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 800;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #8B969B;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Itens acompanhamento */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 5px;
+
+width: 208px;
+height: 45px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Comunicação */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 13px 12px;
+gap: 11px;
+
+width: 208px;
+height: 45px;
+
+background: #FFFFFF;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* message-circle */
+
+width: 19px;
+height: 19px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #657278;
+
+
+/* Label */
+
+width: 154px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Painel */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 18px;
+
+width: 208px;
+height: 118px;
+
+background: #FFF1E7;
+border: 1px solid #F3D6C4;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 160px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 160px;
+height: 34px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Rodapé */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+
+width: 208px;
+height: 76px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Semestre */
+
+width: 208px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Ajuda */
+
+width: 208px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Separador */
+
+width: 208px;
+height: 1px;
+
+background: #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sair */
+
+width: 208px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Área de trabalho */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+width: 1192px;
+height: 3227px;
+min-height: 1024px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Barra institucional */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px 40px;
+
+width: 1192px;
+height: 72px;
+
+background: #FFFFFF;
+border-bottom: 1px solid #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Breadcrumb */
+
+width: 171px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Conta */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 16px;
+
+width: 271px;
+height: 34px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* bell */
+
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #657278;
+
+
+/* Data */
+
+width: 75px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Separador */
+
+width: 1px;
+height: 24px;
+
+background: #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Avatar */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 34px;
+height: 34px;
+
+background: #FFF1E7;
+border-radius: 17px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Iniciais */
+
+width: 15px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 800;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Nome */
+
+width: 77px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Conteúdo da tela */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 40px;
+gap: 28px;
+
+width: 1192px;
+height: 3155px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cabeçalho */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+gap: 24px;
+
+width: 1112px;
+height: 89px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Saudação */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+
+width: 943px;
+height: 89px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Label secao */
+
+width: 47px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 800;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #8B969B;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 943px;
+height: 45px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 800;
+font-size: 32px;
+line-height: 140%;
+/* identical to box height, or 45px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Subtítulo */
+
+width: 943px;
+height: 21px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 15px;
+line-height: 140%;
+/* identical to box height, or 21px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Ação principal */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 11px 18px;
+gap: 8px;
+
+width: 169px;
+height: 42px;
+
+background: #C65117;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* calendar-plus */
+
+width: 16px;
+height: 16px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #FFFFFF;
+
+
+/* Label */
+
+width: 109px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Filtros */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 12px;
+
+width: 1112px;
+height: 42px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Filtro */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 14px;
+gap: 12px;
+
+width: 127px;
+height: 42px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 73px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* chevron-down */
+
+width: 14px;
+height: 14px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 25%;
+right: 25%;
+top: 37.5%;
+bottom: 37.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Filtro */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 14px;
+gap: 12px;
+
+width: 164px;
+height: 42px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 110px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* chevron-down */
+
+width: 14px;
+height: 14px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 25%;
+right: 25%;
+top: 37.5%;
+bottom: 37.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Filtro */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 14px;
+gap: 12px;
+
+width: 197px;
+height: 42px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 143px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* chevron-down */
+
+width: 14px;
+height: 14px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 25%;
+right: 25%;
+top: 37.5%;
+bottom: 37.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Abas */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 24px;
+
+width: 1112px;
+height: 35px;
+
+border-bottom: 1px solid #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Aba */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 2px 0px 13px;
+
+width: 46px;
+height: 35px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 46px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Aba */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 2px 0px 13px;
+
+width: 42px;
+height: 35px;
+
+border-bottom: 3px solid #C65117;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 42px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Aba */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 2px 0px 13px;
+
+width: 49px;
+height: 35px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 49px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Aba */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 2px 0px 13px;
+
+width: 46px;
+height: 35px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 46px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Aba */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 2px 0px 13px;
+
+width: 45px;
+height: 35px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 45px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Painel */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 18px;
+
+width: 1112px;
+height: 531px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título do painel */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+
+width: 1064px;
+height: 50px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 1064px;
+height: 28px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 140%;
+/* identical to box height, or 28px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 1064px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Turno manhã */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 12px;
+
+width: 1064px;
+height: 189px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 1064px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Grupo de conteúdo */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+
+width: 1064px;
+height: 157px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #EAF5EE;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 34px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #287252;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #EAF5EE;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 7;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 34px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #287252;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Separador */
+
+width: 1064px;
+height: 1px;
+
+background: #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Turno tarde */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 12px;
+
+width: 1064px;
+height: 189px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 1064px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Grupo de conteúdo */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+
+width: 1064px;
+height: 157px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #FFF1E7;
+border: 1px solid #F3D6C4;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 34px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #EAF5EE;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #287252;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #EAF5EE;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #287252;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Consulta por cadeira */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 126px;
+height: 157px;
+min-height: 157px;
+
+background: #F7F8FA;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 7;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 102px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Legenda */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+width: 1112px;
+height: 27px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Estado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 81px;
+height: 27px;
+
+background: #EAF5EE;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 63px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #287252;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Estado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 154px;
+height: 27px;
+
+background: #FFF1E7;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 136px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Estado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 156px;
+height: 27px;
+
+background: #FFF0EF;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 138px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #B43B39;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Estado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 75px;
+height: 27px;
+
+background: #F7F8FA;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 57px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Estado */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 52px;
+height: 27px;
+
+background: #FFF0EF;
+border: 1px solid #F3D6C4;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 34px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #B43B39;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Seção agendamento e situações */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 1112px;
+height: 1080px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título seção */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 1112px;
+height: 49px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 1112px;
+height: 28px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 140%;
+/* identical to box height, or 28px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub */
+
+width: 1112px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Grupo agendamento */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+width: 1112px;
+height: 816px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Painel novo agendamento */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 16px;
+
+width: 712px;
+height: 540px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Cabeçalho painel */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+padding: 0px;
+
+width: 664px;
+height: 46px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título bloco */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 182px;
+height: 46px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 157px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Sub */
+
+width: 182px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Estado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 90px;
+height: 27px;
+
+background: #FFF1E7;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 72px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Info paciente */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 4px;
+
+width: 664px;
+height: 78px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Nome */
+
+width: 664px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 800;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Detalhe */
+
+width: 664px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Estado triagem */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 147px;
+height: 27px;
+
+background: #EAF5EE;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 129px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #287252;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Separador */
+
+width: 664px;
+height: 1px;
+
+background: #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Campos linha 1 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 664px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Campo disciplina */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 324px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Label */
+
+width: 324px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 324px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 300px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Campo aluno */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 324px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Label */
+
+width: 324px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 324px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 300px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Campos linha 2 */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 664px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Campo data */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 210.67px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Label */
+
+width: 210.67px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 210.67px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 186.67px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Campo turno */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 210.67px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Label */
+
+width: 210.67px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 210.67px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 186.67px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Campo cadeira */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 210.67px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* Label */
+
+width: 210.67px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 210.67px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 186.67px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Aviso vaga */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 16px;
+gap: 12px;
+
+width: 664px;
+height: 91px;
+
+background: #EAF5EE;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* circle-check */
+
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #287252;
+
+
+/* Texto aviso */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 600px;
+height: 59px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Título aviso */
+
+width: 600px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #287252;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub aviso */
+
+width: 600px;
+height: 36px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Ação agendar */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 11px 18px;
+gap: 8px;
+
+width: 169px;
+height: 42px;
+
+background: #C65117;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+flex-grow: 0;
+
+
+/* calendar-check */
+
+width: 16px;
+height: 16px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #FFFFFF;
+
+
+/* Label */
+
+width: 109px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Coluna direita */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 380px;
+height: 816px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Painel resumo */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 14px;
+
+width: 380px;
+height: 295px;
+
+background: #FFF1E7;
+border: 1px solid #F3D6C4;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 332px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Data destaque */
+
+width: 332px;
+height: 34px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 800;
+font-size: 24px;
+line-height: 140%;
+/* identical to box height, or 34px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Paciente cadeira */
+
+width: 332px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Aluno disciplina */
+
+width: 332px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Separador */
+
+width: 332px;
+height: 1px;
+
+background: #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Estado */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 154px;
+height: 27px;
+
+background: #FFF1E7;
+border: 1px solid #F3D6C4;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 136px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Nota */
+
+width: 332px;
+height: 36px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Painel remarcação */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 14px;
+
+width: 380px;
+height: 505px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título bloco */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 332px;
+height: 46px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 332px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub */
+
+width: 332px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Paciente */
+
+width: 332px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Data atual */
+
+width: 332px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Campo nova data */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 332px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 332px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 332px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 308px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Campo nova cadeira */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 332px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 332px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 332px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 308px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Aviso whatsapp */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 16px;
+gap: 12px;
+
+width: 332px;
+height: 109px;
+
+background: #FFF1E7;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* info */
+
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #C65117;
+
+
+/* Texto */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 268px;
+height: 77px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Título aviso */
+
+width: 268px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub aviso */
+
+width: 268px;
+height: 54px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Ação remarcar */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 11px 18px;
+gap: 8px;
+
+width: 200px;
+height: 42px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 164px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Painel cancelamento */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 16px;
+
+width: 1112px;
+height: 183px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título bloco */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 1064px;
+height: 46px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 1064px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub */
+
+width: 1064px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Corpo cancelamento */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+width: 1064px;
+height: 73px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Info */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 12px;
+
+width: 665px;
+height: 73px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Paciente */
+
+width: 665px;
+height: 21px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 15px;
+line-height: 140%;
+/* identical to box height, or 21px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Descrição */
+
+width: 665px;
+height: 40px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Estado */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 162px;
+height: 27px;
+
+background: #FFF0EF;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 144px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #B43B39;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ação cancelar */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 11px 18px;
+gap: 8px;
+
+width: 197px;
+height: 42px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 161px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Seção ausências */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 1112px;
+height: 947px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título seção ausências */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 1112px;
+height: 49px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 1112px;
+height: 28px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 20px;
+line-height: 140%;
+/* identical to box height, or 28px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub */
+
+width: 1112px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Grupo ausências */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+width: 1112px;
+height: 392px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Painel registrar ausência */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 16px;
+
+width: 546px;
+height: 392px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Título bloco */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 498px;
+height: 46px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 498px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub */
+
+width: 498px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Campos ausência */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 498px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Campo consulta */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 241px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Label */
+
+width: 241px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 241px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 217px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Campo quem faltou */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 241px;
+height: 69px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Label */
+
+width: 241px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 241px;
+height: 44px;
+min-height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 217px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Campo observação */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 7px;
+
+width: 498px;
+height: 105px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 498px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Valor */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+
+width: 498px;
+height: 80px;
+min-height: 80px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 474px;
+height: 40px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Ação registrar */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 11px 18px;
+gap: 8px;
+
+width: 196px;
+height: 42px;
+
+background: #C65117;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* calendar-x */
+
+width: 16px;
+height: 16px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #FFFFFF;
+
+
+/* Label */
+
+width: 136px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Nota aluno */
+
+width: 498px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Painel após falta */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 24px;
+gap: 14px;
+
+width: 546px;
+height: 389px;
+
+background: #FFF1E7;
+border: 1px solid #F3D6C4;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Título bloco */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 498px;
+height: 46px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título */
+
+width: 498px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub */
+
+width: 498px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Estado faltou */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 5px 9px;
+
+width: 52px;
+height: 27px;
+
+background: #FFF0EF;
+border-radius: 6px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 34px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #B43B39;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Pergunta */
+
+width: 498px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Paciente info */
+
+width: 498px;
+height: 40px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Ações decisão */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 16px;
+
+width: 498px;
+height: 42px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sim */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 11px 18px;
+gap: 8px;
+
+width: 158px;
+height: 42px;
+
+background: #C65117;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 122px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #FFFFFF;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Nao */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 11px 18px;
+gap: 8px;
+
+width: 100px;
+height: 42px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Label */
+
+width: 64px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Aviso reagendamento */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 16px;
+gap: 12px;
+
+width: 498px;
+height: 91px;
+
+background: #EDF4F8;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* info */
+
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 8.33%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #657278;
+
+
+/* Texto */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 434px;
+height: 59px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Título aviso */
+
+width: 434px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub aviso */
+
+width: 434px;
+height: 36px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Histórico ausências */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 12px;
+
+width: 1112px;
+height: 385px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Título histórico */
+
+width: 1112px;
+height: 25px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 18px;
+line-height: 140%;
+/* or 25px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Filtros histórico */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 12px;
+
+width: 1112px;
+height: 44px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Busca */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 12px;
+gap: 8px;
+
+width: 786px;
+height: 44px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* search */
+
+width: 17px;
+height: 17px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 12.5%;
+bottom: 12.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Placeholder */
+
+width: 737px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Filtro mês */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 14px;
+gap: 12px;
+
+width: 154px;
+height: 42px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 100px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* chevron-down */
+
+width: 14px;
+height: 14px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 25%;
+right: 25%;
+top: 37.5%;
+bottom: 37.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Filtro tipo */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 14px;
+gap: 12px;
+
+width: 148px;
+height: 42px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 94px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* chevron-down */
+
+width: 14px;
+height: 14px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 25%;
+right: 25%;
+top: 37.5%;
+bottom: 37.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Tabela ausências */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+width: 1112px;
+height: 292px;
+
+background: #FFFFFF;
+border: 1px solid #E3E8EB;
+border-radius: 12px;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Cabeçalho tabela */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 13px 20px;
+gap: 16px;
+
+width: 1112px;
+height: 43px;
+
+background: #F7F8FA;
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Col data */
+
+width: 130px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Col ausência */
+
+width: 150px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Col vínculo */
+
+width: 423px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* Col situação */
+
+width: 155px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Col próximo */
+
+width: 150px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Registro 1 */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 16px 20px;
+gap: 16px;
+
+width: 1112px;
+height: 50px;
+
+background: #FFFFFF;
+border-top: 1px solid #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Data */
+
+width: 130px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ausência */
+
+width: 150px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vínculo */
+
+width: 423px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* Situação */
+
+width: 155px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Ação */
+
+width: 150px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Registro 2 */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 16px 20px;
+gap: 16px;
+
+width: 1112px;
+height: 50px;
+
+background: #FCFDFD;
+border-top: 1px solid #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Data */
+
+width: 130px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ausência */
+
+width: 150px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vínculo */
+
+width: 423px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* Situação */
+
+width: 155px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Ação */
+
+width: 150px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Registro 3 */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 16px 20px;
+gap: 16px;
+
+width: 1112px;
+height: 50px;
+
+background: #FFFFFF;
+border-top: 1px solid #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Data */
+
+width: 130px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ausência */
+
+width: 150px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vínculo */
+
+width: 423px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* Situação */
+
+width: 155px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Ação */
+
+width: 150px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Registro 4 */
+
+box-sizing: border-box;
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 16px 20px;
+gap: 16px;
+
+width: 1112px;
+height: 50px;
+
+background: #FCFDFD;
+border-top: 1px solid #E3E8EB;
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Data */
+
+width: 130px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Ausência */
+
+width: 150px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Vínculo */
+
+width: 423px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* Situação */
+
+width: 155px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #263238;
+
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* Ação */
+
+width: 150px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 600;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #C65117;
+
+
+/* Inside auto layout */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* Rodapé tabela */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 16px;
+
+width: 1112px;
+height: 49px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Resumo */
+
+width: 231px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Paginação */
+
+width: 71px;
+height: 17px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* identical to box height, or 17px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Aviso histórico */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 16px;
+gap: 12px;
+
+width: 1112px;
+height: 73px;
+
+background: #EDF4F8;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* history */
+
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 12.5%;
+bottom: 12.5%;
+
+border: 1.7px solid #657278;
+
+
+/* Texto */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 1048px;
+height: 41px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Título aviso */
+
+width: 1048px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Sub aviso */
+
+width: 1048px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Aviso secretaria */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 16px;
+gap: 12px;
+
+width: 1112px;
+height: 73px;
+
+background: #EDF4F8;
+border-radius: 8px;
+
+/* Inside auto layout */
+flex: none;
+order: 7;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* calendar-check */
+
+width: 20px;
+height: 20px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Vector */
+
+position: absolute;
+left: 12.5%;
+right: 12.5%;
+top: 8.33%;
+bottom: 8.33%;
+
+border: 1.7px solid #657278;
+
+
+/* Conteúdo relacionado */
+
+/* Auto layout */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 3px;
+
+width: 1048px;
+height: 41px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* Conteúdo */
+
+width: 1048px;
+height: 20px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* identical to box height, or 20px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Conteúdo */
+
+width: 1048px;
+height: 18px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 13px;
+line-height: 140%;
+/* or 18px */
+
+color: #657278;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Nota de contexto */
+
+/* Auto layout */
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: flex-start;
+padding: 12px 0px 0px;
+
+width: 1112px;
+height: 27px;
+
+
+/* Inside auto layout */
+flex: none;
+order: 8;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Esquerda */
+
+width: 286px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #8B969B;
+
+
+/* Inside auto layout */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* Direita */
+
+width: 224px;
+height: 15px;
+
+font-family: 'Lato';
+font-style: normal;
+font-weight: 400;
+font-size: 11px;
+line-height: 140%;
+/* or 15px */
+
+color: #8B969B;
+
+
+/* Inside auto layout */
+flex: none;
+order: 1;
+flex-grow: 0;
