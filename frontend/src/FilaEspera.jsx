@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./FilaEspera.css";
 import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
+import AgendaSecretaria from "./Secretaria/AgendaSecretaria.jsx";
 
 
 import {
@@ -258,6 +259,7 @@ function FilaEspera({ usuario, onLogout }) {
                   type="button"
                   className={`item-menu ${
                     (item.nome === "Fila de espera" && telaAtiva === "fila") ||
+                    (item.nome === "Agenda" && telaAtiva === "agenda") ||
                     (item.nome === "Pacientes" && telaAtiva === "pacientes") ? "ativo" : ""
                   }`}
                   onClick={() => {
@@ -267,6 +269,8 @@ function FilaEspera({ usuario, onLogout }) {
                       setTelaAtiva("pacientes");
                     } else if (item.nome === "Fila de espera") {
                       setTelaAtiva("fila");
+                    } else if (item.nome === "Agenda") {
+                      setTelaAtiva("agenda");
                     } else {
                       mostrarAviso(`A tela "${item.nome}" ainda será desenvolvida.`);
                     }
@@ -332,7 +336,7 @@ function FilaEspera({ usuario, onLogout }) {
             </button>
 
             <span>
-              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : "Fila de espera"}
+              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "agenda" ? "Gestão de faltas" : "Fila de espera"}
             </span>
           </div>
 
@@ -359,6 +363,8 @@ function FilaEspera({ usuario, onLogout }) {
             onLogout={onLogout}
             integrado
           />
+        ) : telaAtiva === "agenda" ? (
+          <AgendaSecretaria />
         ) : (
         <main className="conteudo">
           <div className="cabecalho-pagina">
