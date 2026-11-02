@@ -38,6 +38,7 @@ export async function listarFilaEspera() {
         ? new Date(item.dataEntradaFila).toLocaleDateString("pt-BR")
         : "",
       statusFila: item.statusFila ?? "",
+      origem: item.origem ?? "",
       prioridadeReagendamento: item.prioridadeReagendamento ?? false,
       observacao: item.observacao ?? ""
     };

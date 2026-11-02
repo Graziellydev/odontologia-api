@@ -1,0 +1,217 @@
+.retorno {
+  --laranja: #e0561f;
+  --laranja-claro: #fdeee6;
+  --borda: #e6e7eb;
+  --texto: #1f2430;
+  --suave: #6b7280;
+
+  color: var(--texto);
+  text-align: left;
+}
+
+.retorno button,
+.retorno textarea {
+  font: inherit;
+}
+
+.retorno-titulo {
+  margin: 0;
+  font-size: 28px;
+  color: var(--texto);
+}
+
+.retorno-sub {
+  margin: 6px 0 20px;
+  color: var(--suave);
+}
+
+.retorno-aviso,
+.retorno-vazio {
+  padding: 20px;
+  border: 1px dashed var(--borda);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--suave);
+}
+
+.retorno-sucesso {
+  margin-bottom: 16px;
+  padding: 14px 16px;
+  border: 1px solid #b7e4c7;
+  border-radius: 10px;
+  background: #eaf8ef;
+  color: #1b6b3a;
+}
+
+.retorno-erro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 12px 0;
+  padding: 12px 14px;
+  border: 1px solid #f6c9b3;
+  border-radius: 10px;
+  background: var(--laranja-claro);
+}
+
+.retorno-erro button {
+  padding: 6px 12px;
+  border: 1px solid var(--laranja);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--laranja);
+  cursor: pointer;
+}
+
+.retorno-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+
+.retorno-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 18px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.retorno-item.ativo {
+  border-color: #f6c9b3;
+  background: var(--laranja-claro);
+}
+
+.retorno-detalhe {
+  display: block;
+  margin-top: 2px;
+  color: var(--suave);
+  font-size: 13px;
+}
+
+.retorno-botao {
+  padding: 8px 14px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--laranja);
+  color: #fff;
+  cursor: pointer;
+}
+
+.retorno-botao:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.retorno-secundario {
+  padding: 8px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--texto);
+  cursor: pointer;
+}
+
+.retorno-painel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 560px;
+  padding: 20px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: #fff;
+}
+
+.retorno-painel h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  color: var(--texto);
+}
+
+.retorno-opcao {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.retorno-campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-weight: 600;
+}
+
+.retorno-campo textarea {
+  padding: 10px;
+  border: 1px solid var(--borda);
+  border-radius: 8px;
+  font-weight: 400;
+  resize: vertical;
+}
+
+.retorno-acoes {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.retorno .retorno-opcoes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.retorno .retorno-opcao {
+  display: flex;
+  flex: 1 1 220px;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 14px;
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  background: #fff;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.retorno .retorno-opcao:has(input:checked) {
+  border-color: var(--laranja);
+  background: var(--laranja-claro);
+}
+
+.retorno .retorno-opcao input[type="radio"] {
+  flex: none;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0;
+  accent-color: var(--laranja);
+}
+
+.retorno .retorno-acoes {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.retorno .retorno-acoes button {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  min-height: 40px;
+  margin: 0;
+}

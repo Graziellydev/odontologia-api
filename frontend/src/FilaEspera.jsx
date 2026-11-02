@@ -527,6 +527,16 @@ function FilaEspera({ usuario, onLogout }) {
                       <td>
                         <strong>{paciente.nome}</strong>
                         <span>{paciente.dataTriagem}</span>
+                        {paciente.origem === "RETORNO" && (
+                          <>
+                            <span className="etiqueta-retorno" title={paciente.observacao || ""}>
+                              Retorno
+                            </span>
+                            {paciente.observacao && (
+                              <span className="obs-retorno">{paciente.observacao}</span>
+                            )}
+                          </>
+                        )}
                       </td>
 
                       <td>{paciente.demanda}</td>
