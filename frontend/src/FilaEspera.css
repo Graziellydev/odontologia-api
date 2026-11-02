@@ -338,3 +338,23 @@ body {
   .aplicacao .rodape-tabela, .aplicacao .rodape-pagina { flex-direction: column; }
   .aplicacao .modal { padding: 22px 16px 17px; }
 }
+td span.etiqueta-retorno {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #fdeee6;
+  color: #e0561f;
+  font-size: 12px;
+  font-weight: 600;
+}
+td span.obs-retorno {
+  display: block;
+  max-width: 100%;
+  margin-top: 2px;
+  overflow: hidden;
+  color: #6b7280;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

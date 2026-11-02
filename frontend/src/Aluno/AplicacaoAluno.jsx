@@ -1,8 +1,9 @@
 ﻿import React, { useEffect, useMemo, useState } from 'react';
-import { BookOpen, ClipboardList, CheckCircle2, Info, LogOut, Send, RefreshCcw, LayoutDashboard } from 'lucide-react';
+import { BookOpen, ClipboardList, CheckCircle2, Info, LogOut, Send, RefreshCcw, LayoutDashboard, ClipboardCheck } from 'lucide-react';
 import { api } from '../api.js';
 import '../style.css';
 import PainelAluno from '../PainelAluno/PainelAluno.jsx';
+import EncerrarAtendimento from '../Retornos/EncerrarAtendimento.jsx';
 
 const API = '/solicitacoes-pacientes';
 const CATALOGO = '/catalogo-solicitacoes';
@@ -135,6 +136,7 @@ function AplicacaoAluno({ usuario, aoSair }) {
         <button className={aba === 'metas' ? 'active' : ''} onClick={() => setAba('metas')}><LayoutDashboard/> Painel de metas</button>
         <button className={aba === 'solicitar' ? 'active' : ''} onClick={() => setAba('solicitar')}><BookOpen/> Solicitar paciente</button>
         <button className={aba === 'historico' ? 'active' : ''} onClick={() => { setAba('historico'); atualizarSolicitacoes(); }}><ClipboardList/> Minhas requisições</button>
+        <button className={aba === 'encerrar' ? 'active' : ''} onClick={() => setAba('encerrar')}><ClipboardCheck/> Encerrar atendimento</button>
       </nav>
       <div className="side-card"><b>Solicitação de paciente</b><p>Informe a necessidade clínica. A secretaria avaliará o pedido e cuidará da vinculação.</p></div>
       <div className="side-bottom">UniCatólica<br/>Uso acadêmico</div>
@@ -145,7 +147,7 @@ function AplicacaoAluno({ usuario, aoSair }) {
         <div className="header-right"><div className="avatar">{usuario.nome?.slice(0, 2).toUpperCase() || 'AL'}</div><b>{usuario.nome}</b><button className="logout" onClick={aoSair}><LogOut size={15}/> Sair</button></div>
       </header>
       <div className="content">
-        {aba === 'metas' ? <PainelAluno usuario={usuario} /> : <>
+        {aba === 'metas' ? <PainelAluno usuario={usuario} /> : aba === 'encerrar' ? <EncerrarAtendimento /> : <>
         <h1>{aba === 'solicitar' ? 'Solicitação de paciente' : 'Minhas requisições'}</h1>
         <p className="subtitle">{aba === 'solicitar' ? 'Selecione sua disciplina e descreva o procedimento necessário.' : 'Acompanhe o andamento das suas solicitações.'}</p>
         {erro && <div className="alert error" role="alert"><Info size={17}/>{erro}</div>}

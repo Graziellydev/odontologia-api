@@ -31,4 +31,6 @@ public interface FilaEsperaItemDTO {
     Integer getDiasEspera();
 
     String getObservacao();
+
+    String getOrigem();
 }

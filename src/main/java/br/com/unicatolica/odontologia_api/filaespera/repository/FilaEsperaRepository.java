@@ -25,6 +25,7 @@ public interface FilaEsperaRepository
                 f.nivel_urgencia AS "nivelUrgencia",
                 f.prioridade_reagendamento AS "prioridadeReagendamento",
                 f.status_fila AS "statusFila",
+                f.origem AS "origem",
                 f.data_entrada_fila AS "dataEntradaFila",
                 CAST(
                     CURRENT_DATE - CAST(f.data_entrada_fila AS DATE)
