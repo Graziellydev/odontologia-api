@@ -1,18 +1,54 @@
 package br.com.unicatolica.odontologia_api.config;
 
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.config.Customizer;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.web.AuthenticationEntryPoint;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.RequestMatcher;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
+        private static final RequestMatcher METRICAS_REQUEST_MATCHER = request -> {
+                String path = request.getServletPath();
+                return path.equals("/api/coordenador/metricas")
+                                || path.startsWith("/api/coordenador/metricas/");
+        };
+
+        private static final AuthenticationEntryPoint METRICAS_AUTHENTICATION_ENTRY_POINT =
+                        (request, response, exception) -> escreverErroSeguranca(
+                                        response,
+                                        HttpStatus.UNAUTHORIZED,
+                                        "{\"codigo\":\"NAO_AUTENTICADO\",\"mensagem\":\"Autenticação necessária.\"}");
+
+        private static final AccessDeniedHandler METRICAS_ACCESS_DENIED_HANDLER =
+                        (request, response, exception) -> escreverErroSeguranca(
+                                        response,
+                                        HttpStatus.FORBIDDEN,
+                                        "{\"codigo\":\"SEM_PERMISSAO\",\"mensagem\":\"Perfil COORDENADOR necessário.\"}");
+
+        private static void escreverErroSeguranca(
+                        HttpServletResponse response,
+                        HttpStatus status,
+                        String json) throws IOException {
+                response.setStatus(status.value());
+                response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                response.setCharacterEncoding(StandardCharsets.UTF_8.name());
+                response.getWriter().write(json);
+        }
 
         @Bean
         public SecurityFilterChain securityFilterChain(
@@ -25,7 +61,12 @@ public class SecurityConfig {
                                                 
                                                 // Rota liberada temporariamente para o front-end conseguir cadastrar
                                                 .requestMatchers("/api/pacientes/**").permitAll()
-                                                
+
+                                                .requestMatchers(
+                                                                "/api/coordenador/metricas",
+                                                                "/api/coordenador/metricas/**")
+                                                .hasAuthority("COORDENADOR")
+
                                                 .requestMatchers(
                                                                 HttpMethod.POST,
                                                                 "/api/solicitacoes-pacientes")
@@ -42,6 +83,13 @@ public class SecurityConfig {
                                                 .hasAnyAuthority("SECRETARIA", "ROLE_SECRETARIA")
                                                 
                                                 .anyRequest().authenticated())
+                                .exceptionHandling(exceptions -> exceptions
+                                                .defaultAuthenticationEntryPointFor(
+                                                                METRICAS_AUTHENTICATION_ENTRY_POINT,
+                                                                METRICAS_REQUEST_MATCHER)
+                                                .defaultAccessDeniedHandlerFor(
+                                                                METRICAS_ACCESS_DENIED_HANDLER,
+                                                                METRICAS_REQUEST_MATCHER))
                                 .httpBasic(httpBasic -> httpBasic.disable());
 
                 return http.build();
