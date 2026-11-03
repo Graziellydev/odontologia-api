@@ -4,13 +4,19 @@ import br.com.unicatolica.odontologia_api.filaespera.dto.FilaEsperaItemDTO;
 import br.com.unicatolica.odontologia_api.filaespera.dto.TempoMedioEsperaDTO;
 import br.com.unicatolica.odontologia_api.filaespera.entity.FilaEspera;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import jakarta.persistence.LockModeType;
 
 import java.util.List;
 
 public interface FilaEsperaRepository
         extends JpaRepository<FilaEspera, Long> {
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select f from FilaEspera f where f.id = :id")
+    java.util.Optional<FilaEspera> buscarPorIdParaAtualizacao(@Param("id") Long id);
 
     @Query(value = """
             SELECT
