@@ -34,7 +34,7 @@ function Login({onLoginSuccess })  {
         if (error.response && error.response.status === 401) {
           setMensagemErro('E-mail ou senha incorretos.');
         } else {
-          setMensagemErro('Não foi possível conectar à API. Verifique se o servidor backend está rodando.');
+          setMensagemErro('Não foi possível conectar ao servidor.');
         }
       } finally {
         setCarregando(false);
