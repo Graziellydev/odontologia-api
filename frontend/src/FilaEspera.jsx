@@ -4,12 +4,14 @@ import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
 import ValidacaoSolicitacoes from "./ValidacaoSolicitacoes.jsx";
 import AnalisarSolicitacao from "./AnalisarSolicitacao.jsx";
 import AgendaSecretaria from "./Secretaria/AgendaSecretaria.jsx";
+import AgendamentosSecretaria from "./Secretaria/AgendamentosSecretaria.jsx";
 
 import {
   LayoutDashboard,
   Users,
   ListOrdered,
   CalendarDays,
+  CalendarCheck2,
   ClipboardList,
   MessageCircle,
   Bell,
@@ -251,6 +253,7 @@ function FilaEspera({ usuario, onLogout }) {
     { nome: "Visão geral", icone: LayoutDashboard },
     { nome: "Pacientes", icone: Users },
     { nome: "Fila de espera", icone: ListOrdered },
+    { nome: "Agendamentos", icone: CalendarCheck2 },
     { nome: "Agenda", icone: CalendarDays },
     { nome: "Solicitações", icone: ClipboardList }
   ];
@@ -275,12 +278,20 @@ function FilaEspera({ usuario, onLogout }) {
                   key={item.nome}
                   type="button"
                   className={`item-menu ${
+<<<<<<< HEAD
                     (item.nome === "Fila de espera" && telaAtiva === "fila") ||
                     (item.nome === "Pacientes" && telaAtiva === "pacientes") ||
                     (item.nome === "Solicitações" && telaAtiva === "solicitacoes") ||
                     (item.nome === "Agenda" && telaAtiva === "agenda")
                       ? "ativo"
                       : ""
+=======
+                    ((item.icone === ListOrdered && telaAtiva === "fila") ||
+                      (item.icone === Users && telaAtiva === "pacientes") ||
+                      (item.icone === ClipboardList && telaAtiva === "solicitacoes") ||
+                      (item.icone === CalendarCheck2 && telaAtiva === "agendamentos") ||
+                      (item.icone === CalendarDays && telaAtiva === "agenda")) ? "ativo" : ""
+>>>>>>> 7143994b8f06e48c620977c0bf57ab3b4a531f51
                   }`}
                   onClick={() => {
                     setMenuAberto(false);
@@ -289,6 +300,13 @@ function FilaEspera({ usuario, onLogout }) {
                       setTelaAtiva("pacientes");
                     } else if (item.nome === "Fila de espera") {
                       setTelaAtiva("fila");
+<<<<<<< HEAD
+=======
+
+                    } else if (item.nome === "Agendamentos") {
+                      setTelaAtiva("agendamentos");
+
+>>>>>>> 7143994b8f06e48c620977c0bf57ab3b4a531f51
                     } else if (item.nome === "Solicitações") {
                       setSolicitacaoSelecionada(null);
                       setTelaAtiva("solicitacoes");
@@ -359,9 +377,14 @@ function FilaEspera({ usuario, onLogout }) {
             </button>
 
             <span>
+<<<<<<< HEAD
               Clínica acadêmica / Secretaria / {titulosTela[telaAtiva] || "Fila de espera"}
               {telaAtiva === "solicitacoes" && solicitacaoSelecionada &&
                 ` / Analisar REQ-${solicitacaoSelecionada.id}`}
+=======
+              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "solicitacoes" ? "Solicitações" : telaAtiva === "agendamentos" ? "Agendamentos" : telaAtiva === "agenda" ? "Gestão de faltas" : "Fila de espera"}
+              {telaAtiva === "solicitacoes" && solicitacaoSelecionada && ` / Analisar REQ-${solicitacaoSelecionada.id}`}
+>>>>>>> 7143994b8f06e48c620977c0bf57ab3b4a531f51
             </span>
           </div>
 
@@ -416,6 +439,9 @@ function FilaEspera({ usuario, onLogout }) {
               />
             )}
           </>
+
+        ) : telaAtiva === "agendamentos" ? (
+          <AgendamentosSecretaria />
 
         ) : telaAtiva === "agenda" ? (
           <AgendaSecretaria />

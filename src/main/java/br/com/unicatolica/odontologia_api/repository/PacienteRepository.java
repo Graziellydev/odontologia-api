@@ -2,7 +2,11 @@ package br.com.unicatolica.odontologia_api.repository;
 
 import br.com.unicatolica.odontologia_api.model.Paciente;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Lock;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import jakarta.persistence.LockModeType;
 
 import java.util.Optional;
 
@@ -21,4 +25,8 @@ public interface PacienteRepository extends JpaRepository<Paciente, Long> {
 
     // Verifica se ja existe um paciente cadastrado com o numero de prontuario informado
     boolean existsByNumeroProntuario(String numeroProntuario);
+
+    @Lock(LockModeType.PESSIMISTIC_WRITE)
+    @Query("select p from Paciente p where p.id = :id")
+    Optional<Paciente> buscarPorIdParaAtualizacao(@Param("id") Long id);
 }
