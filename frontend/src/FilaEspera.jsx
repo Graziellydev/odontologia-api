@@ -5,8 +5,6 @@ import ValidacaoSolicitacoes from "./ValidacaoSolicitacoes.jsx";
 import AnalisarSolicitacao from "./AnalisarSolicitacao.jsx";
 import AgendaSecretaria from "./Secretaria/AgendaSecretaria.jsx";
 
-
-
 import {
   LayoutDashboard,
   Users,
@@ -28,6 +26,13 @@ const prioridade = {
   Alta: 3,
   Média: 2,
   Baixa: 1
+};
+
+const titulosTela = {
+  fila: "Fila de espera",
+  pacientes: "Pacientes",
+  solicitacoes: "Solicitações",
+  agenda: "Gestão de faltas"
 };
 
 function criarFormularioVazio() {
@@ -271,13 +276,11 @@ function FilaEspera({ usuario, onLogout }) {
                   type="button"
                   className={`item-menu ${
                     (item.nome === "Fila de espera" && telaAtiva === "fila") ||
-
                     (item.nome === "Pacientes" && telaAtiva === "pacientes") ||
-                    (item.nome === "Solicitações" && telaAtiva === "solicitacoes") ? "ativo" : ""
-
-                    (item.nome === "Agenda" && telaAtiva === "agenda") ||
-                    (item.nome === "Pacientes" && telaAtiva === "pacientes") ? "ativo" : ""
-
+                    (item.nome === "Solicitações" && telaAtiva === "solicitacoes") ||
+                    (item.nome === "Agenda" && telaAtiva === "agenda")
+                      ? "ativo"
+                      : ""
                   }`}
                   onClick={() => {
                     setMenuAberto(false);
@@ -286,14 +289,11 @@ function FilaEspera({ usuario, onLogout }) {
                       setTelaAtiva("pacientes");
                     } else if (item.nome === "Fila de espera") {
                       setTelaAtiva("fila");
-
                     } else if (item.nome === "Solicitações") {
                       setSolicitacaoSelecionada(null);
                       setTelaAtiva("solicitacoes");
-
                     } else if (item.nome === "Agenda") {
                       setTelaAtiva("agenda");
-
                     } else {
                       mostrarAviso(`A tela "${item.nome}" ainda será desenvolvida.`);
                     }
@@ -359,12 +359,9 @@ function FilaEspera({ usuario, onLogout }) {
             </button>
 
             <span>
-
-              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "solicitacoes" ? "Solicitações" : "Fila de espera"}
-              {telaAtiva === "solicitacoes" && solicitacaoSelecionada && ` / Analisar REQ-${solicitacaoSelecionada.id}`}
-
-              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "agenda" ? "Gestão de faltas" : "Fila de espera"}
-
+              Clínica acadêmica / Secretaria / {titulosTela[telaAtiva] || "Fila de espera"}
+              {telaAtiva === "solicitacoes" && solicitacaoSelecionada &&
+                ` / Analisar REQ-${solicitacaoSelecionada.id}`}
             </span>
           </div>
 
@@ -562,28 +559,28 @@ function FilaEspera({ usuario, onLogout }) {
 
           <section className="tabela-container">
             <div className="tabela-scroll">
-                <table style={{ width: "100%", tableLayout: "fixed" }}>
-                    <colgroup>
-                        <col style={{ width: "19%" }} />
-                        <col style={{ width: "14%" }} />
-                        <col style={{ width: "15%" }} />
-                        <col style={{ width: "8%" }} />
-                        <col style={{ width: "14%" }} />
-                        <col style={{ width: "12%" }} />
-                        <col style={{ width: "18%" }} />
-                    </colgroup>
+              <table style={{ width: "100%", tableLayout: "fixed" }}>
+                <colgroup>
+                  <col style={{ width: "19%" }} />
+                  <col style={{ width: "14%" }} />
+                  <col style={{ width: "15%" }} />
+                  <col style={{ width: "8%" }} />
+                  <col style={{ width: "14%" }} />
+                  <col style={{ width: "12%" }} />
+                  <col style={{ width: "18%" }} />
+                </colgroup>
 
-                    <thead>
-                        <tr>
-                            <th>Paciente / triagem</th>
-                            <th>Demanda</th>
-                            <th>Procedimento</th>
-                            <th className="coluna-classe">Classe</th>
-                            <th>Urgência</th>
-                            <th>Espera</th>
-                            <th>Ação</th>
-                        </tr>
-                    </thead>
+                <thead>
+                  <tr>
+                    <th>Paciente / triagem</th>
+                    <th>Demanda</th>
+                    <th>Procedimento</th>
+                    <th className="coluna-classe">Classe</th>
+                    <th>Urgência</th>
+                    <th>Espera</th>
+                    <th>Ação</th>
+                  </tr>
+                </thead>
 
                 <tbody>
                   {pacientesFiltrados.map((paciente) => (

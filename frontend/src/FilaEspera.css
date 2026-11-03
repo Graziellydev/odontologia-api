@@ -10,7 +10,7 @@ html, body, #root {
 }
 html { min-height: 100%; }
 body {
-  display: block !important;
+  display: block !important;    
   place-items: initial !important;
   min-height: 100vh;
 }
