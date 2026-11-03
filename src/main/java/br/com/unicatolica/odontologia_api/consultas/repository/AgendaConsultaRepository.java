@@ -14,6 +14,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 
 @Repository
@@ -118,7 +119,7 @@ public class AgendaConsultaRepository {
 
     public List<AgendamentoResponseDTO> listarAgendamentos(
             LocalDate data, Long alunoId, String status, String busca) {
-        return jdbc.query("""
+        StringBuilder sql = new StringBuilder("""
                 SELECT c.id, c.paciente_id, p.nome_completo AS paciente,
                        c.aluno_id, u.nome AS aluno, c.turma_id, c.fila_espera_id,
                        c.procedimento_id, pr.nome AS procedimento, pr.especialidade,
@@ -131,13 +132,29 @@ public class AgendaConsultaRepository {
                 JOIN vagas v ON v.id = c.vaga_id
                 JOIN cadeiras ca ON ca.id = v.cadeira_id
                 LEFT JOIN procedimentos pr ON pr.id = c.procedimento_id
-                WHERE (CAST(? AS DATE) IS NULL OR v.data = ?)
-                  AND (CAST(? AS BIGINT) IS NULL OR c.aluno_id = ?)
-                  AND (CAST(? AS VARCHAR) IS NULL OR c.status_consulta = ?)
-                  AND (CAST(? AS VARCHAR) IS NULL OR LOWER(p.nome_completo) LIKE LOWER(CONCAT('%', ?, '%')))
-                ORDER BY v.data DESC, v.turno, p.nome_completo, c.id DESC
-                """, (rs, row) -> resposta(rs, null),
-                data, data, alunoId, alunoId, status, status, busca, busca);
+                WHERE 1 = 1
+                """);
+        List<Object> parametros = new ArrayList<>();
+
+        if (data != null) {
+            sql.append(" AND v.data = ?");
+            parametros.add(java.sql.Date.valueOf(data));
+        }
+        if (alunoId != null) {
+            sql.append(" AND c.aluno_id = ?");
+            parametros.add(alunoId);
+        }
+        if (status != null && !status.isBlank()) {
+            sql.append(" AND c.status_consulta = ?");
+            parametros.add(status.trim());
+        }
+        if (busca != null && !busca.isBlank()) {
+            sql.append(" AND LOWER(p.nome_completo) LIKE LOWER(?)");
+            parametros.add("%" + busca.trim() + "%");
+        }
+
+        sql.append(" ORDER BY v.data DESC, v.turno, p.nome_completo, c.id DESC");
+        return jdbc.query(sql.toString(), (rs, row) -> resposta(rs, null), parametros.toArray());
     }
 
     public AgendamentoResponseDTO buscarAgendamento(long consultaId) {
