@@ -3,6 +3,7 @@ package br.com.unicatolica.odontologia_api.solicitacoes.controller;
 import br.com.unicatolica.odontologia_api.solicitacoes.dto.AprovarSolicitacaoDTO;
 import br.com.unicatolica.odontologia_api.solicitacoes.dto.RecusarSolicitacaoDTO;
 import br.com.unicatolica.odontologia_api.solicitacoes.dto.NovaSolicitacaoDTO;
+import br.com.unicatolica.odontologia_api.solicitacoes.dto.SolicitacaoAdministrativaDTO;
 import br.com.unicatolica.odontologia_api.solicitacoes.entity.SolicitacaoPaciente;
 import br.com.unicatolica.odontologia_api.solicitacoes.repository.UsuarioIdentidadeRepository;
 import br.com.unicatolica.odontologia_api.solicitacoes.service.SolicitacaoPacienteService;
@@ -62,6 +63,12 @@ public class SolicitacaoPacienteController {
     @PreAuthorize("hasAuthority('SECRETARIA')")
     public List<SolicitacaoPaciente> listarPendentes() {
         return service.listarPendentesSecretaria();
+    }
+
+    @GetMapping("/administrativas")
+    @PreAuthorize("hasAuthority('SECRETARIA')")
+    public List<SolicitacaoAdministrativaDTO> listarAdministrativas() {
+        return service.listarSolicitacoesAdministrativas();
     }
 
     @PatchMapping("/{solicitacaoId}/aprovar")

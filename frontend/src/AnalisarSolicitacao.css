@@ -1,0 +1,205 @@
+.analise-solicitacao .analise-voltar {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #c5490f;
+  font-size: 12px;
+  font-weight: 650;
+}
+.analise-solicitacao button:disabled { opacity: .6 !important; cursor: not-allowed; }
+.analise-solicitacao .analise-voltar:hover { text-decoration: underline; }
+.analise-solicitacao .analise-voltar:focus-visible {
+  outline: 2px solid #d87542;
+  outline-offset: 5px;
+  border-radius: 3px;
+}
+.analise-solicitacao .analise-subtitulo {
+  color: #cb501c;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .08em;
+}
+.analise-solicitacao .analise-colunas {
+  display: grid;
+  grid-template-columns: minmax(280px, 1fr) minmax(0, 2fr);
+  align-items: start;
+  gap: 24px;
+}
+.analise-solicitacao .analise-coluna {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-width: 0;
+}
+.analise-solicitacao .analise-cartao {
+  min-width: 0;
+  padding: 22px;
+  border: 1px solid #dfe5ea;
+  border-radius: 8px;
+  background: #fff;
+}
+.analise-solicitacao .analise-cartao h2 {
+  margin: 0 0 16px;
+  color: #253747;
+  font-size: 16px;
+  line-height: 1.4;
+  font-weight: 600;
+  opacity: 1;
+}
+.analise-solicitacao .analise-status {
+  display: inline-block;
+  max-width: 100%;
+  margin-bottom: 18px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #fff0e7;
+  color: #b6440d;
+  font-size: 11px;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.analise-solicitacao .analise-status[data-status="APROVADO_E_ALOCADO"] {
+  background: #e9f5f1;
+  color: #168575;
+}
+.analise-solicitacao .analise-status[data-status="RECUSADO"] {
+  background: #fff1ed;
+  color: #a84238;
+}
+.analise-solicitacao .analise-dados { margin: 0; }
+.analise-solicitacao .analise-dados > div {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 14px;
+  margin-bottom: 15px;
+}
+.analise-solicitacao .analise-dados > div:last-child { margin-bottom: 0; }
+.analise-solicitacao .analise-dados dt {
+  color: #7c8e9f;
+  font-size: 12px;
+}
+.analise-solicitacao .analise-dados dd {
+  min-width: 0;
+  margin: 0;
+  color: #263b4c;
+  font-size: 13px;
+  line-height: 1.55;
+  overflow-wrap: anywhere;
+}
+.analise-solicitacao .analise-dados .analise-indisponivel { color: #7c8e9f; }
+.analise-solicitacao .analise-observacao,
+.analise-solicitacao .analise-texto,
+.analise-solicitacao .analise-ajuda {
+  color: #7c8e9f;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.analise-solicitacao .analise-observacao { margin: 22px 0 0; }
+.analise-solicitacao .analise-observacao strong { font-weight: 600; }
+.analise-solicitacao .analise-texto { margin: -7px 0 18px; }
+.analise-solicitacao .analise-ajuda { margin: 12px 0 0; font-size: 11px; }
+.analise-solicitacao .analise-aviso {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 18px;
+  border-radius: 6px;
+}
+.analise-solicitacao .analise-aviso > svg { flex-shrink: 0; margin-top: 2px; }
+.analise-solicitacao .analise-aviso strong { display: block; font-size: 13px; font-weight: 650; }
+.analise-solicitacao .analise-aviso p { margin: 4px 0 0; color: #7c8e9f; font-size: 12px; line-height: 1.6; }
+.analise-solicitacao .analise-aviso-fila { background: #eef3f7; color: #526e86; }
+.analise-solicitacao .analise-aviso-agendamento { margin-top: 22px; background: #fff0e7; color: #c5490f; }
+.analise-solicitacao .analise-tabela-scroll { overflow-x: auto; }
+.analise-solicitacao .analise-tabela-scroll table { min-width: 500px; }
+.analise-solicitacao .analise-tabela-scroll th { font-size: 11px; }
+.analise-solicitacao .analise-tabela-scroll .analise-fila-indisponivel {
+  padding: 36px 20px;
+  color: #7c8e9f;
+  text-align: center;
+}
+.analise-solicitacao .analise-fila-indisponivel > svg { margin-bottom: 10px; color: #9aaab8; }
+.analise-solicitacao .analise-fila-indisponivel strong { color: #52697c; font-size: 12px; font-weight: 600; }
+.analise-solicitacao .analise-fila-indisponivel p { margin: 7px auto 0; max-width: 340px; font-size: 12px; line-height: 1.6; }
+.analise-solicitacao .analise-selecao-atual {
+  display: inline-block;
+  margin: 18px 0 0;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background: #f1f5f8;
+  color: #6b8298;
+  font-size: 11px;
+}
+.analise-solicitacao .analise-acoes { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+.analise-solicitacao .analise-conferencia { margin-top: 24px; }
+.analise-solicitacao .analise-conferencia .analise-dados > div { grid-template-columns: 154px minmax(0, 1fr); }
+
+@media (max-width: 1100px) {
+  .analise-solicitacao .analise-colunas { grid-template-columns: minmax(250px, 1fr) minmax(0, 1.5fr); gap: 18px; }
+  .analise-solicitacao .analise-coluna { gap: 18px; }
+  .analise-solicitacao .analise-cartao { padding: 18px; }
+}
+@media (max-width: 850px) {
+  .analise-solicitacao .analise-colunas { grid-template-columns: 1fr; }
+  .analise-solicitacao .analise-dados > div { grid-template-columns: minmax(120px, 1fr) minmax(0, 2fr); }
+}
+@media (max-width: 580px) {
+  .analise-solicitacao .analise-cartao { padding: 18px 15px; }
+  .analise-solicitacao .analise-dados > div,
+  .analise-solicitacao .analise-conferencia .analise-dados > div { grid-template-columns: 1fr; gap: 4px; }
+  .analise-solicitacao .analise-aviso { padding: 15px; gap: 9px; }
+  .analise-solicitacao .analise-acoes { flex-direction: column; }
+}
+
+.analise-solicitacao .analise-aviso-compativel { background: #e9f5f1; color: #168575; }
+.analise-solicitacao .analise-cabecalho-fila { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.analise-solicitacao .analise-atualizar-fila {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  margin: 0 0 18px;
+  padding: 6px 8px;
+  border: 1px solid #d7dee5;
+  border-radius: 6px;
+  background: #fff;
+  color: #526e86;
+  font-size: 11px;
+}
+.analise-solicitacao .analise-atualizar-fila:hover:not(:disabled) { background: #f3f6f8; }
+.analise-solicitacao .analise-atualizar-fila:focus-visible,
+.analise-solicitacao .analise-opcao-demanda input:focus-visible { outline: 2px solid #d87542; outline-offset: 3px; }
+.analise-solicitacao .analise-opcao-demanda { display: flex; align-items: flex-start; gap: 8px; cursor: pointer; }
+.analise-solicitacao .analise-opcao-demanda input {
+  flex: 0 0 15px;
+  width: 15px;
+  height: 15px;
+  margin: 2px 0 0;
+  accent-color: #526e86;
+  cursor: pointer;
+}
+.analise-solicitacao .analise-opcao-demanda small { color: #7c8e9f; font-size: 11px; }
+.analise-solicitacao .analise-demanda-selecionada td { background: #f0f7fc; }
+.analise-solicitacao .analise-demanda-selecionada td:first-child { box-shadow: inset 3px 0 #526e86; }
+.analise-solicitacao .analise-prioridade { display: inline-block; padding: 3px 6px; border-radius: 4px; background: #f1f5f8; color: #526e86; font-size: 11px; }
+.analise-solicitacao .analise-prioridade[data-nivel="ALTA"] { background: #fff1ed; color: #b44737; }
+.analise-solicitacao .analise-prioridade[data-nivel="PNE"] { background: #edf4fb; color: #416f98; }
+.analise-solicitacao .analise-prioridade[data-nivel="MEDIA"],
+.analise-solicitacao .analise-prioridade[data-nivel="MÉDIA"] { background: #fff7e8; color: #986d25; }
+.analise-solicitacao .analise-prioridade[data-nivel="BAIXA"] { background: #e9f5f1; color: #168575; }
+.analise-solicitacao .analise-meta-demanda { display: block; margin-top: 6px; color: #7c8e9f; font-size: 10px; line-height: 1.5; }
+.analise-solicitacao .analise-fila-indisponivel .botao-secundario { margin-top: 14px; }
+
+@media (max-width: 580px) {
+  .analise-solicitacao .analise-cabecalho-fila { flex-direction: column; gap: 0; }
+}
+
+.analise-solicitacao .analise-feedback { padding: 14px 16px; border-radius: 8px; font-size: 13px; line-height: 1.6; }
+.analise-solicitacao .analise-feedback-sucesso { background: #e9f5f1; color: #176a59; }
+.analise-solicitacao .analise-feedback-erro { background: #fff1ed; color: #9b3b20; }
+.analise-solicitacao .analise-resposta { white-space: pre-wrap; }
+.analise-solicitacao .analise-modal h2 { color: #253747; opacity: 1; }
