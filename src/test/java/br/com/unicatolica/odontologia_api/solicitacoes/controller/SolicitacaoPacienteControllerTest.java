@@ -3,6 +3,7 @@ package br.com.unicatolica.odontologia_api.solicitacoes.controller;
 import br.com.unicatolica.odontologia_api.solicitacoes.dto.AprovarSolicitacaoDTO;
 import br.com.unicatolica.odontologia_api.solicitacoes.dto.NovaSolicitacaoDTO;
 import br.com.unicatolica.odontologia_api.solicitacoes.dto.RecusarSolicitacaoDTO;
+import br.com.unicatolica.odontologia_api.solicitacoes.dto.SolicitacaoAdministrativaDTO;
 import br.com.unicatolica.odontologia_api.solicitacoes.entity.SolicitacaoPaciente;
 import br.com.unicatolica.odontologia_api.solicitacoes.repository.UsuarioIdentidadeRepository;
 import br.com.unicatolica.odontologia_api.solicitacoes.service.SolicitacaoPacienteService;
@@ -87,6 +88,27 @@ class SolicitacaoPacienteControllerTest {
 
         assertEquals(1, resultado.size());
         verify(service).listarPendentesSecretaria();
+    }
+
+    @Test
+    void deveListarSolicitacoesAdministrativasSemExporEntidade() {
+        SolicitacaoAdministrativaDTO dto = new SolicitacaoAdministrativaDTO(
+                10L, 2L, "Aluno Teste", "MAT-002", 3L, "TURMA-A",
+                "Dentística", 6, 5L, "Restauração", "11", "I",
+                LocalDate.now().plusDays(2), "PENDENTE_APROVACAO", null,
+                null, null, null, null, null, null, null);
+
+        when(service.listarSolicitacoesAdministrativas())
+                .thenReturn(List.of(dto));
+
+        var resultado = controller.listarAdministrativas();
+
+        assertEquals(1, resultado.size());
+        assertEquals("Aluno Teste", resultado.get(0).alunoNome());
+        assertEquals("PENDENTE_APROVACAO",
+                resultado.get(0).statusSolicitacao());
+        assertNull(resultado.get(0).pacienteAlocadoNome());
+        verify(service).listarSolicitacoesAdministrativas();
     }
 
     @Test

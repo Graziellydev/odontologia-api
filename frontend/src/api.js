@@ -12,6 +12,9 @@ export async function api(rota, opcoes = {}) {
     throw new Error('Não foi possível acessar o backend. Confira se o Spring Boot está funcionando.');
   }
   if (!resposta.ok) {
+
+    let detalhe;
+
     const texto = await resposta.text();
     let detalhe;
     try {

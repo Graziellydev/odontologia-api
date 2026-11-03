@@ -3,6 +3,8 @@ package br.com.unicatolica.odontologia_api.solicitacoes.service;
 import br.com.unicatolica.odontologia_api.filaespera.entity.FilaEspera;
 import br.com.unicatolica.odontologia_api.filaespera.repository.FilaEsperaRepository;
 import br.com.unicatolica.odontologia_api.solicitacoes.dto.NovaSolicitacaoDTO;
+import br.com.unicatolica.odontologia_api.solicitacoes.dto.SolicitacaoAdministrativaDTO;
+import br.com.unicatolica.odontologia_api.solicitacoes.dto.SolicitacaoAdministrativaProjection;
 import br.com.unicatolica.odontologia_api.solicitacoes.entity.SolicitacaoPaciente;
 import br.com.unicatolica.odontologia_api.solicitacoes.repository.SolicitacaoPacienteRepository;
 
@@ -13,6 +15,8 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.time.OffsetDateTime;
+import java.time.Instant;
+import java.time.ZoneOffset;
 import java.util.List;
 import java.util.Objects;
 
@@ -116,6 +120,13 @@ public class SolicitacaoPacienteService {
 
         return repository
                 .findByAlunoIdOrderByDataSolicitacaoDesc(alunoId);
+    }
+
+    @Transactional(readOnly = true)
+    public List<SolicitacaoAdministrativaDTO> listarSolicitacoesAdministrativas() {
+        return repository.listarAdministrativas().stream()
+                .map(this::converterParaDTO)
+                .toList();
     }
 
     @Transactional
@@ -235,5 +246,36 @@ public class SolicitacaoPacienteService {
     private boolean estaPendente(String status) {
         return "PENDENTE_APROVACAO".equals(status)
                 || "PENDENTE_FILA".equals(status);
+    }
+
+    private SolicitacaoAdministrativaDTO converterParaDTO(
+            SolicitacaoAdministrativaProjection projection) {
+        return new SolicitacaoAdministrativaDTO(
+                projection.getId(),
+                projection.getAlunoId(),
+                projection.getAlunoNome(),
+                projection.getAlunoIdentificacao(),
+                projection.getTurmaId(),
+                projection.getTurma(),
+                projection.getDisciplina(),
+                projection.getSemestreAtual(),
+                projection.getProcedimentoId(),
+                projection.getProcedimento(),
+                projection.getDente(),
+                projection.getClasse(),
+                projection.getDataDesejada(),
+                projection.getStatusSolicitacao(),
+                converterDataSolicitacao(projection.getDataSolicitacao()),
+                projection.getPacienteAlocadoId(),
+                projection.getPacienteAlocadoNome(),
+                projection.getObservacaoSecretaria(),
+                projection.getRespostaSecretaria(),
+                projection.getSecretariaAnalisadorId(),
+                converterDataSolicitacao(projection.getDataAnalise()),
+                projection.getFilaEsperaId());
+    }
+
+    private OffsetDateTime converterDataSolicitacao(Instant data) {
+        return data == null ? null : data.atOffset(ZoneOffset.UTC);
     }
 }

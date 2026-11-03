@@ -1,7 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import "./FilaEspera.css";
 import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
+import ValidacaoSolicitacoes from "./ValidacaoSolicitacoes.jsx";
+import AnalisarSolicitacao from "./AnalisarSolicitacao.jsx";
 import AgendaSecretaria from "./Secretaria/AgendaSecretaria.jsx";
+
 
 
 import {
@@ -53,6 +56,15 @@ function FilaEspera({ usuario, onLogout }) {
   const [erroCadastro, setErroCadastro] = useState("");
   const [menuAberto, setMenuAberto] = useState(false);
   const [telaAtiva, setTelaAtiva] = useState("fila");
+  const [solicitacaoSelecionada, setSolicitacaoSelecionada] = useState(null);
+  const [revisaoSolicitacoes, setRevisaoSolicitacoes] = useState(0);
+  const registrarDecisao = useCallback((resultado) => {
+    setSolicitacaoSelecionada((atual) => atual?.id === resultado.id ? { ...atual, ...resultado } : atual);
+    setRevisaoSolicitacoes((valor) => valor + 1);
+  }, []);
+  const sincronizarSelecionada = useCallback((dados) => {
+    setSolicitacaoSelecionada((atual) => atual ? dados.find((item) => item.id === atual.id) || atual : atual);
+  }, []);
   const [aviso, setAviso] = useState("");
 
   const [novoPaciente, setNovoPaciente] = useState(criarFormularioVazio());
@@ -259,8 +271,13 @@ function FilaEspera({ usuario, onLogout }) {
                   type="button"
                   className={`item-menu ${
                     (item.nome === "Fila de espera" && telaAtiva === "fila") ||
+
+                    (item.nome === "Pacientes" && telaAtiva === "pacientes") ||
+                    (item.nome === "Solicitações" && telaAtiva === "solicitacoes") ? "ativo" : ""
+
                     (item.nome === "Agenda" && telaAtiva === "agenda") ||
                     (item.nome === "Pacientes" && telaAtiva === "pacientes") ? "ativo" : ""
+
                   }`}
                   onClick={() => {
                     setMenuAberto(false);
@@ -269,8 +286,14 @@ function FilaEspera({ usuario, onLogout }) {
                       setTelaAtiva("pacientes");
                     } else if (item.nome === "Fila de espera") {
                       setTelaAtiva("fila");
+
+                    } else if (item.nome === "Solicitações") {
+                      setSolicitacaoSelecionada(null);
+                      setTelaAtiva("solicitacoes");
+
                     } else if (item.nome === "Agenda") {
                       setTelaAtiva("agenda");
+
                     } else {
                       mostrarAviso(`A tela "${item.nome}" ainda será desenvolvida.`);
                     }
@@ -336,7 +359,12 @@ function FilaEspera({ usuario, onLogout }) {
             </button>
 
             <span>
+
+              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "solicitacoes" ? "Solicitações" : "Fila de espera"}
+              {telaAtiva === "solicitacoes" && solicitacaoSelecionada && ` / Analisar REQ-${solicitacaoSelecionada.id}`}
+
               Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "agenda" ? "Gestão de faltas" : "Fila de espera"}
+
             </span>
           </div>
 
@@ -363,8 +391,38 @@ function FilaEspera({ usuario, onLogout }) {
             onLogout={onLogout}
             integrado
           />
+
+        ) : telaAtiva === "solicitacoes" ? (
+          <>
+            <div hidden={Boolean(solicitacaoSelecionada)}>
+              <ValidacaoSolicitacoes
+                revisao={revisaoSolicitacoes}
+                onDadosAtualizados={sincronizarSelecionada}
+                onAnalisar={(solicitacao) => {
+                  setSolicitacaoSelecionada(solicitacao);
+                  setAviso("");
+                }}
+                onVisualizar={(solicitacao) => {
+                  setSolicitacaoSelecionada(solicitacao);
+                  setAviso("");
+                }}
+              />
+            </div>
+            {solicitacaoSelecionada && (
+              <AnalisarSolicitacao
+                key={solicitacaoSelecionada.id}
+                podeDecidir={usuario?.perfil === "SECRETARIA"}
+                onDecisaoRegistrada={registrarDecisao}
+                onSolicitarAtualizacao={() => setRevisaoSolicitacoes((valor) => valor + 1)}
+                solicitacao={solicitacaoSelecionada}
+                onVoltar={() => setSolicitacaoSelecionada(null)}
+              />
+            )}
+          </>
+
         ) : telaAtiva === "agenda" ? (
           <AgendaSecretaria />
+
         ) : (
         <main className="conteudo">
           <div className="cabecalho-pagina">
