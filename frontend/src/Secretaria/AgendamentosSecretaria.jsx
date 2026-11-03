@@ -262,7 +262,6 @@ function AgendamentosSecretaria() {
         <div>
           <span className="agendamentos-etiqueta">SECRETARIA · CONSULTAS</span>
           <h1>Gerenciamento de Agendamentos</h1>
-          <p>Agende pacientes da fila e acompanhe as consultas oficiais da clínica.</p>
         </div>
         <button className="agendamento-botao-principal" type="button" onClick={() => { setErroFormulario(''); setFila([]); setDisponibilidade([]); setAlternativas([]); setAlunos([]); setModalNovo(true) }}>
           <CalendarPlus size={17} /> Novo Agendamento
