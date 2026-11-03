@@ -3,6 +3,8 @@ import "./FilaEspera.css";
 import CadastroPaciente from "./Pacientes/CadastroPaciente.jsx";
 import ValidacaoSolicitacoes from "./ValidacaoSolicitacoes.jsx";
 import AnalisarSolicitacao from "./AnalisarSolicitacao.jsx";
+import AgendaSecretaria from "./Secretaria/AgendaSecretaria.jsx";
+
 
 
 import {
@@ -269,8 +271,13 @@ function FilaEspera({ usuario, onLogout }) {
                   type="button"
                   className={`item-menu ${
                     (item.nome === "Fila de espera" && telaAtiva === "fila") ||
+
                     (item.nome === "Pacientes" && telaAtiva === "pacientes") ||
                     (item.nome === "Solicitações" && telaAtiva === "solicitacoes") ? "ativo" : ""
+
+                    (item.nome === "Agenda" && telaAtiva === "agenda") ||
+                    (item.nome === "Pacientes" && telaAtiva === "pacientes") ? "ativo" : ""
+
                   }`}
                   onClick={() => {
                     setMenuAberto(false);
@@ -279,9 +286,14 @@ function FilaEspera({ usuario, onLogout }) {
                       setTelaAtiva("pacientes");
                     } else if (item.nome === "Fila de espera") {
                       setTelaAtiva("fila");
+
                     } else if (item.nome === "Solicitações") {
                       setSolicitacaoSelecionada(null);
                       setTelaAtiva("solicitacoes");
+
+                    } else if (item.nome === "Agenda") {
+                      setTelaAtiva("agenda");
+
                     } else {
                       mostrarAviso(`A tela "${item.nome}" ainda será desenvolvida.`);
                     }
@@ -347,8 +359,12 @@ function FilaEspera({ usuario, onLogout }) {
             </button>
 
             <span>
+
               Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "solicitacoes" ? "Solicitações" : "Fila de espera"}
               {telaAtiva === "solicitacoes" && solicitacaoSelecionada && ` / Analisar REQ-${solicitacaoSelecionada.id}`}
+
+              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "agenda" ? "Gestão de faltas" : "Fila de espera"}
+
             </span>
           </div>
 
@@ -375,6 +391,7 @@ function FilaEspera({ usuario, onLogout }) {
             onLogout={onLogout}
             integrado
           />
+
         ) : telaAtiva === "solicitacoes" ? (
           <>
             <div hidden={Boolean(solicitacaoSelecionada)}>
@@ -402,6 +419,10 @@ function FilaEspera({ usuario, onLogout }) {
               />
             )}
           </>
+
+        ) : telaAtiva === "agenda" ? (
+          <AgendaSecretaria />
+
         ) : (
         <main className="conteudo">
           <div className="cabecalho-pagina">

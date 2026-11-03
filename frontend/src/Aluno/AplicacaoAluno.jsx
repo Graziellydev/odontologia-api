@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { BookOpen, ClipboardList, CheckCircle2, Info, LogOut, Send, RefreshCcw, LayoutDashboard, ClipboardCheck } from 'lucide-react';
 import { api } from '../api.js';
 import '../style.css';
@@ -44,7 +44,6 @@ function AplicacaoAluno({ usuario, aoSair }) {
   const [enviando, setEnviando] = useState(false);
   const [detalhe, setDetalhe] = useState(null);
 
-  const turma = turmas.find(item => String(item.id) === String(form.turmaId));
   const procedimento = procedimentos.find(item => String(item.id) === String(form.procedimentoId));
   const especialidades = useMemo(() => [...new Set(procedimentos.map(p => p.especialidade).filter(Boolean))].sort(), [procedimentos]);
   const listaProcedimentos = procedimentos.filter(p => !form.especialidade || p.especialidade === form.especialidade);
@@ -62,20 +61,19 @@ function AplicacaoAluno({ usuario, aoSair }) {
 
   useEffect(() => {
     let ativo = true;
-    setCarregandoTurmas(true);
     api(`${CATALOGO}/turmas`)
       .then(dados => { if (ativo) { setTurmas(Array.isArray(dados) ? dados : []); setErroCatalogo(''); } })
       .catch(e => { if (ativo) setErroCatalogo(`Falha ao carregar disciplinas: ${e.message}`); })
       .finally(() => { if (ativo) setCarregandoTurmas(false); });
-    atualizarSolicitacoes();
+    api(`${API}/minhas`)
+      .then(dados => { if (ativo) { setSolicitacoes(Array.isArray(dados) ? dados : []); setErro(''); } })
+      .catch(e => { if (ativo) setErro(`Falha ao carregar minhas solicitações: ${e.message}`); });
     return () => { ativo = false; };
   }, [usuario.id]);
 
   useEffect(() => {
-    if (!form.turmaId) { setProcedimentos([]); setCarregandoProcedimentos(false); return; }
+    if (!form.turmaId) return;
     let ativo = true;
-    setCarregandoProcedimentos(true);
-    setErroCatalogo('');
     api(`${CATALOGO}/procedimentos?turmaId=${form.turmaId}`)
       .then(dados => { if (ativo) { setProcedimentos(Array.isArray(dados) ? dados : []); setErroCatalogo(''); } })
       .catch(e => { if (ativo) setErroCatalogo(`Falha ao carregar procedimentos: ${e.message}`); })
@@ -86,6 +84,7 @@ function AplicacaoAluno({ usuario, aoSair }) {
   function alterarTurma(id) {
     setForm(anterior => ({ ...anterior, turmaId: id, especialidade: '', procedimentoId: '', classe: '' }));
     setProcedimentos([]);
+    setCarregandoProcedimentos(Boolean(id));
   }
   function alterarEspecialidade(nome) {
     setForm(anterior => ({ ...anterior, especialidade: nome, procedimentoId: '', classe: '' }));
@@ -110,6 +109,8 @@ function AplicacaoAluno({ usuario, aoSair }) {
       });
       setSucesso('Solicitação registrada! O status inicial é Pendente de aprovação.');
       setForm(novoFormulario());
+      setProcedimentos([]);
+      setCarregandoProcedimentos(false);
       setAba('historico');
       await atualizarSolicitacoes();
     } catch (e) {
