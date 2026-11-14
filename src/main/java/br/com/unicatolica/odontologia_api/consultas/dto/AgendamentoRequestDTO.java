@@ -8,6 +8,7 @@ public record AgendamentoRequestDTO(
         @NotNull @Positive Long filaEsperaId,
         @NotNull @Positive Long alunoId,
         @NotNull @Positive Long turmaId,
+        @NotNull @Positive Long cadeiraId,
         @NotNull LocalDate data,
         @NotNull Turno turno) {
 

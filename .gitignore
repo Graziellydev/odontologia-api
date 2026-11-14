@@ -35,4 +35,9 @@ build/
 /frontend/dist/
 /frontend/.env
 /frontend/.env.*
+/.env
+/.env.*
+!/.env.example
+/src/main/resources/application-*.local.properties
+/src/test/resources/application-supabase-test.local.properties
 

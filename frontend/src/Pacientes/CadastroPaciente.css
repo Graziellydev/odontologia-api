@@ -76,6 +76,7 @@
 }
 
 .cadastro-formulario {
+  margin-top: 0;
   padding: 28px;
   background: #ffffff;
   border: 1px solid #e2e8f0;
@@ -110,6 +111,8 @@
 }
 
 .cadastro-campo label {
+  display: block;
+  margin: 0;
   font-size: 13px;
   font-weight: 600;
   color: #334155;
@@ -117,6 +120,8 @@
 
 .cadastro-campo input,
 .cadastro-campo textarea {
+  display: block;
+  margin: 0;
   box-sizing: border-box;
   width: 100%;
   padding: 12px;
@@ -145,7 +150,8 @@
 .cadastro-opcoes {
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  align-items: flex-start;
+  gap: 12px;
   margin-bottom: 24px;
 }
 
@@ -153,10 +159,20 @@
   display: flex;
   align-items: center;
   gap: 9px;
+  margin: 0;
+  color: #334155;
   font-size: 14px;
+  font-weight: 500;
 }
 
-.cadastro-opcoes input {
+.cadastro-opcoes input[type="checkbox"] {
+  display: inline-block;
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  padding: 0;
+  border: 0;
   accent-color: #d9531e;
 }
 

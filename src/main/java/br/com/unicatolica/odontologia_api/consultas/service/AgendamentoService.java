@@ -14,6 +14,7 @@ import br.com.unicatolica.odontologia_api.consultas.entity.Vaga;
 import br.com.unicatolica.odontologia_api.consultas.repository.AgendaConsultaRepository;
 import br.com.unicatolica.odontologia_api.consultas.repository.ConsultaRepository;
 import br.com.unicatolica.odontologia_api.consultas.repository.VagaRepository;
+import br.com.unicatolica.odontologia_api.consultas.repository.VagaGestaoRepository;
 import br.com.unicatolica.odontologia_api.filaespera.entity.FilaEspera;
 import br.com.unicatolica.odontologia_api.filaespera.repository.FilaEsperaRepository;
 import br.com.unicatolica.odontologia_api.model.Paciente;
@@ -40,6 +41,7 @@ public class AgendamentoService {
     private final AgendaConsultaRepository agenda;
     private final ConsultaRepository consultas;
     private final VagaRepository vagas;
+    private final VagaGestaoRepository gestaoVagas;
     private final FilaEsperaRepository filaRepository;
     private final PacienteRepository pacientes;
     private final UsuarioRepository usuarios;
@@ -111,13 +113,21 @@ public class AgendamentoService {
         }
         validarSemConflito(paciente.getId(), aluno.getId(), request.data(), request.turno().name(), null);
 
-        Vaga vaga = vagas.reservarPrimeiraDisponivel(request.data(), request.turno().name())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.CONFLICT, "Não há cadeira disponível nesse turno. Consulte outras datas."));
-
-        Consulta consulta = novaConsulta(fila, aluno, request.turmaId(), vaga, secretariaId);
-        prepararHistorico(secretariaId);
         try {
+            if (!gestaoVagas.cadeiraAtivaExiste(request.cadeiraId())) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "A cadeira não existe ou está inativa.");
+            }
+            vagas.criarSeAusente(request.cadeiraId(), request.data(), request.turno().name());
+            Vaga vaga = vagas.buscarPorCadeiraDataTurnoParaAtualizacao(
+                            request.cadeiraId(), request.data(), request.turno().name())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT,
+                            "Não foi possível reservar a cadeira selecionada."));
+            if (Boolean.TRUE.equals(vaga.getBloqueada()) || gestaoVagas.possuiConsultaAtiva(vaga.getId())) {
+                throw new ResponseStatusException(HttpStatus.CONFLICT,
+                        "A cadeira selecionada está bloqueada ou já possui uma consulta.");
+            }
+            Consulta consulta = novaConsulta(fila, aluno, request.turmaId(), vaga, secretariaId);
+            prepararHistorico(secretariaId);
             consultas.saveAndFlush(consulta);
             fila.setStatusFila("ALOCADO");
             fila.setDataSaidaFila(OffsetDateTime.now());
@@ -181,15 +191,25 @@ public class AgendamentoService {
         Vaga vagaAntiga = vagas.findById(origem.getVagaId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Vaga da consulta não encontrada."));
 
-        if (vagaAntiga.getData().equals(request.data()) && vagaAntiga.getTurno().equals(request.turno().name())) {
+        if (vagaAntiga.getData().equals(request.data())
+                && vagaAntiga.getTurno().equals(request.turno().name())
+                && request.cadeiraId().equals(vagaAntiga.getCadeiraId())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
-                    "A nova data e o turno devem ser diferentes do agendamento atual.");
+                    "A cadeira, data e turno devem ser diferentes do agendamento atual.");
         }
         validarSemConflito(paciente.getId(), aluno.getId(), request.data(), request.turno().name(), origem.getId());
-        Vaga novaVaga = vagas.reservarPrimeiraDisponivel(request.data(), request.turno().name())
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.CONFLICT, "Não há cadeira disponível nesse turno. A consulta original foi mantida."));
-
+        if (!gestaoVagas.cadeiraAtivaExiste(request.cadeiraId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "A cadeira selecionada não existe ou está inativa.");
+        }
+        vagas.criarSeAusente(request.cadeiraId(), request.data(), request.turno().name());
+        Vaga novaVaga = vagas.buscarPorCadeiraDataTurnoParaAtualizacao(
+                        request.cadeiraId(), request.data(), request.turno().name())
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.CONFLICT,
+                        "Não foi possível reservar a cadeira selecionada."));
+        if (Boolean.TRUE.equals(novaVaga.getBloqueada()) || gestaoVagas.possuiConsultaAtiva(novaVaga.getId())) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT,
+                    "A cadeira selecionada está bloqueada ou já possui uma consulta.");
+        }
         prepararHistorico(secretariaId);
         Consulta remarcada = copiarConsulta(origem, novaVaga, secretariaId);
         try {

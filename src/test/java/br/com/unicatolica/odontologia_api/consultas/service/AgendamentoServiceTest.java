@@ -10,6 +10,7 @@ import br.com.unicatolica.odontologia_api.consultas.entity.Vaga;
 import br.com.unicatolica.odontologia_api.consultas.repository.AgendaConsultaRepository;
 import br.com.unicatolica.odontologia_api.consultas.repository.ConsultaRepository;
 import br.com.unicatolica.odontologia_api.consultas.repository.VagaRepository;
+import br.com.unicatolica.odontologia_api.consultas.repository.VagaGestaoRepository;
 import br.com.unicatolica.odontologia_api.filaespera.entity.FilaEspera;
 import br.com.unicatolica.odontologia_api.filaespera.repository.FilaEsperaRepository;
 import br.com.unicatolica.odontologia_api.model.Paciente;
@@ -45,6 +46,7 @@ class AgendamentoServiceTest {
     @Mock private AgendaConsultaRepository agenda;
     @Mock private ConsultaRepository consultas;
     @Mock private VagaRepository vagas;
+    @Mock private VagaGestaoRepository gestaoVagas;
     @Mock private FilaEsperaRepository filas;
     @Mock private PacienteRepository pacientes;
     @Mock private UsuarioRepository usuarios;
@@ -71,7 +73,9 @@ class AgendamentoServiceTest {
         when(agenda.existeConsultaAtivaNaFila(10L, null)).thenReturn(false);
         when(agenda.existeConflitoDePaciente(20L, vaga.getData(), "MANHA", null)).thenReturn(false);
         when(agenda.existeConflitoDeAluno(40L, vaga.getData(), "MANHA", null)).thenReturn(false);
-        when(vagas.reservarPrimeiraDisponivel(vaga.getData(), "MANHA")).thenReturn(Optional.of(vaga));
+        when(gestaoVagas.cadeiraAtivaExiste(1L)).thenReturn(true);
+        when(vagas.buscarPorCadeiraDataTurnoParaAtualizacao(1L, vaga.getData(), "MANHA"))
+                .thenReturn(Optional.of(vaga));
         when(consultas.saveAndFlush(any(Consulta.class))).thenAnswer(invocacao -> {
             Consulta salva = invocacao.getArgument(0);
             salva.setId(60L);
@@ -82,13 +86,14 @@ class AgendamentoServiceTest {
         when(agenda.buscarAgendamento(60L, 70L)).thenReturn(esperado);
 
         AgendamentoResponseDTO resultado = service.agendar(new AgendamentoRequestDTO(
-                10L, 40L, 45L, vaga.getData(), AgendamentoRequestDTO.Turno.MANHA), 5L);
+                10L, 40L, 45L, 1L, vaga.getData(), AgendamentoRequestDTO.Turno.MANHA), 5L);
 
         assertEquals(60L, resultado.id());
         assertEquals(70L, resultado.notificacaoId());
         assertEquals("ALOCADO", fila.getStatusFila());
         verify(filas).saveAndFlush(fila);
         verify(consultas).saveAndFlush(any(Consulta.class));
+        verify(vagas).criarSeAusente(1L, vaga.getData(), "MANHA");
     }
 
     @Test
@@ -102,13 +107,40 @@ class AgendamentoServiceTest {
         when(agenda.existeConsultaAtivaNaFila(10L, null)).thenReturn(false);
         when(agenda.existeConflitoDePaciente(20L, data, "TARDE", null)).thenReturn(false);
         when(agenda.existeConflitoDeAluno(40L, data, "TARDE", null)).thenReturn(false);
-        when(vagas.reservarPrimeiraDisponivel(data, "TARDE")).thenReturn(Optional.empty());
+        when(gestaoVagas.cadeiraAtivaExiste(1L)).thenReturn(true);
+        Vaga vagaBloqueada = vaga(51L, data, "TARDE");
+        vagaBloqueada.setBloqueada(true);
+        when(vagas.buscarPorCadeiraDataTurnoParaAtualizacao(1L, data, "TARDE"))
+                .thenReturn(Optional.of(vagaBloqueada));
 
         ResponseStatusException erro = assertThrows(ResponseStatusException.class,
                 () -> service.agendar(new AgendamentoRequestDTO(
-                        10L, 40L, 45L, data, AgendamentoRequestDTO.Turno.TARDE), 5L));
+                        10L, 40L, 45L, 1L, data, AgendamentoRequestDTO.Turno.TARDE), 5L));
 
         assertEquals(HttpStatus.CONFLICT, erro.getStatusCode());
+        verify(consultas, never()).saveAndFlush(any());
+        verify(filas, never()).save(any());
+    }
+
+    @Test
+    void impedeAgendamentoEmCadeiraInativaSemCriarVagaOuConsumirFila() {
+        FilaEspera fila = fila("AGUARDANDO");
+        LocalDate data = LocalDate.now().plusDays(4);
+        when(filas.buscarPorIdParaAtualizacao(10L)).thenReturn(Optional.of(fila));
+        when(pacientes.buscarPorIdParaAtualizacao(20L)).thenReturn(Optional.of(paciente()));
+        when(usuarios.buscarPorIdParaAtualizacao(40L)).thenReturn(Optional.of(aluno()));
+        when(agenda.alunoPodeAtender(10L, 40L, 45L)).thenReturn(true);
+        when(agenda.existeConsultaAtivaNaFila(10L, null)).thenReturn(false);
+        when(agenda.existeConflitoDePaciente(20L, data, "MANHA", null)).thenReturn(false);
+        when(agenda.existeConflitoDeAluno(40L, data, "MANHA", null)).thenReturn(false);
+        when(gestaoVagas.cadeiraAtivaExiste(1L)).thenReturn(false);
+
+        ResponseStatusException erro = assertThrows(ResponseStatusException.class,
+                () -> service.agendar(new AgendamentoRequestDTO(
+                        10L, 40L, 45L, 1L, data, AgendamentoRequestDTO.Turno.MANHA), 5L));
+
+        assertEquals(HttpStatus.CONFLICT, erro.getStatusCode());
+        verify(vagas, never()).criarSeAusente(any(), any(), any());
         verify(consultas, never()).saveAndFlush(any());
         verify(filas, never()).save(any());
     }
@@ -125,15 +157,63 @@ class AgendamentoServiceTest {
         when(vagas.findById(50L)).thenReturn(Optional.of(vaga(50L, LocalDate.now().plusDays(2), "MANHA")));
         when(agenda.existeConflitoDePaciente(20L, novaData, "TARDE", 60L)).thenReturn(false);
         when(agenda.existeConflitoDeAluno(40L, novaData, "TARDE", 60L)).thenReturn(false);
-        when(vagas.reservarPrimeiraDisponivel(novaData, "TARDE")).thenReturn(Optional.empty());
+        when(gestaoVagas.cadeiraAtivaExiste(1L)).thenReturn(true);
+        Vaga ocupada = vaga(52L, novaData, "TARDE");
+        when(vagas.buscarPorCadeiraDataTurnoParaAtualizacao(1L, novaData, "TARDE"))
+                .thenReturn(Optional.of(ocupada));
+        when(gestaoVagas.possuiConsultaAtiva(52L)).thenReturn(true);
 
         ResponseStatusException erro = assertThrows(ResponseStatusException.class,
-                () -> service.remarcar(60L, new RemarcacaoRequestDTO(novaData, AgendamentoRequestDTO.Turno.TARDE), 5L));
+                () -> service.remarcar(60L, new RemarcacaoRequestDTO(1L, novaData, AgendamentoRequestDTO.Turno.TARDE), 5L));
 
         assertEquals(HttpStatus.CONFLICT, erro.getStatusCode());
         assertEquals(StatusConsulta.AGENDADO, origem.getStatusConsulta());
         verify(consultas, never()).saveAndFlush(any());
         verify(notificacaoService, never()).registrar(any(), any(), any(), anyString(), anyString(), any());
+    }
+
+    @Test
+    void remarcaConsultaCriandoNovaOrigemSemApagarHistorico() {
+        configurarHistorico();
+        Consulta origem = consulta(StatusConsulta.AGENDADO);
+        FilaEspera fila = fila("ALOCADO");
+        Paciente paciente = paciente();
+        LocalDate novaData = LocalDate.now().plusDays(8);
+        Vaga novaVaga = vaga(52L, novaData, "TARDE");
+        NotificacaoWhatsapp notificacao = new NotificacaoWhatsapp();
+        notificacao.setId(71L);
+        when(consultas.buscarPorIdParaAtualizacao(60L)).thenReturn(Optional.of(origem));
+        when(filas.buscarPorIdParaAtualizacao(10L)).thenReturn(Optional.of(fila));
+        when(pacientes.buscarPorIdParaAtualizacao(20L)).thenReturn(Optional.of(paciente));
+        when(usuarios.buscarPorIdParaAtualizacao(40L)).thenReturn(Optional.of(aluno()));
+        when(vagas.findById(50L)).thenReturn(Optional.of(vaga(50L, LocalDate.now().plusDays(2), "MANHA")));
+        when(agenda.existeConflitoDePaciente(20L, novaData, "TARDE", 60L)).thenReturn(false);
+        when(agenda.existeConflitoDeAluno(40L, novaData, "TARDE", 60L)).thenReturn(false);
+        when(gestaoVagas.cadeiraAtivaExiste(1L)).thenReturn(true);
+        when(vagas.buscarPorCadeiraDataTurnoParaAtualizacao(1L, novaData, "TARDE"))
+                .thenReturn(Optional.of(novaVaga));
+        when(gestaoVagas.possuiConsultaAtiva(52L)).thenReturn(false);
+        when(consultas.saveAndFlush(any(Consulta.class))).thenAnswer(invocacao -> {
+            Consulta salva = invocacao.getArgument(0);
+            if (salva.getId() == null) salva.setId(61L);
+            return salva;
+        });
+        when(notificacaoService.registrar(any(), any(), any(), anyString(), anyString(), any()))
+                .thenReturn(notificacao);
+        when(agenda.buscarAgendamento(61L, 71L)).thenReturn(resposta(61L, "AGENDADO", 71L));
+
+        AgendamentoResponseDTO resultado = service.remarcar(60L,
+                new RemarcacaoRequestDTO(1L, novaData, AgendamentoRequestDTO.Turno.TARDE), 5L);
+
+        assertEquals(61L, resultado.id());
+        assertEquals(StatusConsulta.CANCELADO_SECRETARIA, origem.getStatusConsulta());
+        org.mockito.ArgumentCaptor<Consulta> consultasSalvas = org.mockito.ArgumentCaptor.forClass(Consulta.class);
+        verify(consultas, org.mockito.Mockito.times(2)).saveAndFlush(consultasSalvas.capture());
+        Consulta novaConsulta = consultasSalvas.getAllValues().stream()
+                .filter(item -> !Long.valueOf(60L).equals(item.getId())).findFirst().orElseThrow();
+        assertEquals(60L, novaConsulta.getConsultaOrigemId());
+        assertEquals(10L, novaConsulta.getFilaEsperaId());
+        assertEquals("ALOCADO", fila.getStatusFila());
     }
 
     @Test

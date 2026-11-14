@@ -3,9 +3,12 @@ import { listarFaltas, reagendarFalta, registrarFalta } from '../services/Faltas
 import PainelRegistroFalta from './PainelRegistroFalta.jsx'
 import PainelReagendamento from './PainelReagendamento.jsx'
 import TabelaHistoricoAusencias from './TabelaHistoricoAusencias.jsx'
+import TurnosDisponiveisSecretaria from './TurnosDisponiveisSecretaria.jsx'
+import AgendamentosSecretaria from './AgendamentosSecretaria.jsx'
 import './AgendaSecretaria.css'
 
 function mensagemDeErro(erro) {
+  if (erro?.status >= 500 || erro?.response?.status >= 500) return 'Servico da agenda indisponivel. Tente novamente em instantes.'
   const detalhe = erro?.response?.data?.detail || erro?.response?.data?.message || erro?.response?.data?.error
   if (erro?.response?.status === 401) return 'Sua sessão expirou. Faça login novamente.'
   if (detalhe) return detalhe
@@ -22,6 +25,8 @@ function AgendaSecretaria() {
   const [erro, setErro] = useState('')
   const [sucesso, setSucesso] = useState('')
   const [atualizacao, setAtualizacao] = useState(0)
+  const [slotInicial, setSlotInicial] = useState(null)
+  const [atualizacaoAgenda, setAtualizacaoAgenda] = useState(0)
 
   useEffect(() => {
     let ativa = true
@@ -90,13 +95,21 @@ function AgendaSecretaria() {
       <header className="agenda-cabecalho">
         <div>
           <p className="agenda-eyebrow">SECRETARIA · AGENDA</p>
-          <h1 className="agenda-titulo">Gestão de faltas</h1>
-          <p className="agenda-subtitulo">Registre ausências e organize o reagendamento das consultas.</p>
+          <h1 className="agenda-titulo">Agenda oficial</h1>
+          <p className="agenda-subtitulo">Consultas, turnos e cadeiras da clínica-escola.</p>
         </div>
-        <button className="btn-secundario btn-atualizar" type="button" onClick={atualizar} disabled={carregando}>
-          Atualizar histórico
-        </button>
+        <button className="agenda-botao-agendar" type="button" onClick={() => document.getElementById('novo-agendamento-form')?.scrollIntoView({ behavior: 'smooth', block: 'center' })}>Agendar consulta</button>
       </header>
+
+      <TurnosDisponiveisSecretaria
+        key={atualizacaoAgenda}
+        aoAgendar={(slot) => setSlotInicial(slot)}
+      />
+      <AgendamentosSecretaria
+        slotInicial={slotInicial}
+        aoLimparSlot={() => setSlotInicial(null)}
+        aoAlterar={() => setAtualizacaoAgenda((valor) => valor + 1)}
+      />
 
       {sucesso && <div className="mensagem mensagem-sucesso" role="status">{sucesso}</div>}
       {erro && (
@@ -106,6 +119,12 @@ function AgendaSecretaria() {
         </div>
       )}
 
+      <section className="agenda-secao-faltas" aria-labelledby="agenda-faltas-titulo">
+        <header className="agenda-secao-cabecalho">
+          <h2 id="agenda-faltas-titulo">Registro de ausências</h2>
+          <p>Registre faltas sem perder o histórico do atendimento.</p>
+          <button className="btn-secundario btn-atualizar" type="button" onClick={atualizar} disabled={carregando}>Atualizar histórico</button>
+        </header>
       <section className="paineis-faltas" aria-label="Registro e reagendamento de faltas">
         <PainelRegistroFalta aoRegistrar={registrar} enviando={enviandoFalta} />
         <PainelReagendamento
@@ -134,6 +153,7 @@ function AgendaSecretaria() {
           <p>O reagendamento cria uma nova consulta vinculada à falta original, mantendo a rastreabilidade.</p>
         </div>
       </aside>
+      </section>
     </main>
   )
 }

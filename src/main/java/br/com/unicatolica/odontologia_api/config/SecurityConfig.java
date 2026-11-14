@@ -16,11 +16,18 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class SecurityConfig {
+
+        @Bean
+        public PasswordEncoder passwordEncoder() {
+                return new BCryptPasswordEncoder();
+        }
 
         private static final RequestMatcher METRICAS_REQUEST_MATCHER = request -> {
                 String path = request.getServletPath();
@@ -40,6 +47,18 @@ public class SecurityConfig {
                                         HttpStatus.FORBIDDEN,
                                         "{\"codigo\":\"SEM_PERMISSAO\",\"mensagem\":\"Perfil COORDENADOR necessário.\"}");
 
+        private static final AuthenticationEntryPoint API_AUTHENTICATION_ENTRY_POINT =
+                        (request, response, exception) -> escreverErroSeguranca(
+                                        response,
+                                        HttpStatus.UNAUTHORIZED,
+                                        "{\"codigo\":\"NAO_AUTENTICADO\",\"mensagem\":\"Autentica\\u00e7\\u00e3o necess\\u00e1ria.\"}");
+
+        private static final AccessDeniedHandler API_ACCESS_DENIED_HANDLER =
+                        (request, response, exception) -> escreverErroSeguranca(
+                                        response,
+                                        HttpStatus.FORBIDDEN,
+                                        "{\"codigo\":\"SEM_PERMISSAO\",\"mensagem\":\"Perfil sem permissao para esta operacao.\"}");
+
         private static void escreverErroSeguranca(
                         HttpServletResponse response,
                         HttpStatus status,
@@ -58,9 +77,7 @@ public class SecurityConfig {
                                 .csrf(csrf -> csrf.disable())
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/auth/**").permitAll()
-                                                
-                                                // Rota liberada temporariamente para o front-end conseguir cadastrar
-                                                .requestMatchers("/api/pacientes/**").permitAll()
+                                                .requestMatchers("/api/pacientes/**").hasAuthority("SECRETARIA")
 
                                                 .requestMatchers(
                                                                 "/api/coordenador/metricas",
@@ -84,9 +101,14 @@ public class SecurityConfig {
 
                                                 .requestMatchers("/api/consultas/**")
                                                 .hasAuthority("SECRETARIA")
+
+                                                .requestMatchers("/api/vagas/**", "/api/cadeiras/**")
+                                                .hasAuthority("SECRETARIA")
                                                 
                                                 .anyRequest().authenticated())
                                 .exceptionHandling(exceptions -> exceptions
+                                                .authenticationEntryPoint(API_AUTHENTICATION_ENTRY_POINT)
+                                                .accessDeniedHandler(API_ACCESS_DENIED_HANDLER)
                                                 .defaultAuthenticationEntryPointFor(
                                                                 METRICAS_AUTHENTICATION_ENTRY_POINT,
                                                                 METRICAS_REQUEST_MATCHER)
