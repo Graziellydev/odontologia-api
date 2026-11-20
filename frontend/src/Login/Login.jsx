@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import axios from 'axios';
+import { obterHeadersCsrf } from '../api.js';
 import './Login.css';
 
 function Login({onLoginSuccess })  {
@@ -14,11 +15,13 @@ function Login({onLoginSuccess })  {
     setCarregando(true);
 
     try {
+      const headersCsrf = await obterHeadersCsrf();
       const response = await axios.post('/api/auth/login', {
         email,
         senha,
       }, {
-        withCredentials: true
+        withCredentials: true,
+        headers: headersCsrf,
       });
 
       const usuario = response.data;

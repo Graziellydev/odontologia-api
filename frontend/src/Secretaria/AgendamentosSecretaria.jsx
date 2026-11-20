@@ -323,7 +323,6 @@ function AgendamentosSecretaria({ slotInicial, aoLimparSlot, aoAlterar }) {
     }
   }
 
-  const opcoesDisponibilidade = disponibilidade.filter((item) => item.vagasDisponiveis > 0)
   const opcoesRemarcacao = [...new Set(cadeirasRemarcacao.map((item) => item.turno))]
   const filaSelecionada = fila.find((item) => String(item.filaEsperaId) === form.filaId)
   const selecaoAluno = alunos.find((item) => `${item.alunoId}:${item.turmaId}` === form.alunoTurma)
@@ -347,7 +346,6 @@ function AgendamentosSecretaria({ slotInicial, aoLimparSlot, aoAlterar }) {
         <label>Data<input type="date" value={filtroData} onChange={(e) => setFiltroData(e.target.value)} /></label>
         <label>Aluno<select value={filtroAluno} onChange={(e) => setFiltroAluno(e.target.value)}><option value="">Todos</option>{alunosFiltro.map(([id, nome]) => <option key={id} value={id}>{nome}</option>)}</select></label>
         <label>Status<select value={filtroStatus} onChange={(e) => setFiltroStatus(e.target.value)}><option value="">Todos</option><option value="AGENDADO">Agendado</option><option value="CONFIRMADA_24H">Confirmado</option><option value="CANCELADO_SECRETARIA">Cancelado</option><option value="REALIZADO">Realizado</option></select></label>
-        <button className="agendamento-botao-secundario" type="button" onClick={atualizar} disabled={carregando}><RefreshCw size={15} /> Atualizar</button>
       </section>
 
       <section className="agendamento-tabela-card">

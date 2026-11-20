@@ -34,8 +34,9 @@ public class RetornoService {
     public List<AtendimentoDoTurnoDTO> listarAtendimentosDeHoje(Long alunoId) {
         return consultas.listarDeHoje(alunoId).stream()
                 .map(v -> new AtendimentoDoTurnoDTO(
-                        v.getConsultaId(), v.getPaciente(), v.getProcedimento(),
-                        v.getDente(), v.getClasse(), v.getData(), v.getTurno()))
+                        v.getConsultaId(), v.getPacienteId(), v.getProcedimentoId(), v.getCadeira(),
+                        v.getPaciente(), v.getProcedimento(),
+                        v.getDente(), v.getClasse(), v.getData(), v.getTurno(), v.getStatus()))
                 .toList();
     }
 

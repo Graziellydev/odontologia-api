@@ -8,7 +8,7 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "test": "node --test tests/rf010.test.mjs",
+    "test": "node --test tests/*.test.mjs",
     "dev:rf010-test": "node tests/servidor-isolado.mjs"
   },
   "dependencies": {

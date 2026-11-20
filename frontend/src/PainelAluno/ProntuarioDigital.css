@@ -1,0 +1,105 @@
+.prontuario-turno {
+  margin: 0 0 24px;
+  padding: 22px;
+  border: 1px solid #e3e8eb;
+  border-radius: 12px;
+  background: #fff;
+  color: #263238;
+  font-family: Lato, Arial, sans-serif;
+}
+.prontuario-section-heading { display: flex; justify-content: space-between; margin-bottom: 16px; }
+.prontuario-section-heading h2 { margin: 6px 0; font-size: 21px; }
+.prontuario-section-heading p, .prontuario-muted { margin: 0; color: #657278; font-size: 14px; }
+.prontuario-eyebrow { display: inline-flex; align-items: center; gap: 6px; color: #287252; font-size: 12px; font-weight: 700; }
+.prontuario-empty { padding: 18px; border: 1px dashed #cbd5d8; border-radius: 8px; color: #657278; }
+.prontuario-appointments { display: grid; gap: 10px; }
+.prontuario-appointment { display: flex; align-items: center; gap: 14px; padding: 13px; border: 1px solid #e3e8eb; border-radius: 9px; }
+.prontuario-patient-mark { display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center; border-radius: 50%; background: #eaf5ee; color: #287252; font-weight: 700; }
+.prontuario-appointment-info { display: grid; flex: 1; gap: 3px; min-width: 0; }
+.prontuario-appointment-info > span { color: #49575c; font-size: 13px; }
+.prontuario-appointment-info small { display: flex; align-items: center; gap: 5px; color: #758187; }
+.prontuario-primary, .prontuario-secondary, .prontuario-danger-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 8px 13px; border: 1px solid transparent; border-radius: 7px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
+.prontuario-primary { background: #c65117; color: #fff; }
+.prontuario-primary:hover { background: #aa4310; }
+.prontuario-primary:disabled { cursor: not-allowed; opacity: .6; }
+.prontuario-secondary { border-color: #d7dfe2; background: #fff; color: #36454b; }
+.prontuario-inline-error { padding: 10px 12px; border: 1px solid #e7b9b6; border-radius: 7px; background: #fff0ef; color: #9d302e; font-size: 14px; }
+.prontuario-overlay { position: fixed; z-index: 1200; inset: 0; display: flex; justify-content: flex-end; background: rgb(20 30 35 / 48%); }
+.prontuario-drawer { position: relative; display: flex; width: min(1040px, 94vw); height: 100%; flex-direction: column; overflow: hidden; background: #fff; box-shadow: -10px 0 35px rgb(0 0 0 / 18%); font-family: Lato, Arial, sans-serif; }
+.prontuario-drawer-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 24px 28px 18px; border-bottom: 1px solid #e3e8eb; }
+.prontuario-drawer-header h2 { margin: 7px 0 5px; color: #263238; font-size: 23px; }
+.prontuario-drawer-header p { margin: 0; color: #657278; font-size: 14px; }
+.prontuario-icon-button { display: inline-grid; width: 36px; height: 36px; flex: 0 0 36px; place-items: center; border: 0; border-radius: 7px; background: transparent; color: #536167; cursor: pointer; }
+.prontuario-icon-button:hover { background: #f1f4f5; }
+.prontuario-security-banner { display: flex; align-items: center; gap: 11px; margin: 16px 28px 0; padding: 11px 13px; border: 1px solid #cfe5d6; border-radius: 8px; background: #eaf5ee; color: #287252; }
+.prontuario-security-banner div { display: grid; gap: 2px; }
+.prontuario-security-banner span { color: #4f6e5d; font-size: 12px; }
+.prontuario-tabs { display: flex; gap: 20px; padding: 0 28px; border-bottom: 1px solid #e3e8eb; }
+.prontuario-tabs button { padding: 14px 2px 11px; border: 0; border-bottom: 3px solid transparent; background: none; color: #67757a; font: inherit; cursor: pointer; }
+.prontuario-tabs button.ativo { border-bottom-color: #c65117; color: #a84414; font-weight: 700; }
+.prontuario-drawer-content { position: relative; flex: 1; overflow: auto; padding: 22px 28px; }
+.clinical-content { user-select: none; -webkit-user-select: none; }
+.prontuario-watermark { position: fixed; z-index: 0; inset: 170px 0 55px; display: grid; grid-template-columns: repeat(2, 1fr); align-content: space-around; justify-items: center; overflow: hidden; pointer-events: none; }
+.prontuario-watermark span { color: rgb(40 75 58 / 9%); font-size: 12px; font-weight: 700; white-space: nowrap; transform: rotate(-28deg); }
+.prontuario-workspace, .prontuario-history-layout { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.7fr); gap: 16px; align-items: start; }
+.prontuario-summary-card, .prontuario-form-card, .prontuario-history-card { padding: 18px; border: 1px solid #e3e8eb; border-radius: 9px; background: rgb(255 255 255 / 96%); }
+.prontuario-summary-card h3, .prontuario-card-heading h3 { margin: 0 0 5px; font-size: 17px; }
+.prontuario-summary-card p, .prontuario-card-heading p { margin: 0 0 13px; color: #68767b; font-size: 13px; }
+.prontuario-summary-card hr { margin: 14px 0; border: 0; border-top: 1px solid #e3e8eb; }
+.prontuario-summary-card > span { display: block; margin-top: 7px; color: #59676c; font-size: 13px; }
+.prontuario-status-pill { display: inline-block !important; width: max-content; padding: 4px 8px; border-radius: 99px; background: #eaf5ee; color: #287252 !important; font-weight: 700; }
+.prontuario-anamnese-compact { margin-top: 17px; padding-top: 13px; border-top: 1px solid #e3e8eb; font-size: 13px; }
+.prontuario-anamnese-compact p { margin: 6px 0 0; }
+.prontuario-card-heading { margin-bottom: 15px; }
+.prontuario-field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.prontuario-form-card label, .prontuario-mini-modal label { display: grid; gap: 6px; margin: 0 0 14px; color: #354349; font-size: 13px; font-weight: 700; }
+.prontuario-form-card input:not([type=checkbox]), .prontuario-form-card textarea, .prontuario-mini-modal textarea { width: 100%; box-sizing: border-box; padding: 10px 11px; border: 1px solid #d5dfe2; border-radius: 6px; background: #fff; color: #263238; font: inherit; font-weight: 400; resize: vertical; }
+.prontuario-form-card input[readonly] { background: #f6f8f8; }
+.prontuario-checkbox { display: flex !important; align-items: center; gap: 8px !important; font-weight: 400 !important; }
+.prontuario-saved-card { display: flex; align-items: flex-start; gap: 12px; padding: 14px; border: 1px solid #cfe5d6; border-radius: 8px; background: #eaf5ee; color: #287252; }
+.prontuario-saved-card div { display: grid; gap: 5px; }
+.prontuario-saved-card span { font-size: 12px; }
+.prontuario-text-button { display: inline-flex; align-items: center; gap: 5px; width: max-content; padding: 5px 0; border: 0; background: none; color: #a84414; font: inherit; font-weight: 700; cursor: pointer; }
+.prontuario-history-layout { grid-template-columns: 1.2fr 1fr; }
+.prontuario-history-card { position: relative; z-index: 1; background: rgb(255 255 255 / 96%); }
+.prontuario-history-card h4 { margin: 15px 0 7px; }
+.prontuario-evolution { margin-top: 12px; padding: 14px 0; border-top: 1px solid #e3e8eb; }
+.prontuario-evolution > p, .prontuario-history-card > p { color: #39474c; line-height: 1.5; white-space: pre-wrap; }
+.prontuario-evolution small, .prontuario-addendum-entry small { color: #68767b; }
+.prontuario-date-pill { display: inline-block; margin-bottom: 7px; padding: 4px 8px; border-radius: 99px; background: #f3f5f6; color: #5a676c; font-size: 12px; }
+.prontuario-signature { display: block; width: max-content; margin-top: 9px; padding: 5px 8px; border: 1px solid #cfe5d6; border-radius: 5px; background: #eaf5ee; color: #287252; font-size: 11px; font-weight: 700; }
+.prontuario-addendum-entry { margin-top: 12px; padding: 11px; border-left: 3px solid #c65117; background: #fff8f4; }
+.prontuario-addendum-entry p { margin: 7px 0; white-space: pre-wrap; }
+.prontuario-tooth-list { display: grid; gap: 8px; padding: 0; list-style: none; }
+.prontuario-tooth-list li { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; padding: 9px; border: 1px solid #e3e8eb; border-radius: 6px; font-size: 13px; }
+.prontuario-tooth-list li small { grid-column: 1 / -1; color: #68767b; }
+.prontuario-drawer-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; border-top: 1px solid #e3e8eb; color: #718087; font-size: 12px; }
+.prontuario-drawer-footer button { padding: 7px 12px; border: 1px solid #d7dfe2; border-radius: 6px; background: #fff; color: #39474c; cursor: pointer; }
+.prontuario-overlay-mini, .prontuario-overlay-block { z-index: 1300; align-items: center; justify-content: center; padding: 18px; }
+.prontuario-mini-modal, .prontuario-block-modal { position: relative; width: min(440px, 100%); box-sizing: border-box; padding: 25px; border: 1px solid #e3e8eb; border-radius: 11px; background: #fff; box-shadow: 0 15px 50px rgb(0 0 0 / 18%); font-family: Lato, Arial, sans-serif; }
+.prontuario-mini-modal > .prontuario-icon-button, .prontuario-block-modal > .prontuario-icon-button { position: absolute; top: 10px; right: 10px; }
+.prontuario-modal-icon, .prontuario-block-icon { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: #fff1e9; color: #c65117; }
+.prontuario-mini-modal h2, .prontuario-block-modal h2 { margin: 13px 0 7px; font-size: 20px; }
+.prontuario-mini-modal > p, .prontuario-block-modal > p { color: #657278; font-size: 14px; line-height: 1.45; }
+.prontuario-modal-actions { display: flex; justify-content: flex-end; gap: 9px; }
+.prontuario-block-icon { background: #fff0ef; color: #b43b39; }
+.prontuario-block-modal { width: min(360px, 100%); border-color: #edc6c4; }
+.prontuario-block-modal h2 { color: #9d302e; }
+.prontuario-danger-button { width: 100%; margin-top: 8px; background: #b43b39; color: #fff; }
+@media (max-width: 760px) {
+  .prontuario-appointment { align-items: flex-start; flex-wrap: wrap; }
+  .prontuario-appointment-info { min-width: calc(100% - 56px); }
+  .prontuario-appointment > button { width: 100%; }
+  .prontuario-drawer { width: 100vw; }
+  .prontuario-drawer-header { padding: 18px; }
+  .prontuario-security-banner { margin: 12px 18px 0; }
+  .prontuario-tabs { gap: 12px; padding: 0 18px; }
+  .prontuario-tabs button { font-size: 13px; }
+  .prontuario-drawer-content { padding: 16px 18px; }
+  .prontuario-workspace, .prontuario-history-layout { grid-template-columns: 1fr; }
+  .prontuario-field-grid { grid-template-columns: 1fr; gap: 0; }
+  .prontuario-drawer-footer { padding: 10px 18px; }
+}
+@media print {
+  .prontuario-turno, .prontuario-overlay { display: none !important; }
+}

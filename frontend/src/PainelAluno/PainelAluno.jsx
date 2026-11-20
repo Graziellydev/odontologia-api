@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { buscarPainelDeMetas } from '../services/metaService.js'
+import ProntuarioDigital from './ProntuarioDigital.jsx'
 import './PainelAluno.css'
 
 // Lista os últimos semestres letivos no formato do banco (ex.: 2026.2)
@@ -102,6 +103,8 @@ function PainelAluno({ usuario }) {
     <div className="painel">
       <h1 className="painel-titulo">Olá, {primeiroNome}. Bom turno!</h1>
       <p className="painel-sub">Acompanhe suas metas e prepare o próximo atendimento.</p>
+
+      <ProntuarioDigital usuario={usuario} />
 
       <div className="painel-filtros">
         <select

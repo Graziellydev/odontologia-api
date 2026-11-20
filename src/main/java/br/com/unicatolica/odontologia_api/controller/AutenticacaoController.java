@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import br.com.unicatolica.odontologia_api.repository.UsuarioRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.web.csrf.CsrfToken;
 
 import java.util.List;
 
@@ -35,6 +36,13 @@ public class AutenticacaoController {
     private UsuarioRepository usuarioRepository;
 
     private final HttpSessionSecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
+
+    @GetMapping("/csrf")
+    public ResponseEntity<Void> csrf(CsrfToken csrfToken) {
+        // Materializa o token no cookie XSRF-TOKEN para clientes browser enviarem no header.
+        csrfToken.getToken();
+        return ResponseEntity.noContent().build();
+    }
 
     @PostMapping("/login")
     public ResponseEntity<?> login(

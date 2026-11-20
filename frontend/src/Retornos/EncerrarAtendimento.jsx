@@ -39,7 +39,7 @@ function EncerrarAtendimento() {
   }, [tentativa])
 
   const carregando = lista.chave !== tentativa
-  const atendimentos = carregando ? [] : lista.dados
+  const atendimentos = carregando ? [] : lista.dados.filter((item) => item.status !== 'REALIZADO')
 
   function abrir(atendimento) {
     setSelecionado(atendimento)

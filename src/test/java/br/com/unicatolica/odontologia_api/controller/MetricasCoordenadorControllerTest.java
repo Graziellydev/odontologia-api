@@ -5,6 +5,7 @@ import static org.mockito.Mockito.when;
 import static org.hamcrest.Matchers.nullValue;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static br.com.unicatolica.odontologia_api.CsrfTestSupport.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -155,7 +156,7 @@ class MetricasCoordenadorControllerTest {
 
     @Test
     void logoutExistenteContinuaAcessivelSemAutenticacao() throws Exception {
-        mockMvc.perform(post("/api/auth/logout"))
+        mockMvc.perform(post("/api/auth/logout").with(csrf()))
                 .andExpect(status().isNoContent());
     }
 

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { obterHeadersCsrf } from "../api.js";
 import "./CadastroPaciente.css";
 
 const formularioInicial = {
@@ -77,9 +78,11 @@ function CadastroPaciente({ nomeUsuario, onLogout, integrado = false }) {
     };
 
     try {
+      const headersCsrf = await obterHeadersCsrf();
       const resposta = await axios.post(
-        "http://localhost:8080/api/pacientes",
-        dados
+        "/api/pacientes",
+        dados,
+        { withCredentials: true, headers: headersCsrf }
       );
 
       setMensagem({

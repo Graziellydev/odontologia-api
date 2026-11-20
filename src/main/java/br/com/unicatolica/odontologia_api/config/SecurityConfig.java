@@ -10,11 +10,14 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.csrf.CsrfTokenRequestAttributeHandler;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -22,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
+@EnableConfigurationProperties(br.com.unicatolica.odontologia_api.prontuarios.security.ProntuarioProperties.class)
 public class SecurityConfig {
 
         @Bean
@@ -74,10 +78,20 @@ public class SecurityConfig {
                         HttpSecurity http) throws Exception {
 
                 http
-                                .csrf(csrf -> csrf.disable())
+                                .csrf(csrf -> csrf
+                                                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                                                .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/auth/**").permitAll()
                                                 .requestMatchers("/api/pacientes/**").hasAuthority("SECRETARIA")
+
+                                                .requestMatchers(HttpMethod.GET, "/api/prontuarios/paciente/**")
+                                                .hasAnyAuthority("ALUNO", "COORDENADOR")
+                                                .requestMatchers(HttpMethod.POST, "/api/prontuarios")
+                                                .hasAuthority("ALUNO")
+                                                .requestMatchers(HttpMethod.POST, "/api/prontuarios/*/adendos")
+                                                .hasAuthority("ALUNO")
+                                                .requestMatchers("/api/prontuarios/**").denyAll()
 
                                                 .requestMatchers(
                                                                 "/api/coordenador/metricas",

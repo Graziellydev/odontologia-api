@@ -14,28 +14,37 @@ public interface ConsultaRetornoRepository extends JpaRepository<ConsultaRetorno
     // Linha da lista de atendimentos do dia (os nomes batem com os apelidos do SQL)
     interface AtendimentoView {
         Long getConsultaId();
+        Long getPacienteId();
+        Long getProcedimentoId();
+        String getCadeira();
         String getPaciente();
         String getProcedimento();
         String getDente();
         String getClasse();
         String getData();
         String getTurno();
+        String getStatus();
     }
 
     @Query(value = """
             SELECT c.id                               AS "consultaId",
+                   c.paciente_id                      AS "pacienteId",
+                   c.procedimento_id                  AS "procedimentoId",
+                   ca.numero                           AS "cadeira",
                    p.nome_completo                    AS "paciente",
                    COALESCE(pr.nome, 'Não informado') AS "procedimento",
                    c.dente                            AS "dente",
                    c.classe                           AS "classe",
                    CAST(v.data AS text)               AS "data",
-                   v.turno                            AS "turno"
+                   v.turno                            AS "turno",
+                   c.status_consulta                  AS "status"
             FROM consultas c
             JOIN pacientes p ON p.id = c.paciente_id
             JOIN vagas v ON v.id = c.vaga_id
+            LEFT JOIN cadeiras ca ON ca.id = v.cadeira_id
             LEFT JOIN procedimentos pr ON pr.id = c.procedimento_id
             WHERE c.aluno_id = :alunoId
-              AND c.status_consulta IN ('AGENDADO', 'CONFIRMADA_24H')
+              AND c.status_consulta IN ('AGENDADO', 'CONFIRMADA_24H', 'REALIZADO')
               AND v.data = CAST(now() AT TIME ZONE 'America/Sao_Paulo' AS date)
             ORDER BY v.turno, c.id
             """, nativeQuery = true)
