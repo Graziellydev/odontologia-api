@@ -16,6 +16,10 @@ const { default: userEvent } = await import("@testing-library/user-event");
 const { default: axios } = await import("axios");
 let modelo = criarApiIsolada();
 globalThis.fetch = async (url, opcoes = {}) => {
+  if (String(url) === "/api/auth/csrf") {
+    dom.window.document.cookie = "XSRF-TOKEN=teste-csrf; path=/";
+    return { ok: true, status: 204, json: async () => null, text: async () => "" };
+  }
   assert.ok(String(url).startsWith("/api/"), "Requisição externa bloqueada");
   const r = await modelo.responder(opcoes.method || "GET", String(url), opcoes.body ? JSON.parse(opcoes.body) : undefined);
   return { ok: r.status >= 200 && r.status < 300, status: r.status,

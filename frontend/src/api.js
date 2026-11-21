@@ -41,7 +41,7 @@ export async function api(rota, opcoes = {}) {
     const texto = await resposta.text();
     try {
       const dados = JSON.parse(texto);
-      detalhe = dados.detail || dados.message || dados.error || '';
+      detalhe = dados.detail || dados.mensagem || dados.message || dados.error || '';
     } catch { detalhe = texto.slice(0, 180); }
     const erro = new Error(`HTTP ${resposta.status}${detalhe ? ' — ' + detalhe : ''}`);
     erro.status = resposta.status;

@@ -1,105 +1,198 @@
+.prontuario-page,
 .prontuario-turno {
-  margin: 0 0 24px;
-  padding: 22px;
-  border: 1px solid #e3e8eb;
-  border-radius: 12px;
-  background: #fff;
+  --clinical-orange: #c65117;
+  --clinical-green: #287252;
+  --clinical-green-soft: #eaf5ee;
+  --clinical-border: #e3e8eb;
+  --clinical-muted: #64748b;
+  --clinical-alert: #fff1e7;
   color: #263238;
   font-family: Lato, Arial, sans-serif;
+  color-scheme: light;
+  text-align: left;
 }
-.prontuario-section-heading { display: flex; justify-content: space-between; margin-bottom: 16px; }
-.prontuario-section-heading h2 { margin: 6px 0; font-size: 21px; }
-.prontuario-section-heading p, .prontuario-muted { margin: 0; color: #657278; font-size: 14px; }
-.prontuario-eyebrow { display: inline-flex; align-items: center; gap: 6px; color: #287252; font-size: 12px; font-weight: 700; }
-.prontuario-empty { padding: 18px; border: 1px dashed #cbd5d8; border-radius: 8px; color: #657278; }
-.prontuario-appointments { display: grid; gap: 10px; }
-.prontuario-appointment { display: flex; align-items: center; gap: 14px; padding: 13px; border: 1px solid #e3e8eb; border-radius: 9px; }
-.prontuario-patient-mark { display: grid; width: 38px; height: 38px; flex: 0 0 38px; place-items: center; border-radius: 50%; background: #eaf5ee; color: #287252; font-weight: 700; }
+
+.prontuario-page { max-width: 1112px; margin: 0 auto; }
+.prontuario-page-heading { margin-bottom: 22px; }
+.prontuario-page-heading h1 { margin: 10px 0 6px; color: #1f2933; font-size: 28px; }
+.prontuario-page-heading > p,
+.prontuario-section-heading p { margin: 0; color: var(--clinical-muted); }
+.prontuario-back {
+  display: inline-flex; align-items: center; gap: 7px; padding: 0; border: 0;
+  background: transparent; color: var(--clinical-orange); font-weight: 700;
+}
+.prontuario-eyebrow {
+  display: inline-flex; align-items: center; gap: 6px; margin-top: 16px;
+  color: var(--clinical-orange); font-size: 12px; font-weight: 700; letter-spacing: .02em;
+}
+
+.prontuario-section-heading h1 { margin: 8px 0 5px; font-size: 28px; }
+.prontuario-appointments { display: grid; gap: 12px; margin-top: 22px; }
+.prontuario-appointment {
+  display: flex; align-items: center; gap: 14px; padding: 17px 18px;
+  border: 1px solid var(--clinical-border); border-radius: 12px; background: #fff;
+}
+.prontuario-patient-mark {
+  display: grid; flex: none; width: 39px; height: 39px; place-items: center;
+  border-radius: 50%; background: #fff1e7; color: var(--clinical-orange); font-weight: 800;
+}
 .prontuario-appointment-info { display: grid; flex: 1; gap: 3px; min-width: 0; }
-.prontuario-appointment-info > span { color: #49575c; font-size: 13px; }
-.prontuario-appointment-info small { display: flex; align-items: center; gap: 5px; color: #758187; }
-.prontuario-primary, .prontuario-secondary, .prontuario-danger-button { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 38px; padding: 8px 13px; border: 1px solid transparent; border-radius: 7px; font: inherit; font-size: 14px; font-weight: 700; cursor: pointer; }
-.prontuario-primary { background: #c65117; color: #fff; }
-.prontuario-primary:hover { background: #aa4310; }
-.prontuario-primary:disabled { cursor: not-allowed; opacity: .6; }
-.prontuario-secondary { border-color: #d7dfe2; background: #fff; color: #36454b; }
-.prontuario-inline-error { padding: 10px 12px; border: 1px solid #e7b9b6; border-radius: 7px; background: #fff0ef; color: #9d302e; font-size: 14px; }
-.prontuario-overlay { position: fixed; z-index: 1200; inset: 0; display: flex; justify-content: flex-end; background: rgb(20 30 35 / 48%); }
-.prontuario-drawer { position: relative; display: flex; width: min(1040px, 94vw); height: 100%; flex-direction: column; overflow: hidden; background: #fff; box-shadow: -10px 0 35px rgb(0 0 0 / 18%); font-family: Lato, Arial, sans-serif; }
-.prontuario-drawer-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 20px; padding: 24px 28px 18px; border-bottom: 1px solid #e3e8eb; }
-.prontuario-drawer-header h2 { margin: 7px 0 5px; color: #263238; font-size: 23px; }
-.prontuario-drawer-header p { margin: 0; color: #657278; font-size: 14px; }
-.prontuario-icon-button { display: inline-grid; width: 36px; height: 36px; flex: 0 0 36px; place-items: center; border: 0; border-radius: 7px; background: transparent; color: #536167; cursor: pointer; }
-.prontuario-icon-button:hover { background: #f1f4f5; }
-.prontuario-security-banner { display: flex; align-items: center; gap: 11px; margin: 16px 28px 0; padding: 11px 13px; border: 1px solid #cfe5d6; border-radius: 8px; background: #eaf5ee; color: #287252; }
-.prontuario-security-banner div { display: grid; gap: 2px; }
-.prontuario-security-banner span { color: #4f6e5d; font-size: 12px; }
-.prontuario-tabs { display: flex; gap: 20px; padding: 0 28px; border-bottom: 1px solid #e3e8eb; }
-.prontuario-tabs button { padding: 14px 2px 11px; border: 0; border-bottom: 3px solid transparent; background: none; color: #67757a; font: inherit; cursor: pointer; }
-.prontuario-tabs button.ativo { border-bottom-color: #c65117; color: #a84414; font-weight: 700; }
-.prontuario-drawer-content { position: relative; flex: 1; overflow: auto; padding: 22px 28px; }
-.clinical-content { user-select: none; -webkit-user-select: none; }
-.prontuario-watermark { position: fixed; z-index: 0; inset: 170px 0 55px; display: grid; grid-template-columns: repeat(2, 1fr); align-content: space-around; justify-items: center; overflow: hidden; pointer-events: none; }
-.prontuario-watermark span { color: rgb(40 75 58 / 9%); font-size: 12px; font-weight: 700; white-space: nowrap; transform: rotate(-28deg); }
-.prontuario-workspace, .prontuario-history-layout { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(220px, .8fr) minmax(0, 1.7fr); gap: 16px; align-items: start; }
-.prontuario-summary-card, .prontuario-form-card, .prontuario-history-card { padding: 18px; border: 1px solid #e3e8eb; border-radius: 9px; background: rgb(255 255 255 / 96%); }
-.prontuario-summary-card h3, .prontuario-card-heading h3 { margin: 0 0 5px; font-size: 17px; }
-.prontuario-summary-card p, .prontuario-card-heading p { margin: 0 0 13px; color: #68767b; font-size: 13px; }
-.prontuario-summary-card hr { margin: 14px 0; border: 0; border-top: 1px solid #e3e8eb; }
-.prontuario-summary-card > span { display: block; margin-top: 7px; color: #59676c; font-size: 13px; }
-.prontuario-status-pill { display: inline-block !important; width: max-content; padding: 4px 8px; border-radius: 99px; background: #eaf5ee; color: #287252 !important; font-weight: 700; }
-.prontuario-anamnese-compact { margin-top: 17px; padding-top: 13px; border-top: 1px solid #e3e8eb; font-size: 13px; }
-.prontuario-anamnese-compact p { margin: 6px 0 0; }
-.prontuario-card-heading { margin-bottom: 15px; }
+.prontuario-appointment-info span,
+.prontuario-appointment-info small { color: var(--clinical-muted); font-size: 13px; }
+.prontuario-appointment-info small { display: inline-flex; gap: 5px; align-items: center; }
+
+.prontuario-primary,
+.prontuario-secondary,
+.prontuario-page-block button {
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  min-height: 40px; border-radius: 8px; padding: 10px 14px; font: inherit; font-weight: 700;
+}
+.prontuario-primary { border: 1px solid var(--clinical-orange); background: var(--clinical-orange); color: #fff; }
+.prontuario-primary:disabled { opacity: .55; cursor: not-allowed; }
+.prontuario-secondary { border: 1px solid var(--clinical-border); background: #fff; color: #46545a; }
+
+.prontuario-security-banner {
+  display: flex; align-items: center; gap: 12px; min-height: 73px; margin-bottom: 20px; padding: 14px 20px;
+  border: 1px solid #cfe5d6; border-radius: 12px; background: var(--clinical-green-soft); color: var(--clinical-green);
+}
+.prontuario-security-banner div { display: grid; gap: 3px; }
+.prontuario-security-banner span { color: #47725f; font-size: 13px; }
+.prontuario-page-block {
+  display: flex; align-items: center; gap: 12px; margin-bottom: 20px; padding: 15px 18px;
+  border: 1px solid #edc6c4; border-radius: 10px; background: #fff0ef; color: #9d302e;
+}
+.prontuario-page-block div { display: grid; flex: 1; gap: 3px; }
+.prontuario-page-block span { font-size: 13px; }
+.prontuario-page-block button { border: 1px solid #b43b39; background: #b43b39; color: #fff; }
+.prontuario-inline-error,
+.prontuario-inline-success {
+  display: flex; align-items: center; gap: 8px; margin: 0 0 16px; padding: 12px 14px; border-radius: 8px;
+}
+.prontuario-inline-error { border: 1px solid #edc6c4; background: #fff0ef; color: #9d302e; }
+.prontuario-inline-success { border: 1px solid #cfe5d6; background: var(--clinical-green-soft); color: var(--clinical-green); }
+.prontuario-muted,
+.prontuario-empty { margin: 18px 0; padding: 18px; border: 1px dashed var(--clinical-border); border-radius: 10px; color: var(--clinical-muted); background: #fff; }
+
+.prontuario-clinical-surface { position: relative; overflow: hidden; }
+.prontuario-watermark {
+  position: absolute; z-index: 0; inset: 0; display: grid; grid-template-columns: repeat(3, minmax(250px, 1fr));
+  align-content: space-around; gap: 50px; overflow: hidden; pointer-events: none;
+}
+.prontuario-watermark span {
+  color: rgb(40 114 82 / 10%); font-size: 12px; font-weight: 700; white-space: nowrap;
+  transform: rotate(-28deg); user-select: none;
+}
+.prontuario-clinical-surface > :not(.prontuario-watermark) { position: relative; z-index: 1; }
+.prontuario-readonly { user-select: none; }
+
+.prontuario-patient-summary {
+  display: flex; align-items: center; gap: 14px; min-height: 102px; padding: 18px 20px;
+  border: 1px solid var(--clinical-border); border-radius: 12px; background: rgb(255 255 255 / 96%);
+}
+.prontuario-patient-summary h2 { margin: 0; font-size: 18px; }
+.prontuario-patient-summary p { margin: 4px 0 0; color: var(--clinical-muted); font-size: 13px; }
+.prontuario-patient-summary dl { display: flex; flex: 1; justify-content: flex-end; gap: 24px; margin: 0 10px 0 auto; }
+.prontuario-patient-summary dl div { display: grid; gap: 3px; }
+.prontuario-patient-summary dt { color: var(--clinical-muted); font-size: 11px; }
+.prontuario-patient-summary dd { margin: 0; font-size: 13px; font-weight: 700; }
+.prontuario-status-pill {
+  flex: none; padding: 5px 9px; border-radius: 999px; background: var(--clinical-green-soft); color: var(--clinical-green);
+  font-size: 11px; font-weight: 800;
+}
+
+.prontuario-tabs { display: flex; gap: 27px; margin: 20px 0; border-bottom: 1px solid var(--clinical-border); }
+.prontuario-tabs button { padding: 0 0 12px; border: 0; border-bottom: 2px solid transparent; background: transparent; color: var(--clinical-muted); font: inherit; font-weight: 700; }
+.prontuario-tabs button.ativo { border-color: var(--clinical-orange); color: var(--clinical-orange); }
+.prontuario-evolution-grid { display: grid; grid-template-columns: 354px minmax(0, 738px); gap: 20px; align-items: start; }
+.prontuario-procedure-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.prontuario-history-card,
+.prontuario-form-card,
+.prontuario-close-card {
+  padding: 20px; border: 1px solid var(--clinical-border); border-radius: 12px; background: rgb(255 255 255 / 96%);
+}
+.prontuario-card-heading { margin-bottom: 16px; }
+.prontuario-card-heading h2 { margin: 0 0 4px; font-size: 17px; }
+.prontuario-card-heading p { margin: 0; color: var(--clinical-muted); font-size: 13px; }
+.prontuario-evolution { padding: 15px 0; border-top: 1px solid var(--clinical-border); }
+.prontuario-evolution:first-of-type { border-top: 0; padding-top: 0; }
+.prontuario-evolution h3,
+.prontuario-history-card h3 { margin: 10px 0 5px; font-size: 14px; }
+.prontuario-evolution > p,
+.prontuario-history-card > p { color: #415057; line-height: 1.5; white-space: pre-wrap; }
+.prontuario-evolution small,
+.prontuario-addendum-entry small { color: var(--clinical-muted); font-size: 12px; }
+.prontuario-date-pill { display: inline-block; padding: 4px 7px; border-radius: 99px; background: #f4f6f7; color: #607078; font-size: 11px; }
+.prontuario-signature { display: block; width: max-content; margin-top: 9px; padding: 5px 7px; border: 1px solid #cfe5d6; border-radius: 5px; background: var(--clinical-green-soft); color: var(--clinical-green); font-size: 10px; font-weight: 800; }
+.prontuario-addendum-entry { margin-top: 12px; padding: 10px; border-left: 3px solid var(--clinical-orange); background: #fff8f4; }
+.prontuario-addendum-entry p { margin: 6px 0; white-space: pre-wrap; }
+
+.prontuario-form-card form { margin: 0; }
 .prontuario-field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.prontuario-form-card label, .prontuario-mini-modal label { display: grid; gap: 6px; margin: 0 0 14px; color: #354349; font-size: 13px; font-weight: 700; }
-.prontuario-form-card input:not([type=checkbox]), .prontuario-form-card textarea, .prontuario-mini-modal textarea { width: 100%; box-sizing: border-box; padding: 10px 11px; border: 1px solid #d5dfe2; border-radius: 6px; background: #fff; color: #263238; font: inherit; font-weight: 400; resize: vertical; }
-.prontuario-form-card input[readonly] { background: #f6f8f8; }
-.prontuario-checkbox { display: flex !important; align-items: center; gap: 8px !important; font-weight: 400 !important; }
-.prontuario-saved-card { display: flex; align-items: flex-start; gap: 12px; padding: 14px; border: 1px solid #cfe5d6; border-radius: 8px; background: #eaf5ee; color: #287252; }
+.prontuario-form-card label,
+.prontuario-mini-modal label,
+.prontuario-justificativa { display: grid; gap: 6px; margin: 0 0 14px; color: #354349; font-size: 13px; font-weight: 700; }
+.prontuario-form-card input,
+.prontuario-form-card textarea,
+.prontuario-mini-modal textarea,
+.prontuario-justificativa textarea {
+  width: 100%; box-sizing: border-box; padding: 10px 11px; border: 1px solid #d5dfe2; border-radius: 8px; background: #fff; color: #263238; font: inherit; font-weight: 400; resize: vertical;
+}
+.prontuario-form-card input[readonly] { background: #f7f8fa; }
+.prontuario-signature-note { display: flex; align-items: center; gap: 6px; margin: 2px 0 15px; color: var(--clinical-muted); font-size: 12px; }
+.prontuario-saved-card { display: flex; align-items: flex-start; gap: 12px; padding: 16px; border: 1px solid #cfe5d6; border-radius: 9px; background: var(--clinical-green-soft); color: var(--clinical-green); }
 .prontuario-saved-card div { display: grid; gap: 5px; }
-.prontuario-saved-card span { font-size: 12px; }
-.prontuario-text-button { display: inline-flex; align-items: center; gap: 5px; width: max-content; padding: 5px 0; border: 0; background: none; color: #a84414; font: inherit; font-weight: 700; cursor: pointer; }
-.prontuario-history-layout { grid-template-columns: 1.2fr 1fr; }
-.prontuario-history-card { position: relative; z-index: 1; background: rgb(255 255 255 / 96%); }
-.prontuario-history-card h4 { margin: 15px 0 7px; }
-.prontuario-evolution { margin-top: 12px; padding: 14px 0; border-top: 1px solid #e3e8eb; }
-.prontuario-evolution > p, .prontuario-history-card > p { color: #39474c; line-height: 1.5; white-space: pre-wrap; }
-.prontuario-evolution small, .prontuario-addendum-entry small { color: #68767b; }
-.prontuario-date-pill { display: inline-block; margin-bottom: 7px; padding: 4px 8px; border-radius: 99px; background: #f3f5f6; color: #5a676c; font-size: 12px; }
-.prontuario-signature { display: block; width: max-content; margin-top: 9px; padding: 5px 8px; border: 1px solid #cfe5d6; border-radius: 5px; background: #eaf5ee; color: #287252; font-size: 11px; font-weight: 700; }
-.prontuario-addendum-entry { margin-top: 12px; padding: 11px; border-left: 3px solid #c65117; background: #fff8f4; }
-.prontuario-addendum-entry p { margin: 7px 0; white-space: pre-wrap; }
-.prontuario-tooth-list { display: grid; gap: 8px; padding: 0; list-style: none; }
-.prontuario-tooth-list li { display: grid; grid-template-columns: auto 1fr; gap: 4px 10px; padding: 9px; border: 1px solid #e3e8eb; border-radius: 6px; font-size: 13px; }
-.prontuario-tooth-list li small { grid-column: 1 / -1; color: #68767b; }
-.prontuario-drawer-footer { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; border-top: 1px solid #e3e8eb; color: #718087; font-size: 12px; }
-.prontuario-drawer-footer button { padding: 7px 12px; border: 1px solid #d7dfe2; border-radius: 6px; background: #fff; color: #39474c; cursor: pointer; }
-.prontuario-overlay-mini, .prontuario-overlay-block { z-index: 1300; align-items: center; justify-content: center; padding: 18px; }
-.prontuario-mini-modal, .prontuario-block-modal { position: relative; width: min(440px, 100%); box-sizing: border-box; padding: 25px; border: 1px solid #e3e8eb; border-radius: 11px; background: #fff; box-shadow: 0 15px 50px rgb(0 0 0 / 18%); font-family: Lato, Arial, sans-serif; }
-.prontuario-mini-modal > .prontuario-icon-button, .prontuario-block-modal > .prontuario-icon-button { position: absolute; top: 10px; right: 10px; }
-.prontuario-modal-icon, .prontuario-block-icon { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: #fff1e9; color: #c65117; }
-.prontuario-mini-modal h2, .prontuario-block-modal h2 { margin: 13px 0 7px; font-size: 20px; }
-.prontuario-mini-modal > p, .prontuario-block-modal > p { color: #657278; font-size: 14px; line-height: 1.45; }
+.prontuario-saved-card small { color: #47725f; }
+.prontuario-text-button { display: inline-flex; gap: 5px; width: max-content; align-items: center; padding: 5px 0; border: 0; background: transparent; color: var(--clinical-orange); font: inherit; font-size: 13px; font-weight: 800; }
+
+.prontuario-close-card { display: grid; grid-template-columns: 1.1fr 1.6fr auto; gap: 20px; align-items: center; margin-top: 20px; }
+.prontuario-close-card h2 { margin: 7px 0 4px; font-size: 17px; }
+.prontuario-close-card p { margin: 0; color: var(--clinical-muted); font-size: 13px; }
+.prontuario-close-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.prontuario-close-options label { display: flex; gap: 9px; padding: 11px; border: 1px solid var(--clinical-border); border-radius: 9px; background: #fff; cursor: pointer; }
+.prontuario-close-options label:has(input:checked) { border-color: var(--clinical-orange); background: #fff1e7; }
+.prontuario-close-options input { flex: none; width: auto; height: auto; margin: 2px 0 0; accent-color: var(--clinical-orange); }
+.prontuario-close-options span { display: grid; gap: 3px; font-size: 13px; }
+.prontuario-close-options small { color: var(--clinical-muted); font-size: 11px; }
+.prontuario-justificativa { grid-column: 1 / -1; margin: 0; }
+.prontuario-close-card:has(.prontuario-justificativa) { grid-template-columns: 1fr; }
+.prontuario-close-card:has(.prontuario-justificativa) > .prontuario-primary { justify-self: end; }
+
+.prontuario-tooth-list { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.prontuario-tooth-list li { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; padding: 9px; border: 1px solid var(--clinical-border); border-radius: 7px; font-size: 13px; }
+.prontuario-tooth-list li small { grid-column: 1 / -1; color: var(--clinical-muted); }
+
+.prontuario-overlay { position: fixed; z-index: 1300; inset: 0; display: flex; align-items: center; justify-content: center; padding: 18px; background: rgb(0 0 0 / 42%); }
+.prontuario-mini-modal { position: relative; width: min(440px, 100%); padding: 25px; border: 1px solid var(--clinical-border); border-radius: 11px; background: #fff; box-shadow: 0 15px 50px rgb(0 0 0 / 18%); }
+.prontuario-mini-modal h2 { margin: 13px 0 7px; font-size: 20px; }
+.prontuario-mini-modal > p { color: var(--clinical-muted); font-size: 14px; line-height: 1.45; }
+.prontuario-icon-button { position: absolute; top: 10px; right: 10px; display: grid; width: 32px; height: 32px; place-items: center; border: 0; background: transparent; color: #526168; }
+.prontuario-modal-icon { display: grid; width: 42px; height: 42px; place-items: center; border-radius: 50%; background: #fff1e7; color: var(--clinical-orange); }
 .prontuario-modal-actions { display: flex; justify-content: flex-end; gap: 9px; }
-.prontuario-block-icon { background: #fff0ef; color: #b43b39; }
-.prontuario-block-modal { width: min(360px, 100%); border-color: #edc6c4; }
-.prontuario-block-modal h2 { color: #9d302e; }
-.prontuario-danger-button { width: 100%; margin-top: 8px; background: #b43b39; color: #fff; }
-@media (max-width: 760px) {
+
+@media (max-width: 1280px) {
+  .prontuario-evolution-grid { grid-template-columns: minmax(280px, .9fr) minmax(0, 1.7fr); }
+  .prontuario-patient-summary dl { gap: 12px; }
+}
+@media (max-width: 900px) {
+  .prontuario-evolution-grid,
+  .prontuario-procedure-grid,
+  .prontuario-close-card { grid-template-columns: 1fr; }
+  .prontuario-patient-summary { align-items: flex-start; flex-wrap: wrap; }
+  .prontuario-patient-summary dl { width: 100%; justify-content: flex-start; margin: 4px 0 0; }
+}
+@media (max-width: 620px) {
+  .prontuario-page-heading h1,
+  .prontuario-section-heading h1 { font-size: 24px; }
   .prontuario-appointment { align-items: flex-start; flex-wrap: wrap; }
-  .prontuario-appointment-info { min-width: calc(100% - 56px); }
   .prontuario-appointment > button { width: 100%; }
-  .prontuario-drawer { width: 100vw; }
-  .prontuario-drawer-header { padding: 18px; }
-  .prontuario-security-banner { margin: 12px 18px 0; }
-  .prontuario-tabs { gap: 12px; padding: 0 18px; }
-  .prontuario-tabs button { font-size: 13px; }
-  .prontuario-drawer-content { padding: 16px 18px; }
-  .prontuario-workspace, .prontuario-history-layout { grid-template-columns: 1fr; }
-  .prontuario-field-grid { grid-template-columns: 1fr; gap: 0; }
-  .prontuario-drawer-footer { padding: 10px 18px; }
+  .prontuario-patient-summary dl,
+  .prontuario-field-grid,
+  .prontuario-close-options { grid-template-columns: 1fr; display: grid; }
+  .prontuario-page-block { align-items: flex-start; flex-wrap: wrap; }
+  .prontuario-page-block button { width: 100%; }
+  .prontuario-watermark { grid-template-columns: repeat(2, minmax(230px, 1fr)); }
 }
 @media print {
-  .prontuario-turno, .prontuario-overlay { display: none !important; }
+  .prontuario-page,
+  .prontuario-overlay { display: none !important; }
 }

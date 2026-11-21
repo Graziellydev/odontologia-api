@@ -2,13 +2,18 @@ package br.com.unicatolica.odontologia_api.controller;
 
 import br.com.unicatolica.odontologia_api.dto.LoginDTO;
 import br.com.unicatolica.odontologia_api.dto.LoginResponseDTO;
+import br.com.unicatolica.odontologia_api.dto.EsqueciSenhaRequest;
+import br.com.unicatolica.odontologia_api.dto.MensagemAuthResponse;
+import br.com.unicatolica.odontologia_api.dto.RedefinirSenhaRequest;
+import br.com.unicatolica.odontologia_api.security.PasswordRecoveryRateLimiter;
+import br.com.unicatolica.odontologia_api.service.PasswordRecoveryService;
 import br.com.unicatolica.odontologia_api.service.AutenticacaoService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -30,10 +35,20 @@ import java.util.List;
 @RequestMapping("/api/auth")
 public class AutenticacaoController {
 
-    @Autowired
-    private AutenticacaoService autenticacaoService;
-    @Autowired
-    private UsuarioRepository usuarioRepository;
+    private final AutenticacaoService autenticacaoService;
+    private final PasswordRecoveryService passwordRecoveryService;
+    private final PasswordRecoveryRateLimiter rateLimiter;
+    private final UsuarioRepository usuarioRepository;
+
+    public AutenticacaoController(AutenticacaoService autenticacaoService,
+                                  PasswordRecoveryService passwordRecoveryService,
+                                  PasswordRecoveryRateLimiter rateLimiter,
+                                  UsuarioRepository usuarioRepository) {
+        this.autenticacaoService = autenticacaoService;
+        this.passwordRecoveryService = passwordRecoveryService;
+        this.rateLimiter = rateLimiter;
+        this.usuarioRepository = usuarioRepository;
+    }
 
     private final HttpSessionSecurityContextRepository securityContextRepository = new HttpSessionSecurityContextRepository();
 
@@ -79,8 +94,34 @@ public class AutenticacaoController {
         } catch (BadCredentialsException e) {
             return ResponseEntity
                     .status(HttpStatus.UNAUTHORIZED)
-                    .body("E-mail ou senha incorretos.");
+                    .body("Login ou senha inválidos");
         }
+    }
+
+    @PostMapping("/esqueci-senha")
+    public ResponseEntity<MensagemAuthResponse> esqueciSenha(
+            @Valid @RequestBody EsqueciSenhaRequest dto,
+            HttpServletRequest request) {
+        if (rateLimiter.permitir(request.getRemoteAddr(), dto.identificador())) {
+            passwordRecoveryService.solicitar(dto.identificador());
+        }
+        return ResponseEntity.ok(new MensagemAuthResponse(PasswordRecoveryService.MENSAGEM_NEUTRA));
+    }
+
+    @PostMapping("/redefinir-senha")
+    public ResponseEntity<MensagemAuthResponse> redefinirSenha(
+            @Valid @RequestBody RedefinirSenhaRequest dto,
+            HttpServletRequest request) {
+        if (!rateLimiter.permitir(request.getRemoteAddr(), dto.identificador())) {
+            return ResponseEntity.status(HttpStatus.TOO_MANY_REQUESTS)
+                    .body(new MensagemAuthResponse("Muitas tentativas. Aguarde e tente novamente."));
+        }
+        boolean redefinida = passwordRecoveryService.redefinir(dto.identificador(), dto.codigo(), dto.novaSenha());
+        if (!redefinida) {
+            return ResponseEntity.badRequest()
+                    .body(new MensagemAuthResponse("Código inválido ou expirado."));
+        }
+        return ResponseEntity.ok(new MensagemAuthResponse("Senha redefinida com sucesso. Entre com a nova senha."));
     }
 
     @PostMapping("/logout")

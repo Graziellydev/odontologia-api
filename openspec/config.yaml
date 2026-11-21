@@ -2,9 +2,9 @@ schema: spec-driven
 
 context: |
   Projeto: Odonto_Uni (Sistema de Gestão da Clínica-Escola de Odontologia - UniCatólica).
-  Stack Backend: Java 21+, Spring Boot 3+, Spring Data JPA, Flyway (migrations V1 até V14), PostgreSQL 17, Spring Security + JWT.
-  Stack Frontend: React 18+ (Vite), Axios, CSS3 modular seguindo fielmente o Design System do Figma (fonte Lato, fundo #F7F8FA, laranja #C65117, verde #287252 / #EAF5EE, vermelho #B43B39 / #FFF0EF).
-  Atores autenticados: ADMINISTRADOR, SECRETARIA e ALUNO (Paciente é entidade passiva).
+  Stack Backend: Java 25, Spring Boot 4, Spring Data JPA, Flyway (migrations até V15), PostgreSQL, Spring Security com sessão HTTP e CSRF.
+  Stack Frontend: React 19 (Vite), Axios e CSS modular.
+  Atores autenticados neste fluxo: ALUNO, SECRETARIA e COORDENADOR (Paciente é entidade passiva).
   Regras críticas do banco (V5, V8 e V14):
   - Tabela `cadeiras` (id, numero, ativa) e `vagas` (id, cadeira_id, data, turno ['MANHA'|'TARDE'], bloqueada, motivo_bloqueio) com constraint `uk_vaga (cadeira_id, data, turno)`.
   - Tabela `consultas` possui índice único parcial `uk_consulta_vaga_ativa` impedindo duas consultas ativas na mesma vaga e `@Version` (optimistic locking).
@@ -13,8 +13,8 @@ context: |
 
 rules:
   proposal:
-    - Reaproveitar o pacote `br.com.unicatolica.odontologia_api.consultas` e integrar as novas telas em `frontend/src/Secretaria/AgendaSecretaria.jsx` sem quebrar a seção de Gestão de Faltas existente.
+    - "Preservar os contratos e componentes existentes fora do escopo explícito da mudança."
   specs:
-    - Organizar os requisitos em especificações independentes para: (1) Cadastro de Vagas, (2) Cadastro de Turnos Disponíveis e (3) Cadastro e Gestão de Consultas.
+    - "Separar comportamentos de autenticação e recuperação em capacidades verificáveis."
   tasks:
-    - Dividir as tarefas em Backend (Entity/Repository, DTOs, Services com controle transacional e Controllers REST) e Frontend (Services Axios, CSS modular e Componentes React).
+    - "Decompor tarefas por camadas e registrar a validação executada."

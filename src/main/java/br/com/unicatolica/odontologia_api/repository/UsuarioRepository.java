@@ -20,6 +20,10 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
      */
     Optional<Usuario> findByEmail(String email);
 
+    Optional<Usuario> findByEmailIgnoreCase(String email);
+
+    Optional<Usuario> findByMatriculaOuRegistro(String matriculaOuRegistro);
+
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select u from Usuario u where u.id = :id")
     Optional<Usuario> buscarPorIdParaAtualizacao(@Param("id") Long id);

@@ -31,6 +31,8 @@ import br.com.unicatolica.odontologia_api.dto.SemestresLetivosResponse;
 import br.com.unicatolica.odontologia_api.repository.UsuarioRepository;
 import br.com.unicatolica.odontologia_api.service.AutenticacaoService;
 import br.com.unicatolica.odontologia_api.service.MetricasCoordenadorService;
+import br.com.unicatolica.odontologia_api.service.PasswordRecoveryService;
+import br.com.unicatolica.odontologia_api.security.PasswordRecoveryRateLimiter;
 
 @WebMvcTest(controllers = {
         MetricasCoordenadorController.class,
@@ -50,6 +52,12 @@ class MetricasCoordenadorControllerTest {
 
     @MockitoBean
     private UsuarioRepository usuarioRepository;
+
+    @MockitoBean
+    private PasswordRecoveryService passwordRecoveryService;
+
+    @MockitoBean
+    private PasswordRecoveryRateLimiter rateLimiter;
 
     @Test
     void deveRetornar401ComJsonParaAcessoSemAutenticacao() throws Exception {

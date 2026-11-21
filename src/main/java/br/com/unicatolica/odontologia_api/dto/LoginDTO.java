@@ -8,6 +8,7 @@ import lombok.Data;
  */
 @Data
 public class LoginDTO {
+    private String identificador;
     private String email;
     private String senha;
 }

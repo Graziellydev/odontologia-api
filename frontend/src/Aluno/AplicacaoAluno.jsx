@@ -1,8 +1,10 @@
 import { useEffect, useMemo, useState } from 'react';
-import { BookOpen, ClipboardList, CheckCircle2, Info, LogOut, Send, RefreshCcw, LayoutDashboard, ClipboardCheck } from 'lucide-react';
+import { BookOpen, ClipboardList, CheckCircle2, Info, LogOut, Send, RefreshCcw, LayoutDashboard, ClipboardCheck, UsersRound } from 'lucide-react';
 import { api } from '../api.js';
 import '../style.css';
 import PainelAluno from '../PainelAluno/PainelAluno.jsx';
+import PacientesDoTurno from '../PainelAluno/PacientesDoTurno.jsx';
+import ProntuarioDigital from '../PainelAluno/ProntuarioDigital.jsx';
 import EncerrarAtendimento from '../Retornos/EncerrarAtendimento.jsx';
 
 const API = '/solicitacoes-pacientes';
@@ -43,6 +45,7 @@ function AplicacaoAluno({ usuario, aoSair }) {
   const [carregandoProcedimentos, setCarregandoProcedimentos] = useState(false);
   const [enviando, setEnviando] = useState(false);
   const [detalhe, setDetalhe] = useState(null);
+  const [consultaProntuario, setConsultaProntuario] = useState(null);
 
   const procedimento = procedimentos.find(item => String(item.id) === String(form.procedimentoId));
   const especialidades = useMemo(() => [...new Set(procedimentos.map(p => p.especialidade).filter(Boolean))].sort(), [procedimentos]);
@@ -135,6 +138,7 @@ function AplicacaoAluno({ usuario, aoSair }) {
       <div className="nav-caption">ÁREA DO ALUNO</div>
       <nav>
         <button className={aba === 'metas' ? 'active' : ''} onClick={() => setAba('metas')}><LayoutDashboard/> Painel de metas</button>
+        <button className={aba === 'pacientes-turno' ? 'active' : ''} onClick={() => setAba('pacientes-turno')}><UsersRound/> Pacientes do turno</button>
         <button className={aba === 'solicitar' ? 'active' : ''} onClick={() => setAba('solicitar')}><BookOpen/> Solicitar paciente</button>
         <button className={aba === 'historico' ? 'active' : ''} onClick={() => { setAba('historico'); atualizarSolicitacoes(); }}><ClipboardList/> Minhas requisições</button>
         <button className={aba === 'encerrar' ? 'active' : ''} onClick={() => setAba('encerrar')}><ClipboardCheck/> Encerrar atendimento</button>
@@ -148,7 +152,13 @@ function AplicacaoAluno({ usuario, aoSair }) {
         <div className="header-right"><div className="avatar">{usuario.nome?.slice(0, 2).toUpperCase() || 'AL'}</div><b>{usuario.nome}</b><button className="logout" onClick={aoSair}><LogOut size={15}/> Sair</button></div>
       </header>
       <div className="content">
-        {aba === 'metas' ? <PainelAluno usuario={usuario} /> : aba === 'encerrar' ? <EncerrarAtendimento /> : <>
+        {consultaProntuario ? <ProntuarioDigital
+          consulta={consultaProntuario}
+          usuario={usuario}
+          aoVoltar={() => { setConsultaProntuario(null); setAba('pacientes-turno'); }}
+        /> : aba === 'metas' ? <PainelAluno usuario={usuario} /> : aba === 'pacientes-turno' ? <PacientesDoTurno
+          aoAbrirProntuario={(consulta) => setConsultaProntuario(consulta)}
+        /> : aba === 'encerrar' ? <EncerrarAtendimento /> : <>
         <h1>{aba === 'solicitar' ? 'Solicitação de paciente' : 'Minhas requisições'}</h1>
         <p className="subtitle">{aba === 'solicitar' ? 'Selecione sua disciplina e descreva o procedimento necessário.' : 'Acompanhe o andamento das suas solicitações.'}</p>
         {erro && <div className="alert error" role="alert"><Info size={17}/>{erro}</div>}

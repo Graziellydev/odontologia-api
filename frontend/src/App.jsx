@@ -5,20 +5,9 @@ import FilaEspera from "./FilaEspera.jsx";
 import PainelCoordenador from "./Coordenador/PainelCoordenador.jsx";
 import { api } from "./api.js";
 
-function possuiCoordenadorSalvo() {
-  try {
-    const usuarioSalvo = JSON.parse(window.localStorage.getItem("usuarioLogado") || "null");
-    return usuarioSalvo?.perfil === "COORDENADOR";
-  } catch {
-    return false;
-  }
-}
-
 function App() {
   const [usuario, setUsuario] = useState(null);
-  const [estadoSessao, setEstadoSessao] = useState(() => (
-    possuiCoordenadorSalvo() ? "verificando" : "anonimo"
-  ));
+  const [estadoSessao, setEstadoSessao] = useState("verificando");
   const [erroVerificacao, setErroVerificacao] = useState("");
 
   useEffect(() => {
@@ -26,7 +15,7 @@ function App() {
 
     let ativo = true;
 
-    async function restaurarSessaoCoordenador() {
+    async function restaurarSessao() {
       setErroVerificacao("");
       try {
         const usuarioAtual = await api("/auth/me");
@@ -38,6 +27,7 @@ function App() {
         if (!ativo) return;
 
         if (erro.status === 401) {
+          localStorage.removeItem("usuarioLogado");
           setUsuario(null);
           setEstadoSessao("anonimo");
           return;
@@ -48,7 +38,7 @@ function App() {
       }
     }
 
-    restaurarSessaoCoordenador();
+    restaurarSessao();
     return () => { ativo = false; };
   }, [estadoSessao]);
 
@@ -58,11 +48,12 @@ function App() {
     setEstadoSessao("anonimo");
   }
 
-  async function sairCoordenador() {
-    await api("/auth/logout", { method: "POST" });
-    localStorage.removeItem("usuarioLogado");
-    setUsuario(null);
-    setEstadoSessao("anonimo");
+  async function sairUsuario() {
+    try {
+      await api("/auth/logout", { method: "POST" });
+    } finally {
+      sair();
+    }
   }
 
   if (estadoSessao === "verificando") {
@@ -101,7 +92,7 @@ function App() {
     return (
       <AplicacaoAluno
         usuario={usuario}
-        aoSair={sair}
+        aoSair={sairUsuario}
       />
     );
   }
@@ -111,7 +102,7 @@ function App() {
     return (
       <FilaEspera
         usuario={usuario}
-        onLogout={sair}
+        onLogout={sairUsuario}
       />
     );
   }
@@ -120,7 +111,7 @@ function App() {
     return (
       <PainelCoordenador
         usuario={usuario}
-        onLogout={sairCoordenador}
+        onLogout={sairUsuario}
       />
     );
   }

@@ -11,6 +11,8 @@ import br.com.unicatolica.odontologia_api.config.SecurityConfig;
 import br.com.unicatolica.odontologia_api.controller.AutenticacaoController;
 import br.com.unicatolica.odontologia_api.dto.LoginDTO;
 import br.com.unicatolica.odontologia_api.repository.UsuarioRepository;
+import br.com.unicatolica.odontologia_api.security.PasswordRecoveryRateLimiter;
+import br.com.unicatolica.odontologia_api.service.PasswordRecoveryService;
 import br.com.unicatolica.odontologia_api.service.AutenticacaoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,8 @@ class AutenticacaoSegurancaMvcTest {
     @Autowired private MockMvc mvc;
     @MockitoBean private AutenticacaoService autenticacaoService;
     @MockitoBean private UsuarioRepository usuarioRepository;
+    @MockitoBean private PasswordRecoveryService passwordRecoveryService;
+    @MockitoBean private PasswordRecoveryRateLimiter rateLimiter;
 
     @Test
     void loginInvalidoRetornaMensagemGenericaSemDistinguirEmailDeSenha() throws Exception {
@@ -45,7 +49,7 @@ class AutenticacaoSegurancaMvcTest {
                 .andExpect(status().isUnauthorized())
                 .andReturn().getResponse().getContentAsString();
 
-        org.junit.jupiter.api.Assertions.assertEquals("E-mail ou senha incorretos.", porEmail);
+        org.junit.jupiter.api.Assertions.assertEquals("Login ou senha inválidos", porEmail);
         org.junit.jupiter.api.Assertions.assertEquals(porEmail, porSenha);
     }
 }

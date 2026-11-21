@@ -6,6 +6,7 @@ import br.com.unicatolica.odontologia_api.model.Usuario;
 import br.com.unicatolica.odontologia_api.repository.UsuarioRepository;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
+import java.util.Optional;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -24,13 +25,19 @@ public class AutenticacaoService {
 
     @Transactional
     public LoginResponseDTO autenticar(LoginDTO dto) {
-        if (dto == null || dto.getEmail() == null || dto.getSenha() == null) {
+        if (dto == null || dto.getSenha() == null || dto.getSenha().isBlank()) {
             throw credenciaisInvalidas();
         }
 
-        Usuario usuario = usuarioRepository.findByEmail(dto.getEmail())
-                .orElseThrow(AutenticacaoService::credenciaisInvalidas);
-        if (!Boolean.TRUE.equals(usuario.getAtivo()) || !senhaValidaEAtualizarSeLegada(usuario, dto.getSenha())) {
+        String identificador = Optional.ofNullable(dto.getIdentificador())
+                .filter(valor -> !valor.isBlank())
+                .orElse(dto.getEmail());
+        if (identificador == null || identificador.isBlank()) throw credenciaisInvalidas();
+
+        Usuario usuario = resolverUsuario(identificador).orElseThrow(AutenticacaoService::credenciaisInvalidas);
+        if (!Boolean.TRUE.equals(usuario.getAtivo())
+                || !perfilPermitido(usuario)
+                || !senhaValidaEAtualizarSeLegada(usuario, dto.getSenha())) {
             throw credenciaisInvalidas();
         }
 
@@ -41,6 +48,23 @@ public class AutenticacaoService {
                 usuario.getPerfil(),
                 usuario.getMatriculaOuRegistro(),
                 "Login realizado com sucesso como " + usuario.getPerfil());
+    }
+
+    private Optional<Usuario> resolverUsuario(String identificadorInformado) {
+        String identificador = identificadorInformado.trim();
+        Optional<Usuario> porEmail = usuarioRepository.findByEmailIgnoreCase(identificador.toLowerCase(java.util.Locale.ROOT));
+        Optional<Usuario> porMatricula = usuarioRepository.findByMatriculaOuRegistro(identificador);
+        if (porEmail.isPresent() && porMatricula.isPresent()
+                && !porEmail.get().getId().equals(porMatricula.get().getId())) {
+            return Optional.empty();
+        }
+        return porEmail.or(() -> porMatricula);
+    }
+
+    private boolean perfilPermitido(Usuario usuario) {
+        return usuario.getPerfil() == br.com.unicatolica.odontologia_api.model.Perfil.ALUNO
+                || usuario.getPerfil() == br.com.unicatolica.odontologia_api.model.Perfil.SECRETARIA
+                || usuario.getPerfil() == br.com.unicatolica.odontologia_api.model.Perfil.COORDENADOR;
     }
 
     private boolean senhaValidaEAtualizarSeLegada(Usuario usuario, String senhaInformada) {

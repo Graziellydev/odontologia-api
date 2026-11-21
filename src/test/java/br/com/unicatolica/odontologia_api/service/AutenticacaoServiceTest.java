@@ -26,7 +26,7 @@ class AutenticacaoServiceTest {
 
     @Test void aceitaSenhaBcryptSemExporHashNaResposta() {
         Usuario usuario = usuario(encoder.encode("Senha-sintetica-123"));
-        when(usuarios.findByEmail("secretaria@teste.invalid")).thenReturn(Optional.of(usuario));
+        when(usuarios.findByEmailIgnoreCase("secretaria@teste.invalid")).thenReturn(Optional.of(usuario));
 
         var resposta = service.autenticar(login("Senha-sintetica-123"));
 
@@ -37,7 +37,7 @@ class AutenticacaoServiceTest {
 
     @Test void atualizaSenhaLegadaParaBcryptNoLoginValido() {
         Usuario usuario = usuario("Senha-legada-sintetica");
-        when(usuarios.findByEmail("secretaria@teste.invalid")).thenReturn(Optional.of(usuario));
+        when(usuarios.findByEmailIgnoreCase("secretaria@teste.invalid")).thenReturn(Optional.of(usuario));
 
         service.autenticar(login("Senha-legada-sintetica"));
 
@@ -48,7 +48,7 @@ class AutenticacaoServiceTest {
 
     @Test void rejeitaSenhaInvalidaEUsuarioInativoComErroGenerico() {
         Usuario usuario = usuario(encoder.encode("senha-correta"));
-        when(usuarios.findByEmail("secretaria@teste.invalid")).thenReturn(Optional.of(usuario));
+        when(usuarios.findByEmailIgnoreCase("secretaria@teste.invalid")).thenReturn(Optional.of(usuario));
         assertThrows(BadCredentialsException.class, () -> service.autenticar(login("senha-errada")));
 
         usuario.setAtivo(false);

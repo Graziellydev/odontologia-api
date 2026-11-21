@@ -32,6 +32,10 @@ let evolucoes = [];
 globalThis.fetch = async (url, options = {}) => {
   const path = new URL(String(url), 'http://127.0.0.1').pathname;
   const method = options.method || 'GET';
+  if (path === '/api/auth/csrf') {
+    dom.window.document.cookie = 'XSRF-TOKEN=teste-csrf; path=/';
+    return { ok: true, status: 204, json: async () => null, text: async () => '' };
+  }
   if (path === '/api/retornos/meus-atendimentos') return json(200, consultas);
   if (path === '/api/prontuarios/paciente/71' && method === 'GET') {
     if (falharHistorico) return json(403, { detail: 'Acesso restrito: consulta ativa não vinculada no turno atual.' });
@@ -60,6 +64,7 @@ const vite = await createServer({
   server: { middlewareMode: true, watch: null, hmr: false },
 });
 const { default: ProntuarioDigital } = await vite.ssrLoadModule('/src/PainelAluno/ProntuarioDigital.jsx');
+const { default: PacientesDoTurno } = await vite.ssrLoadModule('/src/PainelAluno/PacientesDoTurno.jsx');
 let user;
 beforeEach(() => {
   consultas = [atendimento]; falharHistorico = false; enviarEvolucao = undefined; enviarAdendo = undefined; evolucoes = [];
@@ -68,39 +73,38 @@ beforeEach(() => {
 afterEach(() => cleanup());
 after(async () => { await vite.close(); dom.window.close(); });
 
-test('lista consulta do aluno, registra evolução assinada e inclui adendo', async () => {
-  render(React.createElement(ProntuarioDigital, { usuario: { nome: 'Aluno Teste', matriculaOuRegistro: '2026001' } }));
-  await user.click(await screen.findByRole('button', { name: /Abrir prontuário/ }));
-  const drawer = await screen.findByRole('dialog', { name: /Prontuário de Maria de Teste/ });
-  assert.ok(within(drawer).getByText('Sensibilidade'));
-  assert.match(drawer.textContent, /Aluno Teste/);
-  await user.type(within(drawer).getByRole('textbox', { name: /Descrição clínica/ }), 'Restauração concluída sem intercorrências.');
-  await user.click(within(drawer).getByRole('checkbox'));
-  await user.click(within(drawer).getByRole('button', { name: /Salvar evolução e assinar/ }));
+test('abre a página contextual, registra evolução assinada e inclui adendo', async () => {
+  const aoVoltar = () => {};
+  render(React.createElement(ProntuarioDigital, { consulta: atendimento, usuario: { nome: 'Aluno Teste', matriculaOuRegistro: '2026001' }, aoVoltar }));
+  const page = await screen.findByRole('region', { name: /Prontuário e evolução/ });
+  await user.click(await within(page).findByRole('tab', { name: 'Histórico de procedimentos' }));
+  assert.ok(within(page).getByText('Sensibilidade'));
+  assert.match(page.textContent, /Aluno Teste/);
+  await user.click(within(page).getByRole('tab', { name: 'Evolução clínica' }));
+  await user.type(within(page).getByRole('textbox', { name: /Descrição clínica/ }), 'Restauração concluída sem intercorrências.');
+  await user.click(within(page).getByRole('button', { name: /Salvar evolução/ }));
   assert.equal(enviarEvolucao.consultaId, 901);
   assert.equal(enviarEvolucao.evolucaoClinica, 'Restauração concluída sem intercorrências.');
-  assert.equal(enviarEvolucao.concluirAtendimento, true);
-  await user.click(within(drawer).getByRole('tab', { name: 'Evolução clínica' }));
-  assert.ok(await within(drawer).findByText('REALIZADO'));
-  await user.click(await within(drawer).findByRole('button', { name: /Adicionar Adendo/ }));
+  assert.equal(enviarEvolucao.concluirAtendimento, false);
+  await user.click(await within(page).findByRole('button', { name: /Adicionar adendo/ }));
   const modal = await screen.findByRole('dialog', { name: 'Adicionar adendo' });
   await user.type(within(modal).getByRole('textbox', { name: /Texto do adendo/ }), 'Complemento ao registro.');
   await user.click(within(modal).getByRole('button', { name: 'Salvar adendo' }));
   assert.deepEqual(enviarAdendo, { texto: 'Complemento ao registro.' });
-  assert.ok(await within(drawer).findByText(/Assinatura Digital Temporal Não Editável/));
+  assert.ok((await within(page).findAllByText(/Assinatura Digital Temporal Não Editável/)).length >= 1);
+  assert.ok(within(page).getByRole('button', { name: /Voltar ao turno/ }));
 });
 
-test('mostra modal de bloqueio sem expor dados clínicos quando o histórico retorna 403', async () => {
+test('mostra bloqueio sem expor dados clínicos quando o histórico retorna 403', async () => {
   falharHistorico = true;
-  render(React.createElement(ProntuarioDigital, { usuario: { nome: 'Aluno Teste', matricula: '2026001' } }));
-  await user.click(await screen.findByRole('button', { name: /Abrir prontuário/ }));
-  const bloqueio = await screen.findByRole('alertdialog', { name: 'Acesso restrito' });
+  render(React.createElement(ProntuarioDigital, { consulta: atendimento, usuario: { nome: 'Aluno Teste', matricula: '2026001' }, aoVoltar: () => {} }));
+  const bloqueio = await screen.findByRole('alert');
   assert.match(bloqueio.textContent, /consulta ativa não vinculada/);
   assert.equal(screen.queryByText('Sensibilidade'), null);
 });
 
 test('exibe estado vazio quando não há consultas vinculadas', async () => {
   consultas = [];
-  render(React.createElement(ProntuarioDigital, { usuario: { nome: 'Aluno Teste' } }));
+  render(React.createElement(PacientesDoTurno, { aoAbrirProntuario: () => {} }));
   assert.ok(await screen.findByText(/Você não tem pacientes vinculados/));
 });
