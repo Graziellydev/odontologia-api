@@ -5,6 +5,7 @@ import ValidacaoSolicitacoes from "./ValidacaoSolicitacoes.jsx";
 import AnalisarSolicitacao from "./AnalisarSolicitacao.jsx";
 import AgendaSecretaria from "./Secretaria/AgendaSecretaria.jsx";
 import AgendamentosSecretaria from "./Secretaria/AgendamentosSecretaria.jsx";
+import ComunicacaoWhatsapp from "./Secretaria/ComunicacaoWhatsapp.jsx";
 
 import {
   LayoutDashboard,
@@ -317,10 +318,9 @@ function FilaEspera({ usuario, onLogout }) {
           <p className="titulo-menu">ACOMPANHAMENTO</p>
 
           <button
-            className="item-menu"
-            onClick={() =>
-              mostrarAviso("Módulo de comunicação em desenvolvimento.")
-            }
+            className={`item-menu ${telaAtiva === "comunicacao" ? "ativo" : ""}`}
+            type="button"
+            onClick={() => { setMenuAberto(false); setTelaAtiva("comunicacao"); }}
           >
             <MessageCircle size={17} />
             Comunicação
@@ -365,7 +365,7 @@ function FilaEspera({ usuario, onLogout }) {
             </button>
 
             <span>
-              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "solicitacoes" ? "Solicitações" : telaAtiva === "agendamentos" ? "Agendamentos" : telaAtiva === "agenda" ? "Gestão de faltas" : "Fila de espera"}
+              Clínica acadêmica / Secretaria / {telaAtiva === "pacientes" ? "Pacientes" : telaAtiva === "solicitacoes" ? "Solicitações" : telaAtiva === "agendamentos" ? "Agendamentos" : telaAtiva === "agenda" ? "Gestão de faltas" : telaAtiva === "comunicacao" ? "Comunicação" : "Fila de espera"}
               {telaAtiva === "solicitacoes" && solicitacaoSelecionada && ` / Analisar REQ-${solicitacaoSelecionada.id}`}
             </span>
           </div>
@@ -427,6 +427,9 @@ function FilaEspera({ usuario, onLogout }) {
 
         ) : telaAtiva === "agenda" ? (
           <AgendaSecretaria />
+
+        ) : telaAtiva === "comunicacao" ? (
+          <ComunicacaoWhatsapp />
 
         ) : (
         <main className="conteudo">

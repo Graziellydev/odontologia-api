@@ -4,6 +4,7 @@ import {
   buscarMetricasCoordenador,
   buscarSemestresCoordenador,
 } from '../services/metricasCoordenadorService.js';
+import DesempenhoHistoricoAcademico from './DesempenhoHistoricoAcademico.jsx';
 import './PainelCoordenador.css';
 import RelatorioSatisfacao from './RelatorioSatisfacao.jsx';
 
@@ -98,6 +99,7 @@ function GraficoBarras({ titulo, itens, campoRotulo, cor }) {
 }
 
 function PainelCoordenador({ usuario, onLogout }) {
+  const [paginaAtual, setPaginaAtual] = useState('metricas');
   const [semestres, setSemestres] = useState([]);
   const [semestreSelecionado, setSemestreSelecionado] = useState(null);
   const [metricas, setMetricas] = useState(null);
@@ -111,7 +113,6 @@ function PainelCoordenador({ usuario, onLogout }) {
   const [tentativaMetricas, setTentativaMetricas] = useState(0);
   const [saindo, setSaindo] = useState(false);
   const [erroLogout, setErroLogout] = useState('');
-  const [aba, setAba] = useState('metricas');
   const requisicaoAtual = useRef(null);
   const requisicaoSemestres = useRef(null);
   const sequenciaRequisicao = useRef(0);
@@ -295,23 +296,34 @@ function PainelCoordenador({ usuario, onLogout }) {
           <strong>UniCatólica</strong>
           <span>Clínica odontológica</span>
         </div>
-        <p className="coordenador-nav-caption">COORDENAÇÃO</p>
-        <button
-          type="button"
-          className="coordenador-nav-link"
-          aria-current={aba === 'metricas' ? 'page' : undefined}
-          onClick={() => setAba('metricas')}
-        >
-          Painel de métricas
-        </button>
-        <button
-          type="button"
-          className="coordenador-nav-link"
-          aria-current={aba === 'satisfacao' ? 'page' : undefined}
-          onClick={() => setAba('satisfacao')}
-        >
-          Avaliações de satisfação
-        </button>
+        <nav className="coordenador-navigation" aria-label="Navegação da coordenação">
+          <p className="coordenador-nav-caption">COORDENAÇÃO</p>
+          <button
+            type="button"
+            className={`coordenador-nav-button${paginaAtual === 'metricas' ? ' coordenador-nav-item' : ''}`}
+            aria-current={paginaAtual === 'metricas' ? 'page' : undefined}
+            onClick={() => setPaginaAtual('metricas')}
+          >
+            Painel de métricas
+          </button>
+          <button
+            type="button"
+            className={`coordenador-nav-button${paginaAtual === 'desempenho' ? ' coordenador-nav-item' : ''}`}
+            aria-current={paginaAtual === 'desempenho' ? 'page' : undefined}
+            onClick={() => setPaginaAtual('desempenho')}
+          >
+            Desempenho acadêmico
+          </button>
+          <button
+            type="button"
+            className={`coordenador-nav-button${paginaAtual === 'satisfacao' ? ' coordenador-nav-item' : ''}`}
+            aria-current={paginaAtual === 'satisfacao' ? 'page' : undefined}
+            onClick={() => setPaginaAtual('satisfacao')}
+          >
+            Avaliações de satisfação
+          </button>
+        </nav>
+
         <div className="coordenador-sidebar-footer">Uso acadêmico</div>
       </aside>
 
@@ -345,7 +357,17 @@ function PainelCoordenador({ usuario, onLogout }) {
               </button>
             </div>
           )}
-          {aba === 'satisfacao' ? <RelatorioSatisfacao /> : <>
+          {paginaAtual === 'desempenho' ? (
+            <DesempenhoHistoricoAcademico
+              semestres={semestres}
+              carregandoSemestres={carregandoSemestres}
+              erroSemestres={erroSemestres}
+              onRetrySemestres={tentarCarregarSemestres}
+            />
+          ) : paginaAtual === 'satisfacao' ? (
+            <RelatorioSatisfacao />
+          ) : (
+            <>
           <div className="coordenador-page-heading">
             <div>
               <p className="coordenador-eyebrow">COORDENAÇÃO</p>
@@ -475,7 +497,8 @@ function PainelCoordenador({ usuario, onLogout }) {
               </section>
             </>
           )}
-          </>}
+          </>
+          )}
         </div>
       </main>
     </div>

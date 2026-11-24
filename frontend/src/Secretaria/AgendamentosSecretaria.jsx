@@ -8,6 +8,7 @@ import {
   listarDisponibilidade,
   listarFilaParaAgendamento,
   listarNotificacoes,
+  simularRespostaWhatsapp,
   remarcarAgendamento,
 } from '../services/agendamentoService.js'
 import './AgendamentosSecretaria.css'
@@ -323,6 +324,16 @@ function AgendamentosSecretaria({ slotInicial, aoLimparSlot, aoAlterar }) {
     }
   }
 
+  async function simularResposta(item, mensagem) {
+    try {
+      await simularRespostaWhatsapp(item.telefonePaciente, mensagem)
+      const dados = await listarNotificacoes(item.consultaId)
+      setNotificacoes(Array.isArray(dados) ? dados : [])
+      setErro('')
+    } catch (falha) {
+      setErro(erroLegivel(falha))
+    }
+  }
   const opcoesRemarcacao = [...new Set(cadeirasRemarcacao.map((item) => item.turno))]
   const filaSelecionada = fila.find((item) => String(item.filaEsperaId) === form.filaId)
   const selecaoAluno = alunos.find((item) => `${item.alunoId}:${item.turmaId}` === form.alunoTurma)
@@ -440,7 +451,17 @@ function AgendamentosSecretaria({ slotInicial, aoLimparSlot, aoAlterar }) {
         <button type="button" className="agendamento-fechar" aria-label="Fechar" onClick={() => setNotificacoes(null)}><X size={18} /></button>
         <span className="agendamentos-etiqueta">WHATSAPP · SIMULAÇÃO</span><h2>Notificações geradas</h2>
         {!notificacoes.length && <p>Nenhuma notificação foi registrada para esta consulta.</p>}
-        {notificacoes.map((item) => <article className="agendamento-mensagem" key={item.id}><header><strong>{item.tipo.replaceAll('_', ' ')}</strong><span>{item.status === 'PENDENTE' ? 'Simulada · pendente de integração' : item.status}</span></header><p>{item.conteudo}</p><small>{new Date(item.criadaEm).toLocaleString('pt-BR')}</small></article>)}
+        {notificacoes.map((item) => <article className="agendamento-mensagem" key={item.id}>
+          <header><strong>{item.tipo.replaceAll('_', ' ')}</strong><span>{item.status === 'PENDENTE' ? 'Pendente de envio manual' : item.status}</span></header>
+          <p>{item.conteudo}</p>
+          <small>{new Date(item.criadaEm).toLocaleString('pt-BR')}</small>
+          <div className="agendamento-whatsapp-acoes">
+            <a href={item.linkWhatsapp || undefined} target="_blank" rel="noreferrer" aria-disabled={!item.linkWhatsapp}>Abrir no WhatsApp</a>
+            <button type="button" disabled={!item.telefonePaciente} onClick={() => simularResposta(item, '1')}>Simular 1 · Confirmar</button>
+            <button type="button" disabled={!item.telefonePaciente} onClick={() => simularResposta(item, '2')}>Simular 2 · Cancelar</button>
+          </div>
+          <small className="agendamento-simulacao-nota">Simulações de teste; não são mensagens reais recebidas do WhatsApp.</small>
+        </article>)}
         <button className="agendamento-botao-secundario" type="button" onClick={() => setNotificacoes(null)}>Fechar</button>
       </section></div>}
     </section>

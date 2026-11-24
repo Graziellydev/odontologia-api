@@ -47,7 +47,7 @@ public class SessaoAluno {
 
         String email = autenticacao.getName();
 
-        Usuario usuario = usuarios.findByEmail(email)
+        Usuario usuario = usuarios.findByEmailIgnoreCase(email)
                 .orElseThrow(() ->
                         new ResponseStatusException(
                                 HttpStatus.UNAUTHORIZED,

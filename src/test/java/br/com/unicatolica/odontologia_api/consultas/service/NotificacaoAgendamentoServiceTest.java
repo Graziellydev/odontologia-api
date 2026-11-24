@@ -50,4 +50,26 @@ class NotificacaoAgendamentoServiceTest {
         assertTrue(criada.getConteudoMensagem().contains("fila de espera"));
         verify(notificacoes).saveAndFlush(criada);
     }
+
+    @Test
+    void remarcacaoPersistidaPermanecePendenteDeEnvio() {
+        Consulta consulta = new Consulta();
+        consulta.setId(41L);
+        Paciente paciente = new Paciente();
+        paciente.setId(32L);
+        paciente.setNomeCompleto("Paciente de teste");
+        when(agenda.buscarTemplate("AVISO_REMARCACAO"))
+                .thenReturn("Consulta remarcada para {{data}}, turno {{turno}}.");
+        when(notificacoes.saveAndFlush(any(NotificacaoWhatsapp.class)))
+                .thenAnswer(invocacao -> invocacao.getArgument(0));
+
+        NotificacaoWhatsapp criada = service.registrar(
+                consulta, paciente, LocalDate.of(2026, 12, 5), "MANHA", "AVISO_REMARCACAO", 7L);
+
+        assertEquals("PENDENTE", criada.getStatusEnvio());
+        assertEquals("AVISO_REMARCACAO", criada.getTipoMensagem());
+        assertTrue(criada.getConteudoMensagem().contains("05/12/2026"));
+        assertTrue(criada.getConteudoMensagem().contains("turno manhã"));
+        verify(notificacoes).saveAndFlush(criada);
+    }
 }

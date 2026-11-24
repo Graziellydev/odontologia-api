@@ -25,3 +25,10 @@ export const remarcarAgendamento = (id, dados) => api(`/consultas/${id}/remarcar
   method: 'POST',
   body: JSON.stringify(dados),
 })
+
+export const listarNotificacoesWhatsApp = (filtros = {}) => api('/notificacoes' + query(filtros))
+export const processarLembretes24h = () => api('/notificacoes/processar-lembretes-24h', { method: 'POST' })
+export const simularRespostaWhatsapp = (telefone, mensagem) => api('/webhooks/whatsapp', {
+  method: 'POST',
+  body: JSON.stringify({ telefone, mensagem }),
+})

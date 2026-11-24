@@ -33,23 +33,22 @@ public class SecurityConfig {
                 return new BCryptPasswordEncoder();
         }
 
-        private static final RequestMatcher METRICAS_REQUEST_MATCHER = request -> {
+        private static final RequestMatcher COORDENADOR_REQUEST_MATCHER = request -> {
                 String path = request.getServletPath();
-                return path.equals("/api/coordenador/metricas")
-                                || path.startsWith("/api/coordenador/metricas/");
+                return path.startsWith("/api/coordenador/");
         };
 
         private static final AuthenticationEntryPoint METRICAS_AUTHENTICATION_ENTRY_POINT =
                         (request, response, exception) -> escreverErroSeguranca(
                                         response,
                                         HttpStatus.UNAUTHORIZED,
-                                        "{\"codigo\":\"NAO_AUTENTICADO\",\"mensagem\":\"Autenticação necessária.\"}");
+                                        "{\"codigo\":\"NAO_AUTENTICADO\",\"mensagem\":\"Autentica\u00e7\u00e3o necess\u00e1ria.\"}");
 
         private static final AccessDeniedHandler METRICAS_ACCESS_DENIED_HANDLER =
                         (request, response, exception) -> escreverErroSeguranca(
                                         response,
                                         HttpStatus.FORBIDDEN,
-                                        "{\"codigo\":\"SEM_PERMISSAO\",\"mensagem\":\"Perfil COORDENADOR necessário.\"}");
+                                        "{\"codigo\":\"SEM_PERMISSAO\",\"mensagem\":\"Perfil COORDENADOR necess\u00e1rio.\"}");
 
         private static final AuthenticationEntryPoint API_AUTHENTICATION_ENTRY_POINT =
                         (request, response, exception) -> escreverErroSeguranca(
@@ -80,9 +79,13 @@ public class SecurityConfig {
                 http
                                 .csrf(csrf -> csrf
                                                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+                                                .ignoringRequestMatchers(request -> "POST".equals(request.getMethod())
+                                                                && ("/api/webhooks/whatsapp".equals(request.getServletPath())
+                                                                        || "/api/webhooks/whatsapp".equals(request.getRequestURI())))
                                                 .csrfTokenRequestHandler(new CsrfTokenRequestAttributeHandler()))
                                 .authorizeHttpRequests(auth -> auth
                                                 .requestMatchers("/api/auth/**").permitAll()
+                                                .requestMatchers(HttpMethod.POST, "/api/webhooks/whatsapp").permitAll()
                                                 .requestMatchers("/api/pacientes/**").hasAuthority("SECRETARIA")
 
                                                 .requestMatchers(HttpMethod.GET, "/api/prontuarios/paciente/**")
@@ -95,7 +98,9 @@ public class SecurityConfig {
 
                                                 .requestMatchers(
                                                                 "/api/coordenador/metricas",
-                                                                "/api/coordenador/metricas/**")
+                                                                "/api/coordenador/metricas/**",
+                                                                "/api/coordenador/desempenho-historico",
+                                                                "/api/coordenador/desempenho-historico/**")
                                                 .hasAuthority("COORDENADOR")
 
                                                 .requestMatchers(
@@ -113,6 +118,7 @@ public class SecurityConfig {
                                                 .requestMatchers("/api/fila-espera/**")
                                                 .hasAnyAuthority("SECRETARIA", "ROLE_SECRETARIA")
 
+                                                .requestMatchers("/api/notificacoes/**").hasAuthority("SECRETARIA")
                                                 .requestMatchers("/api/consultas/**")
                                                 .hasAuthority("SECRETARIA")
 
@@ -125,10 +131,10 @@ public class SecurityConfig {
                                                 .accessDeniedHandler(API_ACCESS_DENIED_HANDLER)
                                                 .defaultAuthenticationEntryPointFor(
                                                                 METRICAS_AUTHENTICATION_ENTRY_POINT,
-                                                                METRICAS_REQUEST_MATCHER)
+                                                                COORDENADOR_REQUEST_MATCHER)
                                                 .defaultAccessDeniedHandlerFor(
                                                                 METRICAS_ACCESS_DENIED_HANDLER,
-                                                                METRICAS_REQUEST_MATCHER))
+                                                                COORDENADOR_REQUEST_MATCHER))
                                 .httpBasic(httpBasic -> httpBasic.disable());
 
                 return http.build();
