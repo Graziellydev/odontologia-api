@@ -4,6 +4,7 @@ import {
   buscarMetricasCoordenador,
   buscarSemestresCoordenador,
 } from '../services/metricasCoordenadorService.js';
+import DesempenhoHistoricoAcademico from './DesempenhoHistoricoAcademico.jsx';
 import './PainelCoordenador.css';
 
 const numeroBR = new Intl.NumberFormat('pt-BR');
@@ -97,6 +98,7 @@ function GraficoBarras({ titulo, itens, campoRotulo, cor }) {
 }
 
 function PainelCoordenador({ usuario, onLogout }) {
+  const [paginaAtual, setPaginaAtual] = useState('metricas');
   const [semestres, setSemestres] = useState([]);
   const [semestreSelecionado, setSemestreSelecionado] = useState(null);
   const [metricas, setMetricas] = useState(null);
@@ -293,10 +295,25 @@ function PainelCoordenador({ usuario, onLogout }) {
           <strong>UniCatólica</strong>
           <span>Clínica odontológica</span>
         </div>
-        <p className="coordenador-nav-caption">COORDENAÇÃO</p>
-        <div className="coordenador-nav-item" aria-current="page">
-          Painel de métricas
-        </div>
+        <nav className="coordenador-navigation" aria-label="Navegação da coordenação">
+          <p className="coordenador-nav-caption">COORDENAÇÃO</p>
+          <button
+            type="button"
+            className={`coordenador-nav-button${paginaAtual === 'metricas' ? ' coordenador-nav-item' : ''}`}
+            aria-current={paginaAtual === 'metricas' ? 'page' : undefined}
+            onClick={() => setPaginaAtual('metricas')}
+          >
+            Painel de métricas
+          </button>
+          <button
+            type="button"
+            className={`coordenador-nav-button${paginaAtual === 'desempenho' ? ' coordenador-nav-item' : ''}`}
+            aria-current={paginaAtual === 'desempenho' ? 'page' : undefined}
+            onClick={() => setPaginaAtual('desempenho')}
+          >
+            Desempenho acadêmico
+          </button>
+        </nav>
         <div className="coordenador-sidebar-footer">Uso acadêmico</div>
       </aside>
 
@@ -330,6 +347,15 @@ function PainelCoordenador({ usuario, onLogout }) {
               </button>
             </div>
           )}
+          {paginaAtual === 'desempenho' ? (
+            <DesempenhoHistoricoAcademico
+              semestres={semestres}
+              carregandoSemestres={carregandoSemestres}
+              erroSemestres={erroSemestres}
+              onRetrySemestres={tentarCarregarSemestres}
+            />
+          ) : (
+            <>
           <div className="coordenador-page-heading">
             <div>
               <p className="coordenador-eyebrow">COORDENAÇÃO</p>
@@ -457,6 +483,8 @@ function PainelCoordenador({ usuario, onLogout }) {
                   cor="coordenador-bar-blue"
                 />
               </section>
+            </>
+          )}
             </>
           )}
         </div>
