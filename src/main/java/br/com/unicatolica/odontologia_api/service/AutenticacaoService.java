@@ -9,11 +9,15 @@ import java.security.MessageDigest;
 import java.util.Optional;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class AutenticacaoService {
+
+    private static final Logger log = LoggerFactory.getLogger(AutenticacaoService.class);
 
     private final UsuarioRepository usuarioRepository;
     private final PasswordEncoder passwordEncoder;
@@ -34,10 +38,17 @@ public class AutenticacaoService {
                 .orElse(dto.getEmail());
         if (identificador == null || identificador.isBlank()) throw credenciaisInvalidas();
 
-        Usuario usuario = resolverUsuario(identificador).orElseThrow(AutenticacaoService::credenciaisInvalidas);
-        if (!Boolean.TRUE.equals(usuario.getAtivo())
-                || !perfilPermitido(usuario)
-                || !senhaValidaEAtualizarSeLegada(usuario, dto.getSenha())) {
+        Usuario usuario = resolverUsuario(identificador).orElse(null);
+        if (usuario == null) {
+            log.warn("login_rejected reason=user_not_found identifier={}", identificador);
+            throw credenciaisInvalidas();
+        }
+        boolean ativo = Boolean.TRUE.equals(usuario.getAtivo());
+        boolean perfil = perfilPermitido(usuario);
+        boolean senha = senhaValidaEAtualizarSeLegada(usuario, dto.getSenha());
+        if (!ativo || !perfil || !senha) {
+            log.warn("login_rejected reason=validation_failed userId={} perfil={} ativo={} passwordMatch={}",
+                    usuario.getId(), usuario.getPerfil(), ativo, senha);
             throw credenciaisInvalidas();
         }
 

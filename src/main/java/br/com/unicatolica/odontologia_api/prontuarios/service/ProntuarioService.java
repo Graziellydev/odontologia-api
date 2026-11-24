@@ -3,6 +3,7 @@ package br.com.unicatolica.odontologia_api.prontuarios.service;
 import br.com.unicatolica.odontologia_api.consultas.entity.Consulta;
 import br.com.unicatolica.odontologia_api.consultas.entity.StatusConsulta;
 import br.com.unicatolica.odontologia_api.consultas.repository.ConsultaRepository;
+import br.com.unicatolica.odontologia_api.notificacoes.service.NotificacaoConclusaoService;
 import br.com.unicatolica.odontologia_api.model.Usuario;
 import br.com.unicatolica.odontologia_api.prontuarios.dto.ConsultaClinica;
 import br.com.unicatolica.odontologia_api.prontuarios.dto.ProntuarioHistoricoResponse;
@@ -41,6 +42,7 @@ public class ProntuarioService {
     private final ProntuarioJpaRepository prontuarios;
     private final ProntuarioAdendoJpaRepository adendos;
     private final ConsultaRepository consultas;
+    private final NotificacaoConclusaoService notificacaoConclusao;
     private final UsuarioRepository usuarios;
     private final AutorizacaoProntuarioService autorizacao;
     private final EntityManager entityManager;
@@ -146,6 +148,7 @@ public class ProntuarioService {
                 new ResponseStatusException(HttpStatus.NOT_FOUND, "Consulta não encontrada."));
         consulta.setStatusConsulta(StatusConsulta.REALIZADO);
         consultas.saveAndFlush(consulta);
+        notificacaoConclusao.registrarPesquisaSatisfacao(consulta.getId());
     }
 
     private String criarAssinatura(long consultaId, long procedimentoId, String dente,

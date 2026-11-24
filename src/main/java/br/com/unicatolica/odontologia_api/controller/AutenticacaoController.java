@@ -148,7 +148,7 @@ public class AutenticacaoController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
 
-        return usuarioRepository.findByEmail(authentication.getName())
+        return usuarioRepository.findByEmailIgnoreCase(authentication.getName())
                 .<ResponseEntity<?>>map(usuario -> ResponseEntity.ok(
                         new LoginResponseDTO(
                                 usuario.getId(),

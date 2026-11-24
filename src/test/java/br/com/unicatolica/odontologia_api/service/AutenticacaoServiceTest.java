@@ -35,6 +35,21 @@ class AutenticacaoServiceTest {
         verify(usuarios, never()).save(any());
     }
 
+    @Test void aceitaLoginDaSecretariaPorMatricula() {
+        Usuario usuario = usuario(encoder.encode("Senha-sintetica-123"));
+        usuario.setMatriculaOuRegistro("SEC-001");
+        LoginDTO dto = new LoginDTO();
+        dto.setIdentificador(" sec-001 ");
+        dto.setSenha("Senha-sintetica-123");
+        when(usuarios.findByEmailIgnoreCase("sec-001")).thenReturn(Optional.empty());
+        when(usuarios.findByMatriculaOuRegistro("sec-001")).thenReturn(Optional.of(usuario));
+
+        var resposta = service.autenticar(dto);
+
+        assertEquals(Perfil.SECRETARIA, resposta.getPerfil());
+        assertEquals("SEC-001", resposta.getMatriculaOuRegistro());
+    }
+
     @Test void atualizaSenhaLegadaParaBcryptNoLoginValido() {
         Usuario usuario = usuario("Senha-legada-sintetica");
         when(usuarios.findByEmailIgnoreCase("secretaria@teste.invalid")).thenReturn(Optional.of(usuario));

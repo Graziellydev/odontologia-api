@@ -181,17 +181,22 @@ public class AgendaConsultaRepository {
 
     public List<NotificacaoConsultaDTO> listarNotificacoes(Long consultaId) {
         return jdbc.query("""
-                SELECT id, paciente_id, consulta_id, tipo_mensagem, conteudo_mensagem,
-                       status_envio, criado_em
-                FROM notificacoes_whatsapp
-                WHERE (CAST(? AS BIGINT) IS NULL OR consulta_id = ?
-                   OR consulta_id IN (SELECT id FROM consultas WHERE consulta_origem_id = ?))
-                ORDER BY criado_em DESC, id DESC
+                SELECT n.id, n.paciente_id, n.consulta_id, n.tipo_mensagem, n.conteudo_mensagem,
+                       n.status_envio, n.criado_em, n.resposta_recebida, n.respondido_em, p.telefone
+                FROM notificacoes_whatsapp n
+                JOIN pacientes p ON p.id = n.paciente_id
+                WHERE (CAST(? AS BIGINT) IS NULL OR n.consulta_id = ?
+                   OR n.consulta_id IN (SELECT id FROM consultas WHERE consulta_origem_id = ?))
+                ORDER BY n.criado_em DESC, n.id DESC
                 LIMIT 200
                 """, (rs, row) -> new NotificacaoConsultaDTO(
                 rs.getLong("id"), rs.getLong("paciente_id"), rs.getLong("consulta_id"),
                 rs.getString("tipo_mensagem"), rs.getString("conteudo_mensagem"),
-                rs.getString("status_envio"), offset(rs, "criado_em"), true),
+                rs.getString("status_envio"), offset(rs, "criado_em"), true,
+                rs.getString("telefone"),
+                br.com.unicatolica.odontologia_api.notificacoes.service.LinkWhatsapp.criar(
+                        rs.getString("telefone"), rs.getString("conteudo_mensagem")),
+                rs.getString("resposta_recebida"), offset(rs, "respondido_em")),
                 consultaId, consultaId, consultaId);
     }
 

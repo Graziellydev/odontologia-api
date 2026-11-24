@@ -70,6 +70,12 @@ class SecurityAuditIntegrationTest {
                 .andExpect(status().isForbidden());
         mockMvc.perform(get("/api/coordenador/metricas").session(session))
                 .andExpect(status().isForbidden());
+        mockMvc.perform(get("/api/notificacoes").session(session))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(get("/api/consultas/notificacoes?consultaId=72").session(session))
+                .andExpect(status().isForbidden());
+        mockMvc.perform(get("/api/fila-espera").session(session))
+                .andExpect(status().isForbidden());
     }
 
     @Test
