@@ -6,6 +6,7 @@ import {
 } from '../services/metricasCoordenadorService.js';
 import DesempenhoHistoricoAcademico from './DesempenhoHistoricoAcademico.jsx';
 import './PainelCoordenador.css';
+import RelatorioSatisfacao from './RelatorioSatisfacao.jsx';
 
 const numeroBR = new Intl.NumberFormat('pt-BR');
 const INTERVALO_ATUALIZACAO_MS = 180_000;
@@ -313,7 +314,16 @@ function PainelCoordenador({ usuario, onLogout }) {
           >
             Desempenho acadêmico
           </button>
+          <button
+            type="button"
+            className={`coordenador-nav-button${paginaAtual === 'satisfacao' ? ' coordenador-nav-item' : ''}`}
+            aria-current={paginaAtual === 'satisfacao' ? 'page' : undefined}
+            onClick={() => setPaginaAtual('satisfacao')}
+          >
+            Avaliações de satisfação
+          </button>
         </nav>
+
         <div className="coordenador-sidebar-footer">Uso acadêmico</div>
       </aside>
 
@@ -354,6 +364,8 @@ function PainelCoordenador({ usuario, onLogout }) {
               erroSemestres={erroSemestres}
               onRetrySemestres={tentarCarregarSemestres}
             />
+          ) : paginaAtual === 'satisfacao' ? (
+            <RelatorioSatisfacao />
           ) : (
             <>
           <div className="coordenador-page-heading">
@@ -485,7 +497,7 @@ function PainelCoordenador({ usuario, onLogout }) {
               </section>
             </>
           )}
-            </>
+          </>
           )}
         </div>
       </main>
