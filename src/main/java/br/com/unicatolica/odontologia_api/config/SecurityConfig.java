@@ -33,10 +33,9 @@ public class SecurityConfig {
                 return new BCryptPasswordEncoder();
         }
 
-        private static final RequestMatcher METRICAS_REQUEST_MATCHER = request -> {
+        private static final RequestMatcher COORDENADOR_REQUEST_MATCHER = request -> {
                 String path = request.getServletPath();
-                return path.equals("/api/coordenador/metricas")
-                                || path.startsWith("/api/coordenador/metricas/");
+                return path.startsWith("/api/coordenador/");
         };
 
         private static final AuthenticationEntryPoint METRICAS_AUTHENTICATION_ENTRY_POINT =
@@ -95,7 +94,9 @@ public class SecurityConfig {
 
                                                 .requestMatchers(
                                                                 "/api/coordenador/metricas",
-                                                                "/api/coordenador/metricas/**")
+                                                                "/api/coordenador/metricas/**",
+                                                                "/api/coordenador/desempenho-historico",
+                                                                "/api/coordenador/desempenho-historico/**")
                                                 .hasAuthority("COORDENADOR")
 
                                                 .requestMatchers(
@@ -125,10 +126,10 @@ public class SecurityConfig {
                                                 .accessDeniedHandler(API_ACCESS_DENIED_HANDLER)
                                                 .defaultAuthenticationEntryPointFor(
                                                                 METRICAS_AUTHENTICATION_ENTRY_POINT,
-                                                                METRICAS_REQUEST_MATCHER)
+                                                                COORDENADOR_REQUEST_MATCHER)
                                                 .defaultAccessDeniedHandlerFor(
                                                                 METRICAS_ACCESS_DENIED_HANDLER,
-                                                                METRICAS_REQUEST_MATCHER))
+                                                                COORDENADOR_REQUEST_MATCHER))
                                 .httpBasic(httpBasic -> httpBasic.disable());
 
                 return http.build();

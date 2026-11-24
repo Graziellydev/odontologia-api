@@ -50,12 +50,33 @@
   font-weight: 700;
 }
 
-.coordenador-nav-item {
+.coordenador-nav-button {
+  display: block;
+  width: 100%;
+  margin-bottom: 4px;
   padding: 11px 12px;
+  border: 0;
   border-radius: 6px;
+  background: transparent;
+  color: #62727e;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+}
+
+.coordenador-nav-button:not([aria-current="page"]):hover {
+  background: #f5f7f9;
+}
+
+.coordenador-nav-button:focus-visible {
+  outline: 2px solid #d87542;
+  outline-offset: 2px;
+}
+
+.coordenador-nav-item {
   background: #fff0e7;
   color: #c5490f;
-  font-size: 13px;
   font-weight: 700;
 }
 
