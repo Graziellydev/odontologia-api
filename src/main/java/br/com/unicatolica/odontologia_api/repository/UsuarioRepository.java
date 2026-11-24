@@ -20,9 +20,11 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
      */
     Optional<Usuario> findByEmail(String email);
 
-    Optional<Usuario> findByEmailIgnoreCase(String email);
+    @Query("select u from Usuario u where lower(trim(u.email)) = lower(trim(:email))")
+    Optional<Usuario> findByEmailIgnoreCase(@Param("email") String email);
 
-    Optional<Usuario> findByMatriculaOuRegistro(String matriculaOuRegistro);
+    @Query("select u from Usuario u where lower(trim(u.matriculaOuRegistro)) = lower(trim(:matriculaOuRegistro))")
+    Optional<Usuario> findByMatriculaOuRegistro(@Param("matriculaOuRegistro") String matriculaOuRegistro);
 
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     @Query("select u from Usuario u where u.id = :id")
