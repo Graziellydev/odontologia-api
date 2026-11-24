@@ -1,0 +1,236 @@
+/* Menu lateral: itens clicáveis (o PainelCoordenador tinha um item fixo) */
+.coordenador-nav-link {
+  display: block;
+  width: 100%;
+  margin-bottom: 6px;
+  padding: 11px 12px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #4a5b69;
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: left;
+}
+
+.coordenador-nav-link:hover {
+  background: #f5f7f9;
+}
+
+.coordenador-nav-link[aria-current="page"] {
+  background: #fff0e7;
+  color: #c5490f;
+}
+
+.coordenador-nav-link:focus-visible {
+  outline: 2px solid #d87542;
+  outline-offset: 2px;
+}
+
+/* Relatório de satisfação */
+.satisfacao-resumo {
+  display: grid;
+  grid-template-columns: minmax(230px, 320px) 1fr;
+  gap: 16px;
+  margin-bottom: 26px;
+}
+
+.satisfacao-card {
+  padding: 20px;
+  border: 1px solid var(--coord-line, #e4e9ed);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.satisfacao-rotulo {
+  display: block;
+  margin-bottom: 10px;
+  color: #788794;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.satisfacao-media {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.satisfacao-media .satisfacao-rotulo {
+  margin-bottom: 0;
+}
+
+.satisfacao-media-valor {
+  color: var(--coord-heading, #1f3445);
+  font-size: 44px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.satisfacao-media-valor small {
+  color: #82919d;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.satisfacao-total {
+  color: #788794;
+  font-size: 12px;
+}
+
+/* Estrelas: a estrela base é cinza, e a parte preenchida é desenhada por cima */
+.satisfacao-estrelas {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.satisfacao-estrela {
+  position: relative;
+  display: inline-block;
+  color: #d9dee3;
+}
+
+.satisfacao-estrela::before {
+  content: "★";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: var(--preenchimento, 0%);
+  overflow: hidden;
+  color: #e39b12;
+}
+
+.satisfacao-distribuicao {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.satisfacao-linha {
+  display: grid;
+  grid-template-columns: 34px 1fr 36px;
+  align-items: center;
+  gap: 10px;
+  color: #506371;
+  font-size: 12px;
+}
+
+.satisfacao-linha-valor {
+  text-align: right;
+}
+
+.satisfacao-trilho {
+  height: 9px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #eceff2;
+}
+
+.satisfacao-preenchimento {
+  height: 100%;
+  background: #e39b12;
+}
+
+.satisfacao-secao h2 {
+  margin: 0 0 14px;
+  color: var(--coord-heading, #1f3445);
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.satisfacao-lista {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.satisfacao-item {
+  padding: 16px 18px;
+  border: 1px solid var(--coord-line, #e4e9ed);
+  border-radius: 6px;
+  background: #fff;
+}
+
+.satisfacao-item-topo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 14px;
+}
+
+.satisfacao-item-topo .satisfacao-estrelas {
+  font-size: 17px;
+}
+
+.satisfacao-item-nota {
+  color: #263746;
+  font-size: 13px;
+}
+
+.satisfacao-item-meta {
+  color: #788794;
+  font-size: 12px;
+}
+
+.satisfacao-comentario {
+  margin: 10px 0 0;
+  color: #34495a;
+  font-size: 13px;
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.satisfacao-sem-comentario {
+  color: #9aa7b1;
+  font-style: italic;
+}
+
+.satisfacao-paginacao {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 18px;
+  color: #506371;
+  font-size: 12px;
+}
+
+.satisfacao-paginacao button {
+  min-height: 36px;
+  padding: 7px 14px;
+  border: 1px solid #d7e0e5;
+  border-radius: 5px;
+  background: #fff;
+  color: #344755;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.satisfacao-paginacao button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.satisfacao-nota-lgpd {
+  margin: 18px 0 0;
+  color: #92a0ab;
+  font-size: 11px;
+  text-align: center;
+}
+
+@media (max-width: 760px) {
+  .satisfacao-resumo {
+    grid-template-columns: 1fr;
+  }
+}
