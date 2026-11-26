@@ -5,6 +5,7 @@ import {
   buscarSemestresCoordenador,
 } from '../services/metricasCoordenadorService.js';
 import DesempenhoHistoricoAcademico from './DesempenhoHistoricoAcademico.jsx';
+import RelatoriosCoordenacao from './RelatoriosCoordenacao.jsx';
 import './PainelCoordenador.css';
 
 const numeroBR = new Intl.NumberFormat('pt-BR');
@@ -313,6 +314,8 @@ function PainelCoordenador({ usuario, onLogout }) {
           >
             Desempenho acadêmico
           </button>
+          <button type="button" className={`coordenador-nav-button${paginaAtual === 'demografico' ? ' coordenador-nav-item' : ''}`} aria-current={paginaAtual === 'demografico' ? 'page' : undefined} onClick={() => setPaginaAtual('demografico')}>Perfil demográfico</button>
+          <button type="button" className={`coordenador-nav-button${paginaAtual === 'demanda-clinica' ? ' coordenador-nav-item' : ''}`} aria-current={paginaAtual === 'demanda-clinica' ? 'page' : undefined} onClick={() => setPaginaAtual('demanda-clinica')}>Demanda clínica</button>
         </nav>
         <div className="coordenador-sidebar-footer">Uso acadêmico</div>
       </aside>
@@ -354,6 +357,8 @@ function PainelCoordenador({ usuario, onLogout }) {
               erroSemestres={erroSemestres}
               onRetrySemestres={tentarCarregarSemestres}
             />
+          ) : paginaAtual === 'demografico' || paginaAtual === 'demanda-clinica' ? (
+            <RelatoriosCoordenacao pagina={paginaAtual} semestres={semestres} />
           ) : (
             <>
           <div className="coordenador-page-heading">

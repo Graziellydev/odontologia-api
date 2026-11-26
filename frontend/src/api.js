@@ -31,7 +31,8 @@ export async function api(rota, opcoes = {}) {
       ...opcoes,
       headers,
     });
-  } catch {
+  } catch (error) {
+    if (error.name === 'AbortError') throw error;
     throw new Error('Não foi possível acessar o backend. Confira se o Spring Boot está funcionando.');
   }
   if (!resposta.ok) {
@@ -49,4 +50,25 @@ export async function api(rota, opcoes = {}) {
   }
   if (resposta.status === 204) return null;
   return resposta.json();
+}
+
+export async function apiDownload(rota, opcoes = {}) {
+  let resposta;
+  try {
+    resposta = await fetch(`${BASE}/api${rota}`, { credentials: 'include', ...opcoes });
+  } catch {
+    throw new Error('Não foi possível acessar o backend. Confira se o Spring Boot está funcionando.');
+  }
+  if (!resposta.ok) {
+    const texto = await resposta.text();
+    let detalhe = texto.slice(0, 180);
+    try {
+      const dados = JSON.parse(texto);
+      detalhe = dados.detail || dados.mensagem || dados.message || dados.error || detalhe;
+    } catch { /* Resposta de erro sem JSON. */ }
+    const erro = new Error(`HTTP ${resposta.status}${detalhe ? ` — ${detalhe}` : ''}`);
+    erro.status = resposta.status;
+    throw erro;
+  }
+  return resposta.blob();
 }

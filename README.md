@@ -30,14 +30,7 @@ Além disso, o sistema busca contribuir para a redução de faltas, melhor utili
 ---
 
 ## ⚙️ Principais Funcionalidades
-
-### 👤 Pacientes
-
-- Consulta de consultas e retornos agendados;
-- Visualização de horários e turnos de atendimento;
-- Acesso ao sistema após realização da triagem presencial;
-- Confirmação ou cancelamento de consultas;
-
+cd
 ### 🎓 Alunos
 
 - Dashboard de acompanhamento das metas acadêmicas;
