@@ -16,7 +16,7 @@ Regras para todas as tarefas:
 ### T01 — Verificar baseline do código e dos testes
 
 - [x] **O que fazer:** registrar o estado atual dos módulos de solicitações, fila, consultas, frontend, endpoints existentes e testes; confirmar que a análise é somente estática e não acessa o banco compartilhado.
-- **Arquivos envolvidos:** `../../src/main/java/.../solicitacoes/`, `../../src/main/java/.../filaespera/`, `../../src/main/java/.../retornos/`, `../../frontend/src/FilaEspera.jsx`, `../../frontend/src/FilaEspera.css`, `../../frontend/src/api.js`, `../../src/test/`.
+- **Arquivos envolvidos:** `../../backend/src/main/java/.../solicitacoes/`, `../../backend/src/main/java/.../filaespera/`, `../../backend/src/main/java/.../retornos/`, `../../frontend/src/FilaEspera.jsx`, `../../frontend/src/FilaEspera.css`, `../../frontend/src/api.js`, `../../backend/src/test/`.
 - **Critérios relacionados:** CA-01, CA-02, CA-03, CA-17; restrições da seção 9.
 - **Verificação:** produzir uma lista de endpoints, componentes, testes existentes e lacunas; confirmar que não houve escrita, migração, comando Git ou alteração no banco.
 - **Situação:** CONCLUÍDA.
@@ -25,7 +25,7 @@ Regras para todas as tarefas:
 ### T02 — Criar consulta administrativa enriquecida
 
 - [x] **O que fazer:** criar a consulta administrativa no Spring Boot usando dados reais de aluno, turma, disciplina, procedimento, dente, classe, data desejada, status, semestre atual do aluno (`usuarios.semestre_atual`) e paciente associado quando houver. Preservar `PENDENTE_FILA` sem decidir sua semântica.
-- **Arquivos envolvidos:** `../../src/main/java/.../solicitacoes/controller/SolicitacaoPacienteController.java`, `../../src/main/java/.../solicitacoes/service/SolicitacaoPacienteService.java`, `../../src/main/java/.../solicitacoes/repository/SolicitacaoPacienteRepository.java`, novos DTOs em `../../src/main/java/.../solicitacoes/dto/`.
+- **Arquivos envolvidos:** `../../backend/src/main/java/.../solicitacoes/controller/SolicitacaoPacienteController.java`, `../../backend/src/main/java/.../solicitacoes/service/SolicitacaoPacienteService.java`, `../../backend/src/main/java/.../solicitacoes/repository/SolicitacaoPacienteRepository.java`, novos DTOs em `../../backend/src/main/java/.../solicitacoes/dto/`.
 - **Critérios relacionados:** RF010-01, RF010-02, RF010-03, RF010-13; CA-02, CA-03, CA-04, CA-21.
 - **Verificação:** teste de consulta com relações preenchidas e ausentes; confirmar que nomes vêm das relações, o semestre vem de `usuarios.semestre_atual`, a turma permanece separada e nenhum registro fictício é criado.
 - **Situação:** CONCLUÍDA.
@@ -70,7 +70,7 @@ Regras para todas as tarefas:
 ### T07 — Consultar demandas compatíveis da fila
 
 - [ ] **O que fazer:** reutilizar `GET /api/fila-espera` com `procedimentoId`, `dente` e `classe` da solicitação; aceitar somente entradas `AGUARDANDO`; apresentar paciente, prioridade, data de entrada e tempo de espera na ordenação oficial retornada pelo backend.
-- **Arquivos envolvidos:** `../../frontend/src/AnalisarSolicitacao.jsx`, `../../frontend/src/api.js`, `../../src/main/java/.../filaespera/controller/FilaEsperaController.java`, `../../src/main/java/.../filaespera/repository/FilaEsperaRepository.java`, DTOs da fila.
+- **Arquivos envolvidos:** `../../frontend/src/AnalisarSolicitacao.jsx`, `../../frontend/src/api.js`, `../../backend/src/main/java/.../filaespera/controller/FilaEsperaController.java`, `../../backend/src/main/java/.../filaespera/repository/FilaEsperaRepository.java`, DTOs da fila.
 - **Critérios relacionados:** RF010-15, RN-02, RN-03; CA-23, CA-24, CA-26.
 - **Verificação:** testar correspondência por procedimento/dente/classe, ausência de entradas, prioridade e dias de espera; confirmar que a seleção não altera a fila antes da aprovação.
 - **Situação:** IMPLEMENTADA E TESTADA; REVISÃO NO NAVEGADOR PENDENTE.
@@ -79,7 +79,7 @@ Regras para todas as tarefas:
 ### T08 — Integrar recusa com justificativa obrigatória
 
 - [x] **O que fazer:** disponibilizar a recusa no fluxo administrativo, mesmo não estando visível nos prints; validar justificativa no frontend e backend, preservar a observação do aluno e exibir a resposta da secretaria.
-- **Arquivos envolvidos:** `../../frontend/src/AnalisarSolicitacao.jsx`, `../../frontend/src/ValidacaoSolicitacoes.jsx`, CSSs complementares, `../../src/main/java/.../solicitacoes/controller/SolicitacaoPacienteController.java`, `../../src/main/java/.../solicitacoes/service/SolicitacaoPacienteService.java`, `RecusarSolicitacaoDTO` e testes existentes.
+- **Arquivos envolvidos:** `../../frontend/src/AnalisarSolicitacao.jsx`, `../../frontend/src/ValidacaoSolicitacoes.jsx`, CSSs complementares, `../../backend/src/main/java/.../solicitacoes/controller/SolicitacaoPacienteController.java`, `../../backend/src/main/java/.../solicitacoes/service/SolicitacaoPacienteService.java`, `RecusarSolicitacaoDTO` e testes existentes.
 - **Critérios relacionados:** RF010-05, RF010-18, RN-04, RN-05; CA-07, CA-08, CA-27.
 - **Verificação:** testar justificativa nula, vazia, espaços, limite e chamada direta à API; confirmar `RECUSADO`, `respostaSecretaria` correta e observação do aluno intacta.
 - **Situação:** CONCLUÍDA.
@@ -88,7 +88,7 @@ Regras para todas as tarefas:
 ### T09 — Integrar aprovação com alocação conjunta
 
 - [x] **O que fazer:** ligar “Aprovar e Vincular” ao endpoint existente, exigindo seleção de uma entrada compatível e mantendo a operação transacional: solicitação `APROVADO_E_ALOCADO`, fila `ALOCADO` e paciente associado.
-- **Arquivos envolvidos:** `../../frontend/src/AnalisarSolicitacao.jsx`, `../../frontend/src/api.js`, `../../src/main/java/.../solicitacoes/controller/SolicitacaoPacienteController.java`, `../../src/main/java/.../solicitacoes/service/SolicitacaoPacienteService.java`, `AprovarSolicitacaoDTO`, entidades/repositórios de solicitação e fila.
+- **Arquivos envolvidos:** `../../frontend/src/AnalisarSolicitacao.jsx`, `../../frontend/src/api.js`, `../../backend/src/main/java/.../solicitacoes/controller/SolicitacaoPacienteController.java`, `../../backend/src/main/java/.../solicitacoes/service/SolicitacaoPacienteService.java`, `AprovarSolicitacaoDTO`, entidades/repositórios de solicitação e fila.
 - **Critérios relacionados:** DP-01, RF010-04, RF010-17, RN-02, RN-03, RN-13; CA-05, CA-06, CA-25, CA-26.
 - **Verificação:** aprovar com entrada compatível e conferir os três estados/vínculos; tentar aprovar sem seleção ou com incompatibilidade; confirmar ausência de consulta, agenda, mensagem e definição de dia/turno.
 - **Situação:** CONCLUÍDA.
@@ -97,7 +97,7 @@ Regras para todas as tarefas:
 ### T10 — Testar operações, permissões, erros e concorrência
 
 - [ ] **O que fazer:** cobrir listagem, detalhes, fila compatível, recusa e aprovação; validar `SECRETARIA`, `ALUNO`, `COORDENADOR`, não autenticado, propriedade do aluno, `401/403/404/409`, atomicidade e duas ações concorrentes sobre a mesma versão.
-- **Arquivos envolvidos:** `../../src/test/`, testes de controller/service/repository de solicitações e fila, testes frontend dos dois componentes quando disponíveis.
+- **Arquivos envolvidos:** `../../backend/src/test/`, testes de controller/service/repository de solicitações e fila, testes frontend dos dois componentes quando disponíveis.
 - **Critérios relacionados:** RF010-09, RF010-11, RN-07, RN-11, RN-12; CA-10, CA-11, CA-15, CA-16, CA-26.
 - **Verificação:** executar a suíte focada sem banco compartilhado; confirmar que falhas não deixam solicitação aprovada sem paciente, fila alocada sem solicitação ou sucesso indevido.
 - **Situação:** PARCIAL — TESTES ISOLADOS PASSARAM.
@@ -133,7 +133,7 @@ Regras para todas as tarefas:
 ### T14 — Revisar o visual e executar testes finais
 
 - [ ] **O que fazer:** comparar as duas telas implementadas com o Figma, validar responsividade e navegação, revisar textos para não sugerirem agendamento, confirmar dados reais e executar a suíte final da RF010.
-- **Arquivos envolvidos:** `../../frontend/src/ValidacaoSolicitacoes.jsx`, `../../frontend/src/ValidacaoSolicitacoes.css`, `../../frontend/src/AnalisarSolicitacao.jsx`, `../../frontend/src/AnalisarSolicitacao.css`, `../../frontend/src/FilaEspera.jsx`, `../../frontend/src/FilaEspera.css`, `../../src/test/`.
+- **Arquivos envolvidos:** `../../frontend/src/ValidacaoSolicitacoes.jsx`, `../../frontend/src/ValidacaoSolicitacoes.css`, `../../frontend/src/AnalisarSolicitacao.jsx`, `../../frontend/src/AnalisarSolicitacao.css`, `../../frontend/src/FilaEspera.jsx`, `../../frontend/src/FilaEspera.css`, `../../backend/src/test/`.
 - **Critérios relacionados:** RF010-10, RF010-11, RF010-12, RF010-13, RF010-14; CA-01, CA-16, CA-17, CA-19, CA-20, CA-21, CA-22, CA-29.
 - **Verificação:** revisão visual em larguras ampla e móvel, testes de navegação, estados de erro e operações; confirmar que pendências DP-02/DP-03/DP-05 não foram mascaradas como resolvidas.
 - **Situação:** PENDENTE.

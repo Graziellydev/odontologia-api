@@ -13,6 +13,7 @@
 2. Na raiz do projeto, inicie o backend com:
 
    ```powershell
+   cd backend
    .\mvnw.cmd "-Dspring-boot.run.profiles=local" spring-boot:run
    ```
 
@@ -20,7 +21,7 @@
 3. Em outro terminal, ainda na raiz, carregue os dados de demonstração:
 
    ```powershell
-   psql -h localhost -U postgres -d odontologia_local -f src/test/resources/sql/seed-gestao-faltas-local.sql
+   psql -h localhost -U postgres -d odontologia_local -f backend/src/test/resources/sql/seed-gestao-faltas-local.sql
    ```
 
    Se o usuário ou senha local forem diferentes, defina `DB_USERNAME` e `DB_PASSWORD` antes de iniciar o backend e use o usuário correspondente no `psql`.

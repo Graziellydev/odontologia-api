@@ -49,10 +49,13 @@ export default function ProntuarioDigital({ consulta, usuario, aoVoltar }) {
 
   useEffect(() => {
     let ativo = true
-    setHistorico(null)
-    setBloqueio('')
-    setErroOperacao('')
-    setAtendimentoEncerrado(consulta.status === 'REALIZADO')
+    queueMicrotask(() => {
+      if (!ativo) return
+      setHistorico(null)
+      setBloqueio('')
+      setErroOperacao('')
+      setAtendimentoEncerrado(consulta.status === 'REALIZADO')
+    })
     buscarProntuarioDoPaciente(consulta.pacienteId)
       .then((dados) => { if (ativo) setHistorico(dados) })
       .catch((error) => {
@@ -61,7 +64,7 @@ export default function ProntuarioDigital({ consulta, usuario, aoVoltar }) {
         else setErroOperacao(detalheErro(error))
       })
     return () => { ativo = false }
-  }, [consulta.pacienteId])
+  }, [consulta.pacienteId, consulta.status])
 
   useEffect(() => {
     const timer = window.setInterval(() => setAgora(new Date()), 15000)
