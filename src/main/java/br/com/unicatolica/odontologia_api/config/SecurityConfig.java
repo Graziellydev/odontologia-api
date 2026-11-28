@@ -116,7 +116,10 @@ public class SecurityConfig {
                                                                 "/api/solicitacoes-pacientes/*/recusar")
                                                 .hasAuthority("SECRETARIA")
                                                 .requestMatchers("/api/fila-espera/**")
-                                                .hasAnyAuthority("SECRETARIA", "ROLE_SECRETARIA")
+                                                .hasAuthority("SECRETARIA")
+
+                                                .requestMatchers("/api/retornos/**", "/api/metas/**", "/api/catalogo-solicitacoes/**")
+                                                .hasAuthority("ALUNO")
 
                                                 .requestMatchers("/api/notificacoes/**").hasAuthority("SECRETARIA")
                                                 .requestMatchers("/api/consultas/**")

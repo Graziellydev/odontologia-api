@@ -10,10 +10,12 @@ import br.com.unicatolica.odontologia_api.security.SessaoAluno;
 import br.com.unicatolica.odontologia_api.service.MetaAlunoService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 @RestController
 @RequestMapping("/api/metas")
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ALUNO')")
 public class MetaAlunoController {
 
     private final MetaAlunoService service;

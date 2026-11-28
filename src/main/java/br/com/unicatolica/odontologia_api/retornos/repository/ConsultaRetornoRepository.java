@@ -7,9 +7,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import br.com.unicatolica.odontologia_api.retornos.entity.ConsultaRetorno;
+import br.com.unicatolica.odontologia_api.consultas.entity.Consulta;
 
-public interface ConsultaRetornoRepository extends JpaRepository<ConsultaRetorno, Long> {
+public interface ConsultaRetornoRepository extends JpaRepository<Consulta, Long> {
 
     // Linha da lista de atendimentos do dia (os nomes batem com os apelidos do SQL)
     interface AtendimentoView {

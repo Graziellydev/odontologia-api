@@ -27,7 +27,8 @@ import br.com.unicatolica.odontologia_api.filaespera.entity.FilaEspera;
 import br.com.unicatolica.odontologia_api.filaespera.repository.FilaEsperaRepository;
 import br.com.unicatolica.odontologia_api.retornos.dto.RetornoResponse;
 import br.com.unicatolica.odontologia_api.retornos.dto.SugestaoRetornoRequest;
-import br.com.unicatolica.odontologia_api.retornos.entity.ConsultaRetorno;
+import br.com.unicatolica.odontologia_api.consultas.entity.Consulta;
+import br.com.unicatolica.odontologia_api.consultas.entity.StatusConsulta;
 import br.com.unicatolica.odontologia_api.retornos.repository.ConsultaRetornoRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
@@ -66,22 +67,22 @@ class RetornoServiceTest {
         });
     }
 
-    private ConsultaRetorno consulta(String status) {
-        ConsultaRetorno c = new ConsultaRetorno();
+    private Consulta consulta(String status) {
+        Consulta c = new Consulta();
         c.setId(10L);
         c.setPacienteId(20L);
         c.setAlunoId(ALUNO_ID);
         c.setProcedimentoId(30L);
         c.setDente("36");
         c.setClasse("II");
-        c.setStatusConsulta(status);
+        c.setStatusConsulta(StatusConsulta.valueOf(status));
         c.setRetornoSugerido(false);
         return c;
     }
 
     @Test
     void deveSugerirRetornoELevarOPacienteParaAFila() {
-        ConsultaRetorno consulta = consulta("AGENDADO");
+        Consulta consulta = consulta("AGENDADO");
         consulta.setFilaEsperaId(40L);
         when(consultas.findById(10L)).thenReturn(Optional.of(consulta));
 
@@ -94,7 +95,7 @@ class RetornoServiceTest {
 
         assertTrue(resposta.retornoSugerido());
         assertEquals(77L, resposta.filaEsperaId());
-        assertEquals("REALIZADO", consulta.getStatusConsulta());
+        assertEquals(StatusConsulta.REALIZADO, consulta.getStatusConsulta());
         assertTrue(consulta.getRetornoSugerido());
         assertEquals("Falta a obturação", consulta.getJustificativaRetorno());
 
@@ -115,7 +116,7 @@ class RetornoServiceTest {
 
     @Test
     void deveEncerrarSemRetornoQuandoTratamentoConcluido() {
-        ConsultaRetorno consulta = consulta("AGENDADO");
+        Consulta consulta = consulta("AGENDADO");
         when(consultas.findById(10L)).thenReturn(Optional.of(consulta));
 
         RetornoResponse resposta = service.registrar(
@@ -123,14 +124,14 @@ class RetornoServiceTest {
 
         assertFalse(resposta.retornoSugerido());
         assertNull(resposta.filaEsperaId());
-        assertEquals("REALIZADO", consulta.getStatusConsulta());
+        assertEquals(StatusConsulta.REALIZADO, consulta.getStatusConsulta());
         assertFalse(consulta.getRetornoSugerido());
         verify(fila, never()).save(any());
     }
 
     @Test
     void deveExigirJustificativaParaSugerirRetorno() {
-        ConsultaRetorno consulta = consulta("AGENDADO");
+        Consulta consulta = consulta("AGENDADO");
         when(consultas.findById(10L)).thenReturn(Optional.of(consulta));
 
         ResponseStatusException emBranco = assertThrows(ResponseStatusException.class,
@@ -140,7 +141,7 @@ class RetornoServiceTest {
 
         assertEquals(400, emBranco.getStatusCode().value());
         assertEquals(400, nula.getStatusCode().value());
-        assertEquals("AGENDADO", consulta.getStatusConsulta());
+        assertEquals(StatusConsulta.AGENDADO, consulta.getStatusConsulta());
         verify(fila, never()).save(any());
         verify(consultas, never()).save(any());
     }
@@ -214,7 +215,7 @@ class RetornoServiceTest {
 
     @Test
     void naoDeveSugerirRetornoSemProcedimentoAssociado() {
-        ConsultaRetorno consulta = consulta("AGENDADO");
+        Consulta consulta = consulta("AGENDADO");
         consulta.setProcedimentoId(null);
         when(consultas.findById(10L)).thenReturn(Optional.of(consulta));
 

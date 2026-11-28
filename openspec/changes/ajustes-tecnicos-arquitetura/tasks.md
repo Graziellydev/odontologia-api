@@ -2,9 +2,9 @@
 
 ## 1. Configuração de horário clínico
 
-- [ ] 1.1 Estender as propriedades de prontuário com quatro limites `LocalTime`, defaults 07:30/12:00 e 13:30/18:00, e validação de intervalo; verificar com testes de binding e configurações inválidas.
-- [ ] 1.2 Substituir os horários fixos da autorização de prontuário pelas janelas configuradas, mantendo `America/Sao_Paulo` e a flag de validação estrita; verificar limites inclusivo/exclusivo para MANHA e TARDE em teste unitário.
-- [ ] 1.3 Documentar as quatro chaves em `application.properties` e conferir que um override de perfil altera a decisão sem recompilação.
+- [x] 1.1 Estender as propriedades de prontuário com quatro limites `LocalTime`, defaults 07:30/12:00 e 13:30/18:00, e validação de intervalo; verificar com testes de binding e configurações inválidas.
+- [x] 1.2 Substituir os horários fixos da autorização de prontuário pelas janelas configuradas, mantendo `America/Sao_Paulo` e a flag de validação estrita; verificar limites inclusivo/exclusivo para MANHA e TARDE em teste unitário.
+- [x] 1.3 Documentar as quatro chaves em `application.properties` e conferir que um override de perfil altera a decisão sem recompilação.
 
 ## 2. Contrato e mapeamento de paciente
 
@@ -15,8 +15,8 @@
 
 ## 3. Representação única de consultas
 
-- [ ] 3.1 Migrar o fluxo de retornos e seu repository para a entidade canônica `Consulta`, removendo o segundo mapeamento mutável de `consultas`; verificar compilação e ausência de outra entidade versionada para a tabela.
-- [ ] 3.2 Adaptar o fluxo de retorno para o enum/status e a versão da entidade canônica, preservando contexto do trigger de histórico; verificar os cenários sem retorno e com retorno na fila.
+- [x] 3.1 Migrar o fluxo de retornos e seu repository para a entidade canônica `Consulta`, removendo o segundo mapeamento mutável de `consultas`; verificar compilação e ausência de outra entidade versionada para a tabela.
+- [x] 3.2 Adaptar o fluxo de retorno para o enum/status e a versão da entidade canônica, preservando contexto do trigger de histórico; verificar os cenários sem retorno e com retorno na fila.
 - [ ] 3.3 Traduzir conflitos de optimistic locking da consulta em resposta HTTP 409 consistente; verificar com teste transacional de duas atualizações concorrentes.
 - [ ] 3.4 Executar os testes de agendamento, remarcação, falta e retorno para confirmar preservação de contratos e integridade da fila.
 

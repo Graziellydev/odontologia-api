@@ -6,12 +6,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/catalogo-solicitacoes")
+@PreAuthorize("hasAuthority('ALUNO')")
 public class CatalogoSolicitacaoController {
     private final JdbcTemplate jdbc;
     private final SessaoAluno sessao;

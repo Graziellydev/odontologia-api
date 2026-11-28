@@ -83,7 +83,17 @@ public class PacienteService {
             paciente.setComplemento(pacienteAtualizado.getComplemento());
             paciente.setBairro(pacienteAtualizado.getBairro());
             paciente.setCidade(pacienteAtualizado.getCidade());
-            // (Linha do UF removida pois o campo foi descontinuado)
+            paciente.setUf(pacienteAtualizado.getUf());
+            paciente.setRg(pacienteAtualizado.getRg());
+            paciente.setOrgaoExpedidor(pacienteAtualizado.getOrgaoExpedidor());
+            paciente.setSexo(pacienteAtualizado.getSexo());
+            paciente.setRacaCor(pacienteAtualizado.getRacaCor());
+            paciente.setLocalMoradia(pacienteAtualizado.getLocalMoradia());
+            paciente.setTipoEscola(pacienteAtualizado.getTipoEscola());
+            paciente.setEscolaridadePaciente(pacienteAtualizado.getEscolaridadePaciente());
+            paciente.setEscolaridadeMae(pacienteAtualizado.getEscolaridadeMae());
+            paciente.setEscolaridadePai(pacienteAtualizado.getEscolaridadePai());
+            paciente.setRendaFamiliar(pacienteAtualizado.getRendaFamiliar());
             paciente.setMoraProximo(pacienteAtualizado.getMoraProximo());
             paciente.setAceitaChamadaUltimaHora(pacienteAtualizado.getAceitaChamadaUltimaHora());
             paciente.setDisponibilidadeHorario(pacienteAtualizado.getDisponibilidadeHorario());

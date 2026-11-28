@@ -54,8 +54,8 @@ public class AutorizacaoProntuarioService {
         if (properties.isValidarTurnoEstrito()) {
             LocalTime now = LocalTime.now(clock.withZone(CLINIC_ZONE));
             boolean turnoValido = switch (consulta.turno()) {
-                case "MANHA" -> !now.isBefore(LocalTime.of(8, 0)) && now.isBefore(LocalTime.NOON);
-                case "TARDE" -> !now.isBefore(LocalTime.of(13, 0)) && now.isBefore(LocalTime.of(17, 0));
+                case "MANHA" -> properties.getTurnoManha().contem(now);
+                case "TARDE" -> properties.getTurnoTarde().contem(now);
                 default -> false;
             };
             if (!turnoValido) return negar();

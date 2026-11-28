@@ -14,7 +14,8 @@ import br.com.unicatolica.odontologia_api.filaespera.repository.FilaEsperaReposi
 import br.com.unicatolica.odontologia_api.retornos.dto.AtendimentoDoTurnoDTO;
 import br.com.unicatolica.odontologia_api.retornos.dto.RetornoResponse;
 import br.com.unicatolica.odontologia_api.retornos.dto.SugestaoRetornoRequest;
-import br.com.unicatolica.odontologia_api.retornos.entity.ConsultaRetorno;
+import br.com.unicatolica.odontologia_api.consultas.entity.Consulta;
+import br.com.unicatolica.odontologia_api.consultas.entity.StatusConsulta;
 import br.com.unicatolica.odontologia_api.retornos.repository.ConsultaRetornoRepository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -43,7 +44,7 @@ public class RetornoService {
     @Transactional
     public RetornoResponse registrar(Long alunoId, SugestaoRetornoRequest dto) {
 
-        ConsultaRetorno consulta = consultas.findById(dto.consultaId())
+        Consulta consulta = consultas.findById(dto.consultaId())
                 .orElseThrow(() -> new ResponseStatusException(
                         HttpStatus.NOT_FOUND, "Atendimento não encontrado."));
 
@@ -54,7 +55,7 @@ public class RetornoService {
         }
 
         // Evita sugerir duas vezes (e duplicar o paciente na fila)
-        if (!STATUS_ABERTOS.contains(consulta.getStatusConsulta())) {
+        if (!STATUS_ABERTOS.contains(consulta.getStatusConsulta().name())) {
             throw new ResponseStatusException(
                     HttpStatus.CONFLICT, "Este atendimento já foi encerrado.");
         }
@@ -82,7 +83,7 @@ public class RetornoService {
                 .getSingleResult();
 
         // Nos dois cenários, o atendimento do turno é encerrado
-        consulta.setStatusConsulta("REALIZADO");
+        consulta.setStatusConsulta(StatusConsulta.REALIZADO);
 
         // Cenário 2: tratamento concluído, sem retorno
         if (!necessitaRetorno) {
@@ -126,7 +127,7 @@ public class RetornoService {
     }
 
     // Prioridade do retorno: a da fila que originou a consulta; senão, a da última triagem
-    private String urgenciaDoRetorno(ConsultaRetorno consulta) {
+    private String urgenciaDoRetorno(Consulta consulta) {
         String urgencia = null;
         if (consulta.getFilaEsperaId() != null) {
             urgencia = fila.findById(consulta.getFilaEsperaId())

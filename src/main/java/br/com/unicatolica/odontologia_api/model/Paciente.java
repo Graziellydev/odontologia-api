@@ -8,6 +8,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Column;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.PreUpdate;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -85,6 +87,32 @@ public class Paciente {
     // Mapeia a cidade (obrigatória)
     @Column(nullable = false, length = 100)
     private String cidade;
+
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "uf", length = 2)
+    private String uf;
+
+    @Column(name = "rg", length = 30)
+    private String rg;
+    @Column(name = "orgao_expedidor", length = 20)
+    private String orgaoExpedidor;
+    @JdbcTypeCode(SqlTypes.CHAR)
+    @Column(name = "sexo", length = 1)
+    private String sexo;
+    @Column(name = "raca_cor", length = 20)
+    private String racaCor;
+    @Column(name = "local_moradia", length = 15)
+    private String localMoradia;
+    @Column(name = "tipo_escola", length = 20)
+    private String tipoEscola;
+    @Column(name = "escolaridade_paciente", length = 40)
+    private String escolaridadePaciente;
+    @Column(name = "escolaridade_mae", length = 40)
+    private String escolaridadeMae;
+    @Column(name = "escolaridade_pai", length = 40)
+    private String escolaridadePai;
+    @Column(name = "renda_familiar", length = 30)
+    private String rendaFamiliar;
 
     // Mapeia o código de acesso interno
     @Column(name = "codigo_acesso", unique = true, length = 20)

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 
 import br.com.unicatolica.odontologia_api.retornos.dto.AtendimentoDoTurnoDTO;
 import br.com.unicatolica.odontologia_api.retornos.dto.RetornoResponse;
@@ -20,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/retornos")
 @RequiredArgsConstructor
+@PreAuthorize("hasAuthority('ALUNO')")
 public class RetornoController {
 
     private final RetornoService service;

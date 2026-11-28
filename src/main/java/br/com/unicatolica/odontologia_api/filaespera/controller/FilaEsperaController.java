@@ -23,7 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/fila-espera")
-@PreAuthorize("hasAnyAuthority('SECRETARIA', 'ROLE_SECRETARIA')")
+@PreAuthorize("hasAuthority('SECRETARIA')")
 public class FilaEsperaController {
 
     private final FilaEsperaService filaEsperaService;
