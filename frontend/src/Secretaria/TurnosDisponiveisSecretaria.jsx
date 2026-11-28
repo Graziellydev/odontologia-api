@@ -66,7 +66,6 @@ function TurnosDisponiveisSecretaria({ aoAgendar }) {
 
   useEffect(() => {
     let ativa = true
-    setCarregando(true)
     listarGradeSemanal(inicioSemana, addDays(inicioSemana, 6))
       .then((dados) => { if (ativa) { setTurnos(Array.isArray(dados) ? dados : []); setErro('') } })
       .catch((falha) => { if (ativa) setErro(erroLegivel(falha)) })
@@ -76,6 +75,7 @@ function TurnosDisponiveisSecretaria({ aoAgendar }) {
 
   function mudarSemana(delta) {
     const proxima = addDays(inicioSemana, delta * 7)
+    setCarregando(true)
     setInicioSemana(proxima)
     setDiaSelecionado(proxima)
     setPeriodo({ inicio: proxima, fim: addDays(proxima, 6) })
@@ -89,6 +89,7 @@ function TurnosDisponiveisSecretaria({ aoAgendar }) {
     try {
       const resultado = await gerarTurnos(periodo)
       setAviso(`${resultado.criadas} turnos criados; ${resultado.jaExistentes} já estavam cadastrados.`)
+      setCarregando(true)
       setAtualizacao((valor) => valor + 1)
     } catch (falha) {
       setErro(erroLegivel(falha))

@@ -56,7 +56,7 @@ function AgendamentosSecretaria({ slotInicial, aoLimparSlot, aoAlterar }) {
   const [comprovante, setComprovante] = useState(null)
   const [fila, setFila] = useState([])
   const [alunos, setAlunos] = useState([])
-  const [disponibilidade, setDisponibilidade] = useState([])
+  const [, setDisponibilidade] = useState([])
   const [cadeirasDisponiveis, setCadeirasDisponiveis] = useState([])
   const [cadeirasRemarcacao, setCadeirasRemarcacao] = useState([])
   const [alternativas, setAlternativas] = useState([])
@@ -99,22 +99,24 @@ function AgendamentosSecretaria({ slotInicial, aoLimparSlot, aoAlterar }) {
 
   useEffect(() => {
     if (!slotInicial) return
-    setForm((atual) => ({
-      ...atual,
-      data: slotInicial.data,
-      turno: slotInicial.turno,
-      cadeiraId: String(slotInicial.cadeiraId),
-    }))
-    setCadeirasDisponiveis([slotInicial])
-    setErroFormulario('')
-    setModalNovo(true)
+    queueMicrotask(() => {
+      setForm((atual) => ({
+        ...atual,
+        data: slotInicial.data,
+        turno: slotInicial.turno,
+        cadeiraId: String(slotInicial.cadeiraId),
+      }))
+      setCadeirasDisponiveis([slotInicial])
+      setErroFormulario('')
+      setModalNovo(true)
+    })
   }, [slotInicial])
 
   useEffect(() => {
     let ativa = true
     const [alunoId] = form.alunoTurma.split(':')
     if (!form.data || !form.turno) {
-      setCadeirasDisponiveis([])
+      queueMicrotask(() => { if (ativa) setCadeirasDisponiveis([]) })
       return undefined
     }
     const inicioSemana = semanaInicio(form.data)
@@ -130,8 +132,12 @@ function AgendamentosSecretaria({ slotInicial, aoLimparSlot, aoAlterar }) {
       }))
     }).catch((falha) => { if (ativa) setErroFormulario(erroLegivel(falha)) })
     if (!form.filaId) {
-      setAlunos([])
-      setDisponibilidade([])
+      queueMicrotask(() => {
+        if (ativa) {
+          setAlunos([])
+          setDisponibilidade([])
+        }
+      })
       return () => { ativa = false }
     }
     const consulta = {
@@ -205,7 +211,7 @@ function AgendamentosSecretaria({ slotInicial, aoLimparSlot, aoAlterar }) {
   useEffect(() => {
     let ativa = true
     if (!remarcando || !novaVaga.data) {
-      setCadeirasRemarcacao([])
+      queueMicrotask(() => { if (ativa) setCadeirasRemarcacao([]) })
       return undefined
     }
     const inicio = semanaInicio(novaVaga.data)

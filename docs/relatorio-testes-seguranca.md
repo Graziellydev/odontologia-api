@@ -20,7 +20,7 @@
 
 Comandos executados:
 
-- `./mvnw.cmd test` — passou. Os testes que iniciam o contexto local usam o perfil `test` com H2 em memoria e sem Flyway.
+- `backend/./mvnw.cmd test` — passou. Os testes que iniciam o contexto local usam o perfil `test` com H2 em memoria e sem Flyway.
 - `npm.cmd run build` — passou (Vite 8.3.5).
 
 Os testes executados localmente nao equivalem a uma bateria ponta a ponta no PostgreSQL. Os testes existentes de fluxo usam mocks e/ou H2; nao foram criados dados de teste no Supabase.
@@ -32,7 +32,7 @@ O perfil `supabase-test` usa `SUPABASE_TEST_JDBC_URL`, `SUPABASE_TEST_DB_USERNAM
 Para rodar essa verificacao, configure as tres variaveis `SUPABASE_TEST_*` no ambiente e execute:
 
 ```powershell
-cd odontologia-api
+cd odontologia-api/backend
 ./mvnw.cmd "-Dtest=SupabaseSchemaAuditIntegrationTest" test
 ```
 

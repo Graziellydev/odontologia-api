@@ -31,13 +31,6 @@ const prioridade = {
   Baixa: 1
 };
 
-const titulosTela = {
-  fila: "Fila de espera",
-  pacientes: "Pacientes",
-  solicitacoes: "Solicitações",
-  agenda: "Gestão de faltas"
-};
-
 function criarFormularioVazio() {
   return {
     pacienteId: "",

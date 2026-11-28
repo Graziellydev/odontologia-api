@@ -54,17 +54,18 @@ function ComunicacaoWhatsapp() {
     }
   }, [inicio, fim, tipo, status])
 
-  useEffect(() => { consultar() }, [consultar])
-
   useEffect(() => {
-    if (!itens.some((item) => item.id === selecionadaId)) {
-      setSelecionadaId(itens[0]?.id ?? null)
-    }
-  }, [itens, selecionadaId])
+    let ativa = true
+    queueMicrotask(() => { if (ativa) void consultar() })
+    return () => { ativa = false }
+  }, [consultar])
+
+  const idSelecionado = itens.some((item) => item.id === selecionadaId)
+    ? selecionadaId : itens[0]?.id ?? null
 
   const selecionada = useMemo(
-    () => itens.find((item) => item.id === selecionadaId) || null,
-    [itens, selecionadaId],
+    () => itens.find((item) => item.id === idSelecionado) || null,
+    [itens, idSelecionado],
   )
   const totalPaginas = Math.max(1, Math.ceil(itens.length / POR_PAGINA))
   const exibidas = itens.slice(pagina * POR_PAGINA, (pagina + 1) * POR_PAGINA)

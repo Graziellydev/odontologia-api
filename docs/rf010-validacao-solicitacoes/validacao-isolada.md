@@ -46,7 +46,7 @@ npm.cmd test
 npm.cmd run build
 ```
 
-Na raiz odontologia-api, executar somente testes isolados:
+Em `backend/`, executar somente testes isolados:
 
 ```powershell
 $env:JAVA_HOME = 'C:\Program Files\Java\jdk-25'

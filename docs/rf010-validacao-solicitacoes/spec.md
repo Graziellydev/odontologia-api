@@ -27,7 +27,7 @@ A autorização deve ser verificada no backend em cada operação. Ocultar botõ
 
 ### 3.1. Módulo Spring Boot de solicitações
 
-O módulo existente está em [solicitacoes](../../src/main/java/br/com/unicatolica/odontologia_api/solicitacoes). O controller utiliza a base `/api/solicitacoes-pacientes` e expõe:
+O módulo existente está em [solicitacoes](../../backend/src/main/java/br/com/unicatolica/odontologia_api/solicitacoes). O controller utiliza a base `/api/solicitacoes-pacientes` e expõe:
 
 | Operação existente | Acesso atual | Comportamento observado |
 | --- | --- | --- |
@@ -45,7 +45,7 @@ A entidade mantém a última análise, a resposta e uma versão para controle de
 
 ### 3.2. Persistência: V4 e V12
 
-A [V4](../../src/main/resources/db/migration/V4__create_fila_and_solicitacoes.sql) cria a fila e as solicitações, com estes estados:
+A [V4](../../backend/src/main/resources/db/migration/V4__create_fila_and_solicitacoes.sql) cria a fila e as solicitações, com estes estados:
 
 | Estado persistido | Significado observado |
 | --- | --- |
@@ -56,7 +56,7 @@ A [V4](../../src/main/resources/db/migration/V4__create_fila_and_solicitacoes.sq
 
 A V4 exige paciente associado quando o estado é APROVADO_E_ALOCADO. Na aprovação atual, a entrada da fila deve estar AGUARDANDO, ter o mesmo procedimento e dente e, se a solicitação informar classe, a mesma classe. A operação marca a entrada como ALOCADO, preenche sua saída e grava os vínculos de fila e paciente, a secretaria responsável e a data da análise na solicitação, em uma transação.
 
-A [V12](../../src/main/resources/db/migration/V12__separar_observacao_secretaria.sql) separa:
+A [V12](../../backend/src/main/resources/db/migration/V12__separar_observacao_secretaria.sql) separa:
 
 - `observacao_secretaria` / `observacaoSecretaria`: observação enviada pelo aluno à secretaria.
 - `resposta_secretaria` / `respostaSecretaria`: resposta escrita pela secretaria, incluindo o motivo da recusa.
